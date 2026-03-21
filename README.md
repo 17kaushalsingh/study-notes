@@ -1,18 +1,31 @@
-# Competetive Programming
+# Competitive Programming
 
-## CSES Problem Sets
+This repository is a personal competitive programming workspace organized by source:
 
-  - Introductory Problems - 19
-  - Sorting and Searching - 15
-  - Dynamic Programming - 17
-  - Graph Algorithms - 33
-  - Range Queries - 20
-  - Tree Algorithms - 16
-  - Mathematics - 27
-  - String Algorithms - 19
-  - Geometry - 8
-  - Advanced Techniques - 26
-  - Signal Processing - 6
-  - Additional Problems - 64
-  - <b> Total Number of Problems: 250 </b>
+- `cses-problems/`: CSES solutions grouped by topic
+- `contests/`: contest-specific solutions
+- `cp31/`: practice solutions grouped by approximate Codeforces rating
 
+## Current Structure
+
+### `cses-problems/`
+
+- `IntroductoryProblems/`
+- `Sorting and Searching/`
+- `Graph Algorithms/`
+
+### `contests/`
+
+Standalone contest solutions and scratch files used during contests.
+
+### `cp31/`
+
+- `cp800/`
+- `cp900/`
+- `cp1000/`
+
+## Notes
+
+- Most files are standalone C++ solutions.
+- Local editor metadata and compiled artifacts are ignored via `.gitignore`.
+- This repository does not use a project-wide build system; files are typically compiled and run individually.

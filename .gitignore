@@ -1,40 +1,23 @@
-# Helper files
-*.dSYM/
-*.DS_Store
+# Editor and helper metadata
+.DS_Store
 .vscode/
 .idea/
 .cph/
 
-# Compiled Object files
-*.slo
-*.lo
+# Compiled artifacts
 *.o
 *.obj
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Compiled Dynamic libraries
+*.a
+*.lib
 *.so
 *.dylib
 *.dll
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
 *.exe
 *.out
 *.app
 *.bin
+
+# Common local executable names
 a.out
 main
 cpp_program
