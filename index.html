@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master Study Notes</title>
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --text-color: #c9d1d9;
+            --accent-color: #58a6ff;
+            --secondary-bg: #161b22;
+            --border-color: #30363d;
+            --header-color: #f0f6fc;
+            --card-hover: #21262d;
+            --java-accent: #f89820;
+            --backend-accent: #7ee787;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 60px 20px;
+            flex-grow: 1;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+        h1 {
+            color: var(--header-color);
+            font-size: 3em;
+            margin-bottom: 15px;
+            letter-spacing: -1px;
+        }
+        .subtitle {
+            color: #8b949e;
+            font-size: 1.2em;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .module-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 30px;
+        }
+        .module-card {
+            background-color: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 40px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+        .module-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: transparent;
+            transition: background 0.3s;
+        }
+        .module-card:hover {
+            background-color: var(--card-hover);
+            border-color: var(--accent-color);
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.3);
+        }
+        .module-card.backend:hover::before { background: var(--backend-accent); }
+        .module-card.java:hover::before { background: var(--java-accent); }
+
+        .module-card h2 {
+            margin: 0 0 15px 0;
+            font-size: 1.8em;
+            color: var(--header-color);
+        }
+        .module-card p {
+            color: #8b949e;
+            font-size: 1em;
+            margin-bottom: 30px;
+            flex-grow: 1;
+        }
+        .tag {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 20px;
+        }
+        .tag-backend { background: rgba(126, 231, 135, 0.1); color: var(--backend-accent); border: 1px solid rgba(126, 231, 135, 0.2); }
+        .tag-java { background: rgba(248, 152, 32, 0.1); color: var(--java-accent); border: 1px solid rgba(248, 152, 32, 0.2); }
+
+        .status-badge {
+            font-size: 0.8em;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+        .dot-active { background: var(--backend-accent); box-shadow: 0 0 8px var(--backend-accent); }
+        .dot-pending { background: #8b949e; }
+
+        footer {
+            padding: 40px 20px;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+            color: #484f58;
+            font-size: 0.9em;
+        }
+        .arrow {
+            margin-left: 8px;
+            transition: transform 0.2s;
+        }
+        .module-card:hover .arrow {
+            transform: translateX(5px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Study Notes</h1>
+            <p class="subtitle">A centralized repository for deep-dive technical learning and first principles engineering.</p>
+        </header>
+
+        <div class="module-grid">
+            <!-- Backend Module -->
+            <a href="backend-from-first-principles/notes.html" class="module-card backend">
+                <div class="tag tag-backend">Architecture</div>
+                <h2>Backend from First Principles</h2>
+                <p>Deep dive into HTTP, Routing, Serialization, and the core mechanics of web servers.</p>
+                <div class="status-badge">
+                    <span class="status-dot dot-active"></span>
+                    <span>3 Lectures Available</span>
+                </div>
+            </a>
+
+            <!-- Java Module -->
+            <a href="java/index.html" class="module-card java">
+                <div class="tag tag-java">Language</div>
+                <h2>Core Java & OOP</h2>
+                <p>Mastering the fundamentals of Java, Object-Oriented Programming, and the JVM.</p>
+                <div class="status-badge">
+                    <span class="status-dot dot-pending"></span>
+                    <span>Curriculum Pending</span>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Engineering Study Notes. Built for clarity.</p>
+    </footer>
+</body>
+</html>
