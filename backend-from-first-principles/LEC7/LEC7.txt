@@ -1,0 +1,970 @@
+0:00
+what is serialization and der
+0:01
+serialization okay let's look at this we
+0:03
+have already discussed this that usually
+0:06
+we have a client let's say we have this
+0:09
+client it's a browser all right it's a
+0:12
+browser let's say it's Chrome and this
+0:17
+is called front end right in our typical
+0:20
+technical language and usually we
+0:25
+communicate with a
+0:27
+server that's running in your Local Host
+0:30
+or it's running somewhere remote in
+0:33
+cloud in AWS or gcp or Azure anywhere
+0:36
+and the client communicates with the
+0:40
+server through some means of network
+0:42
+communication it can be through HTTP
+0:45
+right our traditional rest API end
+0:48
+points or it can be through grpc or it
+0:51
+can be through websocket we have
+0:53
+different means of communications for
+0:55
+clients and servers to communicate with
+0:57
+each other for this example and
+0:59
+throughout the series since we are
+1:01
+focusing on HTTP or our traditional rest
+1:04
+API style communication let's assume
+1:07
+this client is a Javascript app can be a
+1:09
+react or angular or view any JavaScript
+1:12
+framework or Library it's a Javascript
+1:13
+app usually most of the client side apps
+1:15
+are built with JavaScript highly
+1:17
+interactive app in order to send a
+1:19
+request to the server the client has to
+1:22
+make an HTTP request which we have
+1:24
+already discussed in the previous videos
+1:27
+looks something like this get etc etc
+1:31
+the URL the
+1:33
+HTTP right some
+1:38
+domain.com
+1:40
+slath something like this so either a
+1:43
+get request or if it's a post request we
+1:46
+have the URL and Below we have the
+1:49
+headers and below that we have the
+1:53
+request body and this is how front end
+1:56
+sends the data the request with all the
+2:00
+information that is required or the
+2:03
+client wants to send to the server this
+2:05
+is how client sends information to the
+2:08
+server and the server responds with some
+2:10
+response which the client is able to
+2:12
+pass and make sense of so the thing to
+2:16
+notice here and the thing to focus here
+2:18
+in this chapter or in this session is
+2:21
+how clients and servers can make sense
+2:24
+of the data that is being received or
+2:27
+the data that is being sent for example
+2:29
+in our case the client is a Javascript
+2:32
+app and the server can be a rust app
+2:36
+right the web server is built with rust
+2:40
+language so in
+2:43
+JavaScript let's say we are sending this
+2:45
+object right and we have
+2:50
+name is some
+2:54
+string we are sending this and after we
+2:59
+send this
+3:00
+in the request body and it reaches the
+3:03
+server which is a rust
+3:06
+server how does the server take this
+3:10
+data and is able to make sense of it it
+3:14
+is able to make sense of it in its own
+3:18
+format in its own data types because
+3:22
+JavaScript and rust have completely
+3:25
+different data types JavaScript is a
+3:27
+completely Dynamic language it is not
+3:29
+compiled on the other side rust is very
+3:32
+strict when it comes to types and it is
+3:35
+a compiled language the all the data
+3:37
+types are completely different from
+3:39
+JavaScript so how does this happen how
+3:42
+one data type that is transmitted over a
+3:46
+network is able to reach another machine
+3:49
+that is somewhere else in the internet
+3:52
+and it is able to make sense of that
+3:55
+data and perform some business logic and
+3:58
+send some response
+4:00
+and the client is again able to make
+4:02
+sense of that response and able to show
+4:07
+some UI or perform some business logic
+4:10
+how does this all come together so
+4:12
+before we talk about data transmission
+4:14
+over the Internet it's very good to have
+4:17
+some knowledge about OSI
+4:20
+model if you're a CS student you might
+4:23
+have already come across it if you're
+4:26
+not then you don't have to completely
+4:29
+Master it or understand every aspect of
+4:31
+it like IP packets or data frames etc
+4:35
+etc but having a good high level
+4:37
+overview or a high level understanding
+4:39
+of how
+4:41
+these OSI layers different layers of
+4:45
+network communicate with each other over
+4:48
+the internet to transmit some kind of
+4:50
+data
+4:51
+over Hardware right we have different
+4:55
+types of layers called application
+4:57
+layers and network layers right there
+4:59
+are a lot of good resources in YouTube
+5:01
+or any other platform that you can look
+5:04
+up and just get a high level
+5:06
+understanding of OSI model and going too
+5:08
+deep into this is out of scope for this
+5:11
+video and will probably take too much
+5:14
+time and people who are way better than
+5:16
+me have explained this in a way better
+5:19
+format and now assuming you have a high
+5:21
+level understanding of OSI models or
+5:23
+just are aware of what this model is and
+5:26
+how it helps make sense of data
+5:28
+transmission over the internet now the
+5:30
+layer on top is called application
+5:34
+layer and after all the layers the
+5:38
+bottom layer is called physical layer or
+5:41
+you can call it top call it bottom does
+5:44
+not matter right these two are on the in
+5:47
+the opposite end of each other right and
+5:50
+the same thing happens on the server
+5:51
+side here in the server we have
+5:54
+application
+5:56
+layer and in the bottom we have physical
+5:58
+layer
+6:01
+and there are layers in between now
+6:03
+imagine if you were asked to solve this
+6:05
+problem the problem that we have two
+6:08
+machines that
+6:11
+are in different
+6:14
+locations and they are connected over
+6:16
+the internet right let's say over the
+6:20
+cloud and you are asked you have to come
+6:24
+up with some way or some technique or
+6:27
+some protocol to go with the tech
+6:29
+technical terminology you have to come
+6:32
+up with a way so that clients or one
+6:36
+machine is able to send data to another
+6:39
+machine and they should be able to parse
+6:42
+that data and make sense of it in a way
+6:44
+that it is language agnostic and a very
+6:47
+obvious and common solution that you
+6:50
+might come up with is figuring out a
+6:54
+common
+6:57
+standard which is just a fancy way of
+7:00
+saying you will come up with some set of
+7:03
+rules and you will ask both the clients
+7:06
+and the server to agree that this is the
+7:09
+standard or this is the format that the
+7:12
+client should send the data in or the
+7:14
+server should send the response in so
+7:16
+that client does what it needs to do
+7:19
+during the execution of the session of
+7:21
+the user and when sending data to the
+7:23
+server it transforms or converts
+7:26
+whatever the logic is from that language
+7:29
+let's say from
+7:30
+JavaScript to this standard this format
+7:34
+and sends it over the network and when
+7:37
+receiving the server takes that data
+7:40
+from that standard and converts it into
+7:42
+its own standard let's say it's rust so
+7:45
+it converts it into a struct in Rust and
+7:50
+it understands the data format and
+7:52
+whatever it needs to do and when sending
+7:55
+the response it converts that data let's
+7:58
+say from
+8:00
+rust
+8:02
+truct into this standard this common
+8:05
+format and sends it over the internet
+8:08
+and again the client reads it and parses
+8:10
+it into JavaScript and it's it's able to
+8:13
+do whatever it needs to do this part
+8:16
+this is a solution what is the solution
+8:18
+the solution is coming up with a
+8:22
+serialization
+8:27
+standard common standard that the both
+8:30
+client and the server agree to send and
+8:33
+receive data and to summarize this whole
+8:36
+thing realization and derealization is
+8:40
+basically converting to and from data to
+8:43
+a common format so that during
+8:45
+transmission or storage we'll get to the
+8:47
+storage part but from this example we
+8:50
+can say that the serialization and
+8:51
+deserialization is basically converting
+8:53
+data from and to a common format while
+8:56
+transmission so that it is domain agnos
+8:59
+tic or in this case language agnos that
+9:02
+machines and servers and clients from
+9:04
+different domains and different
+9:06
+languages from different environments
+9:08
+are able to make sense of that data and
+9:11
+are able to respond to that data and
+9:13
+before we dive deep into the
+9:16
+serialization standard I just want to
+9:18
+make a note here that which I have
+9:20
+already mentioned that backend is a huge
+9:24
+domain and there are a lot of
+9:26
+Technologies hundreds of technologies
+9:28
+that is used in the industry so it's
+9:30
+impossible to understand the concepts
+9:32
+behind all of those Technologies what we
+9:34
+will do in this video and in this whole
+9:37
+playlists we'll go with the most used
+9:40
+Technologies for example for the data
+9:41
+transmission there are a lot of
+9:42
+Technologies getting used for example
+9:44
+HTTP and websockets and you have
+9:49
+grpc etc etc so we'll go with HTTP since
+9:54
+rest apis are still the most common
+9:57
+means of communication over the Internet
+9:58
+between clients and servers and as a
+10:00
+backend engineer if you are aware of and
+10:03
+have good experience in HTTP then you're
+10:05
+good to go you can learn all these other
+10:07
+Technologies along the way you just need
+10:09
+something which is used all of the
+10:11
+industry to get started and get some
+10:14
+experience and you can learn
+10:15
+Technologies as you progress over your
+10:17
+career in the same way for databases we
+10:20
+have a lot of different types of
+10:21
+databases we have
+10:23
+relational right we have non-
+10:26
+relational in relational we have
+10:29
+postgress we have MySQL we have
+10:33
+sqlite
+10:35
+right same way in non- relational we
+10:38
+have
+10:42
+mongodb we have Dynamo DB from
+10:47
+AWS a lot of different options for
+10:50
+databases but in this playlist we'll go
+10:53
+with post gra right it's one of the most
+10:57
+popular relational databases and is used
+10:59
+by a lot of companies and mostly the
+11:02
+first choice these days for a lot of
+11:04
+startups and Enterprise servers in the
+11:06
+same way we have different types of
+11:10
+serialization
+11:12
+Standards
+11:15
+serialization
+11:19
+standards and we will go with a popular
+11:23
+one the one that gets used I won't give
+11:27
+a number but if I had to given number
+11:29
+I'll say 80% of the time which is
+11:34
+Json is one of the most popular
+11:37
+serialization and deserialization
+11:38
+standards that gets used for client and
+11:41
+server
+11:43
+communication we have other standards
+11:46
+for serialization der serialization that
+11:49
+does not necessarily gets used for HTTP
+11:52
+communication but definitely gets used
+11:53
+for serialization for example we have
+11:57
+yl we have XML and inside serialization
+12:02
+standards these three including Json and
+12:04
+XML yaml these things are
+12:07
+called
+12:09
+text based
+12:13
+serialization right we have another type
+12:17
+of serialization standard which is
+12:19
+called binary
+12:23
+format binary format and in binary
+12:27
+format we have all again different types
+12:30
+and the most popular one is called
+12:33
+protuff we have other formats also like
+12:37
+a etc etc for serialization standards we
+12:41
+have text based and binary format and
+12:44
+inside text base we have different types
+12:46
+called Json yaml XML and for now we will
+12:50
+only focus on Json since that's the most
+12:53
+popular choice for sttb based
+12:55
+communication between clients and
+12:56
+servers now that's clear let's jump into
+13:00
+Json and this is what a typical
+13:04
+Json object looks
+13:07
+like so to give you a little context
+13:10
+Json stands for JavaScript object
+13:12
+notation and you can read more about
+13:14
+Jon's history and its Evolution from
+13:18
+other resources but just to give an idea
+13:20
+of Json from the looks of it and from
+13:22
+the behavior looks very similar to a
+13:26
+JavaScript
+13:27
+object and
+13:29
+and that's why you can understand why
+13:32
+it's name like that JavaScript object
+13:34
+notation but it is not limited to
+13:36
+JavaScript and it is used everywhere you
+13:39
+will find Json in configuration files
+13:42
+and of course uh during HTTP rest API
+13:45
+transmission between clients and servers
+13:47
+you will find Json in log file Json is a
+13:49
+very popular choice for logging
+13:51
+application data or server data during
+13:53
+runtime it has a lot of use cases for
+13:56
+this use case we are going to focus on
+13:59
+transmission of course this is what a
+14:00
+typical Json looks like in the looks of
+14:02
+it you can understand it's completely
+14:04
+human readable and that is one of the
+14:06
+strong points of Json it was made to be
+14:08
+human readable and the data types are
+14:10
+also pretty fundamental if you are even
+14:13
+a little familiar with different
+14:15
+programming concepts for example things
+14:17
+to focus here is we have a starting CIS
+14:20
+and then ending one and all the keys are
+14:24
+inside double codes so this is one rule
+14:26
+you have to follow the keys will be
+14:28
+inside double Cotes and they will be
+14:30
+strings you cannot make any other data
+14:33
+type as a key keys will be inside double
+14:35
+codes and there will be strings and in
+14:37
+the value it can be a string or it can
+14:40
+be a number it can be a bullion or it
+14:42
+can be an array or it can be another
+14:44
+object right Json can be a nested object
+14:47
+also for example let's say you have here
+14:50
+an address field inside the same Json
+14:54
+you have a column here and you can start
+14:57
+another crais here you can write
+15:01
+country you can say it's a string it's
+15:05
+India and your phone number right phone
+15:09
+number and it can be a number something
+15:12
+3 4 5 6 and you have to provide an
+15:16
+ending
+15:17
+CIS right this is the typical structure
+15:20
+of Json that's all there is to it uh you
+15:23
+would find a lot of Concepts in Json
+15:25
+these are the things you have to
+15:26
+remember there has to been starting
+15:29
+Braes and ending craes and the keys will
+15:33
+have to be inside double quotes and
+15:35
+there will there will be strings and in
+15:37
+the value you can provide an string a
+15:39
+number a bullion or an array or a nested
+15:43
+object which will again have the same
+15:45
+characteristics of the initial object
+15:48
+right there'll be Keys which will be
+15:50
+inside double quotes and there'll be
+15:52
+strings and they will have values again
+15:55
+in the same characteristics so that's
+15:58
+all you need to know about
+16:00
+Json this is one of the most popular
+16:03
+serialization standard that we use
+16:06
+during client and server communication
+16:08
+so let's just see a simple demo in fact
+16:12
+let's just see our earlier demo that we
+16:14
+saw in the previous video and this time
+16:16
+we'll focus on the request and response
+16:20
+format the serialization and
+16:22
+deserialization format and see how it
+16:24
+looks like pretty much looks like the
+16:26
+same thing that we saw here but let's
+16:27
+just see in a real environment here we
+16:29
+have our BP Su interface and this is the
+16:32
+earlier demo that we saw in our previous
+16:34
+video but this time we'll hit an API and
+16:37
+focus on the data format that gets
+16:40
+transmitted and the data format that
+16:42
+gets received from the client and from
+16:44
+the server so let's just hit the post
+16:47
+API that was here post
+16:50
+books and let's go to http history and
+16:53
+open this
+16:54
+one and let's expand this and go to the
+16:58
+request and L this is a post request and
+17:01
+we are calling this path API SL books
+17:04
+this is the data that we are sending so
+17:06
+let's just focus on the request first
+17:08
+here we can see our earlier discussed
+17:11
+Json format we have a crais and we have
+17:14
+all the keys that are double CED and
+17:18
+those are strings and we have a number
+17:20
+here and two strings like ID title and
+17:22
+author this thing gets transmitted over
+17:26
+the network so now one thing that I want
+17:29
+to mention here is if you went deep into
+17:31
+the OSI model so you must have come
+17:33
+across that from application layer to it
+17:36
+gets converted into Data frames and etc
+17:40
+etc it gets converted into IV packets
+17:43
+and there is transmission layer and in
+17:45
+the end it gets converted into bits with
+17:48
+0 one 01 stuff stuff Network related
+17:51
+stuff right so as a backend engineer the
+17:55
+thing you have to focus here is the
+17:57
+mental model you should have is you can
+17:59
+assume that you have this client and you
+18:02
+have this server right the client has to
+18:06
+adhere to a particular standard let's
+18:08
+say this is
+18:09
+Json and the server has to understand
+18:12
+this standard called Json we transmit
+18:14
+this the server understands this and
+18:18
+returns some data again in Json format
+18:21
+with respect to your knowledge of OSI
+18:23
+model which has different different
+18:25
+layers which the data gets converted
+18:28
+into different different formats from
+18:29
+data frames to IP packets to physical
+18:32
+bits that gets transmitted D with
+18:34
+voltage signals over Optical F etc etc
+18:38
+the mental model to have is in
+18:39
+application layer gets converted into
+18:41
+Json as a backend engineer you don't
+18:44
+that's all your responsibility is does
+18:46
+not matter what format it gets converted
+18:49
+into after this point that is not of
+18:51
+your concern so it gets converted into
+18:53
+different different formats and then in
+18:55
+the end 0 1 01 and then again it reaches
+18:57
+the server reaches 0 1 01 that's it
+19:00
+reads all the bits and does all the
+19:02
+network related stuff then it again gets
+19:04
+converted into Json only in the server
+19:07
+side also does not matter what the
+19:09
+intermediary steps convert the data into
+19:11
+that does not matter before receiving
+19:13
+before in the receiving end of the
+19:16
+server the data again gets converted
+19:18
+into this Json format only and the
+19:20
+server only gets to read the Json so you
+19:24
+don't have to worry about all the
+19:26
+intermediary steps now that's clear this
+19:28
+is the request Json that the client
+19:31
+sends and the server understands this
+19:35
+and it takes this ID and all these
+19:37
+information and adds it here and
+19:41
+responds with another Json right it's
+19:43
+another
+19:44
+Json so again we have the opening calias
+19:48
+and ending calias we have one key which
+19:52
+is an array and each array has an object
+19:55
+again it is also in Json format you can
+19:57
+see all the keys are in double codes and
+20:00
+it has values in number and string
+20:03
+formats and this is an array and it's
+20:06
+received by the client and the client
+20:08
+understands it and if you see here we
+20:11
+are rendering it here so the client is
+20:13
+able to receive this data from the
+20:15
+server and it is able to make sense of
+20:18
+it it is able to pass it and it is able
+20:20
+to render it in its own way right in
+20:24
+this case it is Javascript but it can be
+20:26
+PHP also etc etc right this is how Json
+20:30
+flow looks like in client server model
+20:33
+in real life scenarios it does not have
+20:35
+a lot of Concepts realizing in dis
+20:37
+realization do not have a lot of
+20:38
+Concepts it is a phenomena in the
+20:41
+backend world that that exists you have
+20:44
+to know that it exists and Json getting
+20:47
+transmitted by the client to the server
+20:49
+the server passing it understanding it
+20:51
+making sense of it and responding with
+20:54
+appropriate data to the client and again
+20:56
+the client passing it understanding it
+20:58
+making sense of of it this whole flow is
+21:00
+called
+21:02
+serialization
+21:04
+and der
+21:09
+serialization so again to summarize
+21:12
+serialization and deserialization are
+21:14
+the techniques using which data is
+21:16
+converted into a common format a
+21:19
+standard format so that clients can send
+21:23
+data to the server in that format and
+21:25
+the servers can receive that data make
+21:27
+sense of pass it and perform the
+21:30
+business logic and send the data again
+21:33
+in that common format so that the client
+21:35
+can again do the same thing realization
+21:36
+and dation are basically dealing with
+21:38
+standard format so that data is
+21:41
+understandable across domains and
+21:43
+language that's all there is to it in
+21:45
+serialization and deserialization
