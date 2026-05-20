@@ -1,44 +1,43 @@
-# Prerequisites
-*.d
+# OS
+.DS_Store
 
-# Compiled Object files
+# Logs
+*.log
+
+# Java build output
+target/
+build/
+out/
+bin/
+*.class
+*.jar
+*.war
+*.ear
+
+# C/C++ build artifacts
+*.d
 *.slo
 *.lo
 *.o
 *.obj
-
-# Precompiled Headers
 *.gch
 *.pch
-
-# Compiled Dynamic libraries
 *.so
 *.dylib
 *.dll
-
-# Compiled Static libraries
 *.lai
 *.la
 *.a
 *.lib
-
-# Executables
 *.exe
-*.out
 *.app
-
-# Debug files
 *.dSYM/
 *.su
 *.idb
 *.pdb
 
-# Build directories
-build/
-cmake-build-*/
-out/
-
 # CMake
+cmake-build-*/
 CMakeLists.txt.user
 CMakeCache.txt
 CMakeFiles/
@@ -48,12 +47,10 @@ compile_commands.json
 CTestTestfile.cmake
 _deps/
 
-# IDE and editor files
-.vscode/
+# Tooling
 .idea/
+.vscode/
+.gradle/
 *.swp
 *.swo
 *~
-
-# macOS
-.DS_Store
