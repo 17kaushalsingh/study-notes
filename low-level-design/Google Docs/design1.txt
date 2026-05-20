@@ -1,0 +1,2 @@
+Image added: images/image1.png
+Image description: this is a sample image
