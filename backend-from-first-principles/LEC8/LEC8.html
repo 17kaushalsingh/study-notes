@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lecture 8: Authentication and Authorization</title>
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --text-color: #c9d1d9;
+            --accent-color: #58a6ff;
+            --secondary-bg: #161b22;
+            --border-color: #30363d;
+            --code-bg: #1f242c;
+            --header-color: #f0f6fc;
+            --table-header: #21262d;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        h1, h2, h3, h4 {
+            color: var(--header-color);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+            margin-top: 1.5em;
+        }
+        h1 { font-size: 2.5em; border-bottom: 2px solid var(--accent-color); }
+        h2 { font-size: 1.8em; color: var(--accent-color); }
+        .keywords {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 20px 0;
+        }
+        .keyword-tag {
+            background-color: var(--secondary-bg);
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            padding: 2px 10px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            font-weight: 500;
+        }
+        .section {
+            margin-bottom: 50px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: var(--table-header);
+            color: var(--accent-color);
+        }
+        tr:nth-child(even) {
+            background-color: rgba(22, 27, 34, 0.5);
+        }
+        code {
+            background-color: var(--code-bg);
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-family: "SFMono-Regular", Consolas, monospace;
+            font-size: 0.9em;
+            color: #ff7b72;
+        }
+        pre {
+            background-color: var(--code-bg);
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            border: 1px solid var(--border-color);
+            line-height: 1.4;
+        }
+        .diagram {
+            text-align: center;
+            margin: 30px 0;
+            padding: 20px;
+            background: var(--secondary-bg);
+            border-radius: 12px;
+        }
+        .diagram img {
+            max-width: 100%;
+            border-radius: 4px;
+        }
+        .note-box {
+            background-color: rgba(88, 166, 255, 0.05);
+            border-left: 4px solid var(--accent-color);
+            padding: 15px 20px;
+            margin: 25px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .important {
+            color: #ffa657;
+            font-weight: bold;
+        }
+        footer {
+            margin-top: 50px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+            text-align: center;
+            color: var(--accent-color);
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Lecture 8: Authentication and Authorization</h1>
+        
+        <div class="keywords">
+            <span class="keyword-tag">Authentication</span>
+            <span class="keyword-tag">Authorization</span>
+            <span class="keyword-tag">Sessions</span>
+            <span class="keyword-tag">JWT</span>
+            <span class="keyword-tag">Cookies</span>
+            <span class="keyword-tag">OAuth 2.0</span>
+            <span class="keyword-tag">OpenID Connect</span>
+            <span class="keyword-tag">RBAC</span>
+            <span class="keyword-tag">Security</span>
+        </div>
+
+        <section class="section">
+            <h2>Core Definitions</h2>
+            <ul>
+                <li><strong>Authentication:</strong> The mechanism to assign an identity to a subject. It answers the question: <strong>"Who are you?"</strong></li>
+                <li><strong>Authorization:</strong> The process of determining the capabilities and permissions of an identity. It answers the question: <strong>"What can you do?"</strong></li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2>The Evolution of Authentication</h2>
+            <p>The journey to modern authentication is driven by the need for scalable trust and security.</p>
+            <ol>
+                <li><strong>Pre-Industrial (Implicit Trust):</strong> Based on human contextual trust. A village elder vouches for someone. Unscalable.</li>
+                <li><strong>Medieval Period (Cryptographic Era):</strong> The introduction of <strong>Wax Seals</strong>. This functioned as a physical token (possession). It led to the first recorded bypass attacks (forgery).</li>
+                <li><strong>Industrial Revolution (Shared Secrets):</strong> Telegraph operators used pre-agreed passphrases (static strings). This marked the shift to "something you know".</li>
+                <li><strong>Digital Phase (1961):</strong> The Compatible Time-Sharing System (CTSS) at MIT introduced passwords for multi-user computers. Passwords were stored in plaintext, leading to a catastrophic vulnerability when the file was printed. This necessitated the invention of <strong>hashing</strong> for secure storage.</li>
+                <li><strong>The 1970s (Public Key Infrastructure):</strong> The Diffie-Hellman key exchange introduced asymmetric cryptography (public/private keys). Kerberos later introduced ticket-based authentication.</li>
+                <li><strong>1990s (Multi-Factor Authentication - MFA):</strong> To defend against brute-force and dictionary attacks, systems required a combination of:
+                    <ul>
+                        <li><strong>Something you know:</strong> Passwords / PINs</li>
+                        <li><strong>Something you have:</strong> Smart Cards / OTPs</li>
+                        <li><strong>Something you are:</strong> Biometrics (Fingerprints, Retina scans)</li>
+                    </ul>
+                </li>
+            </ol>
+        </section>
+
+        <section class="section">
+            <h2>Core Components of Modern Authentication</h2>
+            
+            <h3>1. Sessions (Stateful)</h3>
+            <p>HTTP is inherently stateless—it treats every request as an isolated interaction. To support dynamic apps (e.g., e-commerce carts), the web needed a form of memory.</p>
+            <p><strong>Workflow:</strong></p>
+            <ol>
+                <li>User logs in.</li>
+                <li>Server generates a unique <strong>Session ID</strong> and stores it alongside user data in a persistent store (initially file-based, later databases, now fast in-memory distributed stores like Redis).</li>
+                <li>Server sends the Session ID back to the client via a Cookie.</li>
+                <li>Client attaches the Cookie to subsequent requests. The server uses the ID to look up the session state.</li>
+            </ol>
+
+            <h3>2. JSON Web Tokens (JWTs) (Stateless)</h3>
+            <p>As web apps grew into distributed microservices, maintaining and synchronizing session data across servers became costly and introduced latency.</p>
+            <p><strong>Workflow &amp; Structure:</strong></p>
+            <ul>
+                <li>A stateless mechanism for transferring claims.</li>
+                <li><strong>Self-contained:</strong> Contains Base64 encoded metadata:
+                    <ul>
+                        <li><strong>Header:</strong> Signing algorithm.</li>
+                        <li><strong>Payload:</strong> User data/claims (e.g., <code>sub</code> for user ID, <code>iat</code> for issued at, roles).</li>
+                        <li><strong>Signature:</strong> A cryptographic seal to verify authenticity and prevent tampering.</li>
+                    </ul>
+                </li>
+            </ul>
+            
+            <div class="note-box">
+                <strong>The Digital ID Card Analogy:</strong> Think of a JWT as a digital ID card sealed in a tamper-proof envelope. The server verifies the seal (Signature) using its secret key without needing to check the central registry (Database/Redis) on every single request.
+            </div>
+
+            <h3>3. Cookies</h3>
+            <p>A browser mechanism that allows servers to store a piece of information locally. The key feature is that the browser automatically attaches the cookie to subsequent requests to the originating server, streamlining authentication token delivery.</p>
+        </section>
+
+        <section class="section">
+            <h2>Major Types of Authentication</h2>
+            
+            <h3>Stateful vs. Stateless Authentication</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Stateful Authentication (Sessions)</th>
+                        <th>Stateless Authentication (JWTs)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Storage Requirement</strong></td>
+                        <td>Requires persistent store (Redis/DB).</td>
+                        <td>None. Data is self-contained in the token.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Scalability</strong></td>
+                        <td>Harder. Requires synchronization across servers.</td>
+                        <td>Highly scalable across distributed microservices.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Revocation</strong></td>
+                        <td>Easy. Server can instantly delete the session.</td>
+                        <td>Difficult. Token remains valid until it expires manually.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><em>Note: Modern systems often use a hybrid approach (e.g., using JWTs for stateless speed but maintaining a blacklist in Redis for revoked tokens).</em></p>
+
+            <h3>API Key-Based Authentication</h3>
+            <ul>
+                <li><strong>Purpose:</strong> Designed for machine-to-machine (M2M) or programmatic interactions.</li>
+                <li><strong>Workflow:</strong> Instead of human UI flows (username/password), a developer generates a cryptographically random string (API Key) and the server securely attaches it to programmatic requests to access another platform's resources.</li>
+            </ul>
+
+            <h3>OAuth 2.0 &amp; OpenID Connect (OIDC)</h3>
+            <ul>
+                <li><strong>The Delegation Problem:</strong> How does a travel app scan your flight tickets on Gmail without you giving it your Google password? Giving out passwords means total, unrevokable access.</li>
+                <li><strong>OAuth 2.0 (Authorization):</strong> Uses token exchange. You authenticate with the Resource Server (Google), which issues an Access Token to the Client (Travel App) with strictly scoped permissions (e.g., read-only for emails).</li>
+                <li><strong>OpenID Connect (Authentication):</strong> Built on top of OAuth 2.0. It introduces an <code>ID Token</code> (a JWT) so clients can authenticate the user ("Sign in with Google") and obtain their basic identity profile.</li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2>Authorization Deep Dive</h2>
+            
+            <h3>Role-Based Access Control (RBAC)</h3>
+            <ul>
+                <li>Users are assigned roles (e.g., Admin, Moderator, User).</li>
+                <li><strong>Workflow:</strong> When an authenticated request arrives, the server deduces the role from the token/session. This role is passed down the middleware chain to verify against the permissions required for the target resource. If insufficient, the server returns a <code>403 Forbidden</code>.</li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2>Security Best Practices</h2>
+            <ol>
+                <li><strong>Generic Error Messages:</strong> During login, never return helpful errors like "User not found" or "Incorrect password". Attackers use this to map out valid accounts. Always return a generic <strong class="important">"Authentication failed"</strong>.</li>
+                <li><strong>Preventing Timing Attacks:</strong> If an invalid username fails instantly, but an invalid password takes 200ms (due to hashing overhead), attackers can measure the delay to confirm valid usernames. <strong>Defense:</strong> Use constant-time comparison functions or introduce simulated response delays.</li>
+            </ol>
+        </section>
+    </div>
+</body>
+</html>

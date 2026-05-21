@@ -1,0 +1,5683 @@
+Title: 10. What are controllers, services, repositories, middlewares and request context?
+
+(0:00) in  this  video  we  are  going  to  cover
+
+(0:02)  
+
+(0:02) three  topics  handl  services  and
+
+(0:05)  
+
+(0:05) repository  pattern  middle  a  and  request
+
+(0:08)  
+
+(0:08) context  initially  the  plan  was  to  cover
+
+(0:12)  
+
+(0:12) each  Topic  in  different  different  videos
+
+(0:14)  
+
+(0:14) so  this  was  supposed  to  be  three  videos
+
+(0:18)  
+
+(0:18) but  since  these  three  topics  are  so
+
+(0:22)  
+
+(0:22) closely  related  with  each  other  in  fact
+
+(0:24)  
+
+(0:24) pretty  much  all  the  topics  are  closely
+
+(0:27)  
+
+(0:27) related  to  each  other  since  we  are
+
+(0:28)  
+
+(0:28) talking  about  backends  here  but  I  cannot
+
+(0:31)  
+
+(0:31) go  ahead  and  make  a  100  hours  video
+
+(0:33)  
+
+(0:33) right  so  in  this  case  these  are  in  this
+
+(0:36)  
+
+(0:36) case  these  are  very  closely  rated  to
+
+(0:38)  
+
+(0:38) each  other  and  it'll  be  easier  to
+
+(0:41)  
+
+(0:41) explain  all  three  of  them  in  the  same
+
+(0:44)  
+
+(0:44) context  instead  of  repeating  the  same
+
+(0:46)  
+
+(0:46) thing  again  and  again  in  different
+
+(0:48)  
+
+(0:48) different  videos  and  that's  the  reason
+
+(0:50)  
+
+(0:50) we  are  going  to  cover  all  three  of  the
+
+(0:52)  
+
+(0:52) topics  in  this  same  video  now  let's  talk
+
+(0:55)  
+
+(0:55) about  handlers  services  and  repositories
+
+(0:57)  
+
+(0:58) I  know  that  I  have  talked  about  this
+
+(1:00)  
+
+(1:00) topic  in  different  different  videos  I
+
+(1:02)  
+
+(1:02) have  mentioned  it  in  fact  I  have  even
+
+(1:05)  
+
+(1:05) explained  it  a  little  bit  in  other
+
+(1:06)  
+
+(1:07) videos  so  it  might  sound  a  little  bit  uh
+
+(1:09)  
+
+(1:09) repetitive  but  uh  I  have  never
+
+(1:12)  
+
+(1:12) officially  covered  this  topic  so  this  is
+
+(1:15)  
+
+(1:15) the  time  that  we  can  do  that  okay  so
+
+(1:19)  
+
+(1:19) let's  start  with  client  and  server  we
+
+(1:23)  
+
+(1:23) have  our  client  here  and  we  have  say
+
+(1:27)  
+
+(1:27) server  here  okay  this  is  our  client  and
+
+(1:30)  
+
+(1:30) server  and  we  communicate  with  each
+
+(1:33)  
+
+(1:33) other  over  HTTP  now  when  a  client  sends
+
+(1:37)  
+
+(1:37) a  request  when  it  sends  a  request  it
+
+(1:39)  
+
+(1:39) reaches  our  server  so  the  moment  it
+
+(1:42)  
+
+(1:42) reaches  our  server  and  until  the  moment
+
+(1:46)  
+
+(1:46) it  receives  a  response  there  are  a  lot
+
+(1:49)  
+
+(1:49) of  things  happening  uh  in  the  server  and
+
+(1:52)  
+
+(1:52) we  call  that  a  request  life
+
+(1:55)  
+
+(1:55) cycle  we  already  talked  about  the
+
+(1:57)  
+
+(1:57) request  life  cycle  external  to  the
+
+(2:00)  
+
+(2:00) server  like  what  happens  at  this  point
+
+(2:02)  
+
+(2:02) the  sending  the  request  and  sending  the
+
+(2:04)  
+
+(2:04) response  but  we  have  not  covered  the
+
+(2:06)  
+
+(2:06) request  life  cycle  inside  the  server
+
+(2:08)  
+
+(2:08) what  happens  inside  the  server
+
+(2:10)  
+
+(2:10) throughout  the  life  cycle  of  the  request
+
+(2:12)  
+
+(2:12) so  let's  cover  that  what  happens  now  the
+
+(2:17)  
+
+(2:17) request  reaches  here  and  we  have  our
+
+(2:21)  
+
+(2:21) entry  point  the  entry  point  of  the
+
+(2:23)  
+
+(2:23) server  the  entry  the  moment  our
+
+(2:25)  
+
+(2:25) operating  system  forwards  that
+
+(2:28)  
+
+(2:29) particular  h  P  request  to  the  particular
+
+(2:32)  
+
+(2:32) Port  it  can  be  3,000  it  can  be  4,000  any
+
+(2:35)  
+
+(2:35) port  that  your  server  is  running  your
+
+(2:38)  
+
+(2:38) operating  system  forwards  that  request
+
+(2:40)  
+
+(2:40) to  your  server  and  the  request  reaches
+
+(2:42)  
+
+(2:42) your  server  that  is  the  entry  point  of
+
+(2:44)  
+
+(2:44) your  request  now  what  happens  your
+
+(2:46)  
+
+(2:46) server  must  be  doing  some  kind  of  listen
+
+(2:49)  
+
+(2:49) on  some  particular  port  and  that's  how
+
+(2:51)  
+
+(2:51) it  gets  the  request  at  the  start  of  the
+
+(2:54)  
+
+(2:54) request  what  happens  we  have  routing
+
+(2:57)  
+
+(2:57) after  the  request  reaches  our  server
+
+(2:59)  
+
+(2:59) entry  point  we  have  routing  mechanisms
+
+(3:01)  
+
+(3:01) we  have  different  different  routes  for
+
+(3:03)  
+
+(3:03) example  users  then  we  have  users  sl12
+
+(3:07)  
+
+(3:08) three  we  have  Dynamic  routes  and  etc  etc
+
+(3:10)  
+
+(3:10) we  have  already  talked  about  routing  and
+
+(3:12)  
+
+(3:12) all  it  reaches  our  routing  algorithm  and
+
+(3:16)  
+
+(3:16) depending  on  the  routing
+
+(3:18)  
+
+(3:18) algorithm  we  map  that  request  to  a
+
+(3:21)  
+
+(3:21) particular  Handler  Handler  is  basically
+
+(3:25)  
+
+(3:25) any  function  that  we  have  predefined
+
+(3:28)  
+
+(3:28) that  is  supposed  to  handle  the  request
+
+(3:31)  
+
+(3:31) of  that  API  we  have  mapped  some  kind  of
+
+(3:34)  
+
+(3:34) function  for  this  as  a  Handler  for  this
+
+(3:38)  
+
+(3:38) route  now  we  have  the  concept  of
+
+(3:42)  
+
+(3:42) handlers  or  controllers  services  and
+
+(3:44)  
+
+(3:44) repositories  and  why  do  we  have  three
+
+(3:47)  
+
+(3:47) separate  components  why  don't  we  only
+
+(3:50)  
+
+(3:50) have  a  single  Handler  which  does  all  the
+
+(3:53)  
+
+(3:53) stuff  and  the  thing  is  we  can  have  that
+
+(3:55)  
+
+(3:56) there  is  no  uh  requirement  that  we  have
+
+(3:58)  
+
+(3:58) to  separate  out
+
+(4:00)  
+
+(4:00) the  responsibilities  into  three
+
+(4:02)  
+
+(4:02) different  components  there  is  no  hard
+
+(4:04)  
+
+(4:04) requirement  it  is  just  a  design  pattern
+
+(4:06)  
+
+(4:06) so  that  your  code  base  is  scalable  it  is
+
+(4:10)  
+
+(4:10) more  maintainable  and  it  is  easier  to
+
+(4:12)  
+
+(4:12) add  features  and  it  is  easier  to  debug
+
+(4:15)  
+
+(4:15) things  right  now  let's  see  what  are  the
+
+(4:17)  
+
+(4:17) responsibilities  of  these  three
+
+(4:19)  
+
+(4:19) components  the  first  level  once  we  get
+
+(4:21)  
+
+(4:21) the  request  here  uh  from  the  routing
+
+(4:24)  
+
+(4:24) algorithm  it  reaches  the  Handler  or  the
+
+(4:26)  
+
+(4:26) controller  so  we  have  here  Handler  slash
+
+(4:30)  
+
+(4:31) controller  okay  what  is  the
+
+(4:32)  
+
+(4:32) responsibility  of  this  we  get  the
+
+(4:34)  
+
+(4:34) request  and  in  pretty  much  all  the
+
+(4:38)  
+
+(4:38) servers  does  not  matter  you're  dealing
+
+(4:41)  
+
+(4:41) with  goang  or  nodejs  or  python  those  are
+
+(4:44)  
+
+(4:44) the  three  languages  that  I  have
+
+(4:45)  
+
+(4:45) personally  used  so  I'm  not  aware  how  the
+
+(4:48)  
+
+(4:48) pattern  Works  in  other  language  but  I'm
+
+(4:49)  
+
+(4:49) pretty  sure  is  is  an  established  pattern
+
+(4:52)  
+
+(4:52) right  uh  in  each  Handler  you  will
+
+(4:54)  
+
+(4:54) receive  at  least  two  objects  or  two
+
+(4:57)  
+
+(4:57) variables  depending  on  what  programming
+
+(4:59)  
+
+(4:59) language
+
+(5:00)  
+
+(5:00) that  you  are  using  you'll  receive  two
+
+(5:03)  
+
+(5:03) objects  or  two  variables  one  is  the
+
+(5:07)  
+
+(5:07) request  object  one  is  the  response
+
+(5:10)  
+
+(5:10) object  and  the  Handler  can  take  out
+
+(5:14)  
+
+(5:14) values  from  that  HTTP  request  from  the
+
+(5:16)  
+
+(5:16) request  object  and  it  can  send  responses
+
+(5:20)  
+
+(5:20) and  it  can  modify  response  headers  etc
+
+(5:22)  
+
+(5:22) etc  using  the  response  object  this  is
+
+(5:25)  
+
+(5:25) why  we  get  these  two  objects  and  we
+
+(5:28)  
+
+(5:28) don't  necessar  add  these  two  objects
+
+(5:31)  
+
+(5:31) ourselves  the  the  runtime  the
+
+(5:34)  
+
+(5:34) programming  language  that  you  are  using
+
+(5:36)  
+
+(5:36) if  you're  using  go  then  go  provides
+
+(5:39)  
+
+(5:39) these  two  objects  to  you  uh  by  default
+
+(5:43)  
+
+(5:43) on  your  handlers  parameters  and
+
+(5:45)  
+
+(5:45) similarly  for  noes  also  if  you're  using
+
+(5:47)  
+
+(5:47) Express  or  anything  like  that  you  will
+
+(5:49)  
+
+(5:49) get  this  request  and  response  provided
+
+(5:51)  
+
+(5:51) to  you  you  don't  have  to  add  them  you
+
+(5:53)  
+
+(5:53) will  get  them  for  each  request  now  what
+
+(5:56)  
+
+(5:56) happens  at  the  entry  point  of  Handler
+
+(5:58)  
+
+(5:58) what  is  the  first  thing  that  comes  to
+
+(6:00)  
+
+(6:00) your  mind  that  we  need  to  find  what  is
+
+(6:03)  
+
+(6:03) the  request  about  we  already  know  that
+
+(6:06)  
+
+(6:06) what  is  this  API  supposed  to  do  because
+
+(6:08)  
+
+(6:08) this  API  was  routed  to  a  particular
+
+(6:10)  
+
+(6:10) route  above  here  and  we  got  this  in  this
+
+(6:14)  
+
+(6:14) particular  handle  so  we  know  that  what
+
+(6:16)  
+
+(6:16) particular  API  that  this  client  is
+
+(6:19)  
+
+(6:19) trying  to  call  we  already  have  that  part
+
+(6:22)  
+
+(6:22) of  the  information  now  we  want  to  take
+
+(6:24)  
+
+(6:24) out  different  different  values  so  that
+
+(6:26)  
+
+(6:26) we  can  process  the  request  and  send  a
+
+(6:29)  
+
+(6:29) response  accordingly  we  can  do  different
+
+(6:32)  
+
+(6:32) uh  database  operations  we  can  do
+
+(6:33)  
+
+(6:33) external  Logics  we  can  do  external  API
+
+(6:36)  
+
+(6:36) calls  we  can  do  uh  we  can  send  emails  we
+
+(6:38)  
+
+(6:38) can  send  notifications  we  can  do  a  lot
+
+(6:41)  
+
+(6:41) of  things  inside  our  uh  processing  logic
+
+(6:44)  
+
+(6:44) and  we  have  to  send  a  response  or  we
+
+(6:47)  
+
+(6:47) don't  have  to  send  a  response  depending
+
+(6:48)  
+
+(6:48) on  what  kind  of  request  it  is  if  it  is  a
+
+(6:51)  
+
+(6:51) delete  request  then  uh  restful  standards
+
+(6:54)  
+
+(6:54) say  that  you  have  to  send  a  response
+
+(6:57)  
+
+(6:57) code  of  204  no  content  uh  with  an  empty
+
+(7:02)  
+
+(7:02) response  body  depending  on  that  we  can
+
+(7:04)  
+
+(7:04) decide  what  response  now  at  the  entry
+
+(7:07)  
+
+(7:07) point  what  is  the  first  thing  that  comes
+
+(7:09)  
+
+(7:09) to  your  mind  that  you  have  to  take  out
+
+(7:11)  
+
+(7:11) the  data  from  this  request  object  that
+
+(7:14)  
+
+(7:14) is  the  first  responsibility  of  a  Handler
+
+(7:17)  
+
+(7:17) of  a  controller  so  this  is  what  you  have
+
+(7:20)  
+
+(7:20) to  keep  in  mind  again  this  is  not  a
+
+(7:22)  
+
+(7:22) necessary  requirement  you  can  do
+
+(7:24)  
+
+(7:24) everything  in  your  Handler  SL  controller
+
+(7:26)  
+
+(7:26) but  in  a  typical  backend  architecture
+
+(7:29)  
+
+(7:29) this  is  how  how  we  structure  it  to  make
+
+(7:30)  
+
+(7:30) it  more  skillable  now  the  first  entry
+
+(7:33)  
+
+(7:33) point  of  your  controller  or  Handler  your
+
+(7:35)  
+
+(7:35) responsibility  is  taking  out  the  data
+
+(7:38)  
+
+(7:38) from  the  request  object  depending  on
+
+(7:40)  
+
+(7:40) what  kind  of  request  it  is  if  it  is  a
+
+(7:43)  
+
+(7:43) get  request  if  it  is  a  get  request  you
+
+(7:45)  
+
+(7:45) have  to  take  out  the  query  params  right
+
+(7:48)  
+
+(7:48) if  it  is  a  post  request  you  have  to  take
+
+(7:50)  
+
+(7:50) out  the  request  body  similarly  for
+
+(7:53)  
+
+(7:53) delete  we  can  take  out  the  request  body
+
+(7:55)  
+
+(7:55) and  for  put  or  patch  we  can  also  take
+
+(7:59)  
+
+(7:59) out  the  request  body  depending  on  what
+
+(8:02)  
+
+(8:02) kind  of  request  that  is  we  can  take  out
+
+(8:03)  
+
+(8:03) the  request  body  that  is  the  first
+
+(8:05)  
+
+(8:05) responsibility  of  a  Handler  or  a
+
+(8:06)  
+
+(8:06) controller  now  we've  already  talked
+
+(8:09)  
+
+(8:09) about  serialization  and  deserialization
+
+(8:11)  
+
+(8:11) and  there  is  the  reason  we  are  following
+
+(8:13)  
+
+(8:13) this  order  we  are  trying  to  trace  the  uh
+
+(8:18)  
+
+(8:18) flow  of  the  request  from  top  to  bottom
+
+(8:21)  
+
+(8:21) right  the  request  started  from  the
+
+(8:23)  
+
+(8:23) client  and  that's  why  the  first  thing
+
+(8:25)  
+
+(8:25) that  we  covered  was  how  HTTP  life  cycle
+
+(8:29)  
+
+(8:29) work  works  right  then  we  went  into  uh
+
+(8:33)  
+
+(8:33) routing  then  we  went  to  serialization
+
+(8:35)  
+
+(8:35) and  deserialization  then  validation  and
+
+(8:37)  
+
+(8:37) Transformations  etc  etc  right  we  are
+
+(8:39)  
+
+(8:40) following  the  request  from  the  top  until
+
+(8:43)  
+
+(8:43) it  reaches  our  repository  or  our
+
+(8:46)  
+
+(8:46) database  layer  okay  we  already  know  that
+
+(8:49)  
+
+(8:49) we  have  do  some  kind  of  serialization
+
+(8:52)  
+
+(8:52) and  deserialization  at  this  point
+
+(8:54)  
+
+(8:54) because  the  request  the  client  sends  a
+
+(8:56)  
+
+(8:56) request  and  that  request  is  serialized
+
+(8:58)  
+
+(8:58) into  a  Json  format  because  it  has  to
+
+(9:01)  
+
+(9:01) travel  over  the  internet  and  Json  is  a
+
+(9:05)  
+
+(9:05) serializable  format  that  is  used  across
+
+(9:08)  
+
+(9:08) front  end  and  backend  boundaries  and
+
+(9:11)  
+
+(9:11) there  are  other  serialization  formats
+
+(9:13)  
+
+(9:13) but  Json  is  the  most  popular  one  as  of
+
+(9:16)  
+
+(9:16) now  okay  now  the  first  thing  that  we
+
+(9:19)  
+
+(9:19) have  to  do  in  the  controller  layer
+
+(9:21)  
+
+(9:21) depending  on  your  programming  languages
+
+(9:23)  
+
+(9:23) the  implementations  might  be  different
+
+(9:26)  
+
+(9:26) but  this  is  a  common  pattern  the  first
+
+(9:28)  
+
+(9:28) thing  that  you  have  to  do  is
+
+(9:30)  
+
+(9:30) deserialize  the  Json  object  that  you
+
+(9:33)  
+
+(9:33) received  from  the  request  into  your
+
+(9:36)  
+
+(9:36) native  data  format  now  if  it  is  a  node
+
+(9:39)  
+
+(9:39) just  backend  then  you  might  not
+
+(9:42)  
+
+(9:42) necessarily  do  this  step  there  will  be  a
+
+(9:44)  
+
+(9:44) middleware  somewhere  somewhere  Upstream
+
+(9:46)  
+
+(9:46) before  the  routing  happens  which
+
+(9:48)  
+
+(9:48) derealize  all  the  Json  into  JavaScript
+
+(9:52)  
+
+(9:52) objects  right  that's  why  we  have  Json  do
+
+(9:55)  
+
+(9:56) body  parer  ET  ET  middle  in  our  node  J
+
+(9:58)  
+
+(9:58) apps  so  that's  that's  why  we  don't
+
+(10:00)  
+
+(10:00) necessarily  do  the  Step  at  the  Handler
+
+(10:02)  
+
+(10:02) layer  but  in  other  programming  languages
+
+(10:04)  
+
+(10:04) like  go  or  python  we  have  to  do  this
+
+(10:07)  
+
+(10:07) step  explicitly  we  have  to  deserialize
+
+(10:09)  
+
+(10:09) whatever  Json  that  we  receive  in  the
+
+(10:13)  
+
+(10:13) request  into  a  our  native  format  so  if
+
+(10:16)  
+
+(10:16) it's  a  go  app  we  have  to  deserialize
+
+(10:20)  
+
+(10:20) into  a  native  struct  if  it  is  a  python
+
+(10:23)  
+
+(10:23) app  we  have  to  deserialize  into  a
+
+(10:25)  
+
+(10:25) dictionary  or  a  class  and  similarly  for
+
+(10:29)  
+
+(10:29) rust  we  can  disiz  into  a  struct  etc  etc
+
+(10:32)  
+
+(10:32) right  we  have  to  take  the  Json  data  and
+
+(10:36)  
+
+(10:36) convert  into  a  format  that  we  can
+
+(10:39)  
+
+(10:39) understand  that  our  programming  language
+
+(10:40)  
+
+(10:40) can  understand  that  it  has  to  follow  its
+
+(10:43)  
+
+(10:43) native  data  format  this  the  first  thing
+
+(10:46)  
+
+(10:46) that  the  Handler  does  takes  out  the  data
+
+(10:48)  
+
+(10:48) from  the  request  object  and  it
+
+(10:50)  
+
+(10:50) deserializes  into  the  native  format  of
+
+(10:54)  
+
+(10:54) the  programming  language  that  you  are
+
+(10:55)  
+
+(10:56) using  that  is  the  first  step  okay  this
+
+(11:00)  
+
+(11:00) is  also  called  binding  depending  on  what
+
+(11:03)  
+
+(11:03) framework  that  you  are  using  but  most  of
+
+(11:06)  
+
+(11:06) the  Frameworks  use  this  terminology
+
+(11:08)  
+
+(11:08) which  is  called  binding  the  request  body
+
+(11:11)  
+
+(11:11) into  your  native  format  and  and  at  this
+
+(11:15)  
+
+(11:15) step  if  the  deserialization  fails  or
+
+(11:17)  
+
+(11:17) some  error  occurs  then  we  send  a  request
+
+(11:21)  
+
+(11:21) uh  we  send  a  response  to  the  client  with
+
+(11:24)  
+
+(11:24) the  status  code  of  400  which  is  bad
+
+(11:28)  
+
+(11:28) request
+
+(11:30)  
+
+(11:30) use  the  error  code  of  400  to  tell  the
+
+(11:33)  
+
+(11:33) client  that  this  request  is  not  valid
+
+(11:38)  
+
+(11:38) something  is  wrong  with  this  request
+
+(11:39)  
+
+(11:39) payload  right  we  send  the  4and  request
+
+(11:42)  
+
+(11:42) and  we  terminate  the  request  at  this
+
+(11:45)  
+
+(11:45) point  we  don't  continue  we  don't  proceed
+
+(11:48)  
+
+(11:48) ahead  right  first  thing  now  second  thing
+
+(11:51)  
+
+(11:51) and  again  I  am  talking  about  an  ideal
+
+(11:54)  
+
+(11:54) production  grid  backend  pattern  now  okay
+
+(11:58)  
+
+(11:58) depending  on  on  the  implementation  you
+
+(12:00)  
+
+(12:00) might  not  have  a  validation  layer  but  we
+
+(12:03)  
+
+(12:03) have  already  talked  about  validation  and
+
+(12:04)  
+
+(12:05) transformation  in  a  previous  video  and
+
+(12:07)  
+
+(12:07) the  advice  is  you  should  validate
+
+(12:09)  
+
+(12:09) everything  that  is  coming  inside  your
+
+(12:12)  
+
+(12:12) server  from  an  external  client
+
+(12:14)  
+
+(12:14) everything  starting  from  your  path
+
+(12:16)  
+
+(12:16) parameters  to  your  request  body  to  your
+
+(12:19)  
+
+(12:20) request  uh  query  parameters  etc  etc
+
+(12:23)  
+
+(12:23) everything  that  you  can  validate  and  be
+
+(12:26)  
+
+(12:26) as  specific  as  possible  while  you're
+
+(12:28)  
+
+(12:28) validating  it
+
+(12:29)  
+
+(12:29) we  have  already  covered  these  things  in
+
+(12:31)  
+
+(12:31) our  validation  transformation  video  now
+
+(12:34)  
+
+(12:34) that's  the  second  thing  that  happens
+
+(12:35)  
+
+(12:35) here  once  we  have  deserialized  the  data
+
+(12:38)  
+
+(12:38) into  a  native  format  now  we  understand
+
+(12:40)  
+
+(12:40) the  data  our  programming  language  can
+
+(12:43)  
+
+(12:43) make  sense  of  the  data  it  cannot  make
+
+(12:45)  
+
+(12:45) sense  of  the  Json  data  because  uh  that
+
+(12:48)  
+
+(12:48) is  a  serializable  format  and  not  every
+
+(12:50)  
+
+(12:50) programming  language  JavaScript  has  a
+
+(12:52)  
+
+(12:52) very  good  support  for  Json  because  Json
+
+(12:55)  
+
+(12:55) is  inspired  by  the  JavaScript  object  and
+
+(12:58)  
+
+(12:58) it  has  first  support  for  Json  but  then
+
+(13:01)  
+
+(13:01) you  come  to  other  programming  languages
+
+(13:02)  
+
+(13:02) you  don't  have  as  uh  smooth  integration
+
+(13:06)  
+
+(13:06) with  Json  we  have  to  do  a  lot  of  manual
+
+(13:09)  
+
+(13:09) processing  right  now  at  the  second  step
+
+(13:12)  
+
+(13:12) we  do  validations  and  Transformations  we
+
+(13:15)  
+
+(13:15) take  the  data  that  we  have  bound  here  to
+
+(13:18)  
+
+(13:18) our  native  format  let's  say  we  are  using
+
+(13:21)  
+
+(13:21) go  programming  lger  now  we  have  a  struct
+
+(13:24)  
+
+(13:24) if  you  are  using  python  now  we  have  a
+
+(13:26)  
+
+(13:26) class  or  a  dictionary  which  contains  all
+
+(13:30)  
+
+(13:30) the  data  that  the  client  has  sent  but  in
+
+(13:33)  
+
+(13:33) our  own  programming  language  format  the
+
+(13:36)  
+
+(13:36) client  is  using  JavaScript  it  has  sent
+
+(13:38)  
+
+(13:39) using  Json  but  now  we  have  a  struct  in
+
+(13:41)  
+
+(13:41) go  which  contains  the  same  data  in  a
+
+(13:44)  
+
+(13:44) different  representation  but  with  the
+
+(13:45)  
+
+(13:45) same  values  now  we  take  that  data  and  we
+
+(13:49)  
+
+(13:50) validate  it  we  validate  it  we  make  sure
+
+(13:52)  
+
+(13:52) that  all  the  data  that  the  client  has
+
+(13:54)  
+
+(13:54) sent  it  is  in  the  expected  format  all
+
+(13:58)  
+
+(13:58) the  mandatory  values  are  sent  all  the
+
+(14:01)  
+
+(14:01) values  that  are  sent  are  in  the  expected
+
+(14:03)  
+
+(14:03) format  there  is  no  malicious  intent
+
+(14:06)  
+
+(14:06) there  is  no  uh  missing  values  etc  etc
+
+(14:10)  
+
+(14:10) everything  that  we  do  in  a  validation
+
+(14:12)  
+
+(14:12) pipeline  after  we  validate  it  we  also
+
+(14:15)  
+
+(14:16) optionally  do  a  transformation  what  does
+
+(14:18)  
+
+(14:18) transformation  mean  transformation  is
+
+(14:20)  
+
+(14:20) basically  after  we  validate  the  data
+
+(14:23)  
+
+(14:23) that  has  come  from  the  client  we  do  some
+
+(14:26)  
+
+(14:26) kind  of  modifications  to  make  it
+
+(14:28)  
+
+(14:28) convenient  for  our  server  to  process  the
+
+(14:30)  
+
+(14:30) data  for  example  we  can  set  defaults
+
+(14:33)  
+
+(14:33) let's  say  we  have  a  get  AP  we  have  a  get
+
+(14:36)  
+
+(14:37) API  where  we  are  fetching  all  the  books
+
+(14:41)  
+
+(14:41) we  are  fetching  all  the  books  and  there
+
+(14:43)  
+
+(14:43) is  a  query  parameter  the  client  can  send
+
+(14:46)  
+
+(14:46) which  is  sort  and  in  the  value  can  be
+
+(14:50)  
+
+(14:50) name  or  by  date  the  created  date  of  the
+
+(14:54)  
+
+(14:54) book  right  these  are  the  values  that  the
+
+(14:56)  
+
+(14:56) client  can  send  and  the  require  mment  is
+
+(15:00)  
+
+(15:00) and  this  is  a  good  pattern  that  you
+
+(15:02)  
+
+(15:02) should  establish  in  your  backend  apps
+
+(15:04)  
+
+(15:04) that  query  parameters  you  should  try
+
+(15:07)  
+
+(15:07) your  best  to  do  all  the  query  parameters
+
+(15:10)  
+
+(15:10) optional  right  that  should  be  your
+
+(15:12)  
+
+(15:12) requirement  that  is  a  good  pattern  to
+
+(15:14)  
+
+(15:14) establish  early  in  your  API  design  and
+
+(15:17)  
+
+(15:17) we'll  cover  all  about  API  designs  all
+
+(15:19)  
+
+(15:19) the  best  practices  restful  architecture
+
+(15:21)  
+
+(15:21) and  everything  in  the  next  video  that  is
+
+(15:24)  
+
+(15:24) all  about  API  designs  and  principles  and
+
+(15:26)  
+
+(15:26) how  to  think  about  apis  how  to  design
+
+(15:28)  
+
+(15:28) design  them  etc  etc  so  there  you'll  have
+
+(15:32)  
+
+(15:32) all  your  doubts  cleared  about  this  how
+
+(15:34)  
+
+(15:34) to  structure  this  how  to  uh  start  about
+
+(15:36)  
+
+(15:36) this  but  just  a  info  for  the  sake  of
+
+(15:39)  
+
+(15:39) this  video  that  you  should  try  to  make
+
+(15:42)  
+
+(15:42) all  your  query  parameters  in  your  apis
+
+(15:44)  
+
+(15:44) optional  and  coming  back  to
+
+(15:46)  
+
+(15:46) transformation  let's  say  this  is  the
+
+(15:48)  
+
+(15:48) requirement  the  client  can  send  two
+
+(15:50)  
+
+(15:50) values  in  the  sort  query  parameter
+
+(15:52)  
+
+(15:52) either  name  or  date  and  if  the  client
+
+(15:55)  
+
+(15:55) sends  name  you  have  to  sort  all  the
+
+(15:57)  
+
+(15:57) books  by  the  name  of  the  book  books  or
+
+(15:59)  
+
+(16:00) if  it  sends  date  then  you  have  to  sort
+
+(16:02)  
+
+(16:02) by  the  date  of  the  book  at  what  date
+
+(16:05)  
+
+(16:05) that  book  was  created  now  in  the
+
+(16:07)  
+
+(16:07) transformation  pipeline  let's  say  uh
+
+(16:10)  
+
+(16:10) this  request  went  through  the  validation
+
+(16:11)  
+
+(16:11) and  client  did  not  send  any  query
+
+(16:13)  
+
+(16:13) parameters  it  just  send  CL  books  that  is
+
+(16:16)  
+
+(16:16) the  URL  it  did  not  send  any  query
+
+(16:19)  
+
+(16:19) parameters  in  the  validation  pipeline  it
+
+(16:21)  
+
+(16:21) goes  through  because  you  have  made  all
+
+(16:23)  
+
+(16:23) the  query  parameters  optional  as  a  good
+
+(16:25)  
+
+(16:25) pattern  so  the  validation  pipeline
+
+(16:28)  
+
+(16:28) succeeds  you  don't  get  any  errors  you
+
+(16:30)  
+
+(16:30) don't  send  any  400  bad  request  errors  to
+
+(16:32)  
+
+(16:32) your  client  it  goes  through  now  it
+
+(16:34)  
+
+(16:34) reaches  your  transformation  pipeline  now
+
+(16:37)  
+
+(16:37) you  want  to  uh  make  it  convenient  for
+
+(16:40)  
+
+(16:40) your  database  layer  to  process  the  data
+
+(16:43)  
+
+(16:43) and  that  is  the  reason  in  the
+
+(16:45)  
+
+(16:45) transformation  pattern  what  you  can  do
+
+(16:47)  
+
+(16:47) if  the  client  has  not  sent  any  query
+
+(16:49)  
+
+(16:49) parameters  you  can  set  defaults  you  can
+
+(16:52)  
+
+(16:52) set  defaults  here  which  means  in  the
+
+(16:55)  
+
+(16:55) transformation  pipeline  what  you  will  do
+
+(16:57)  
+
+(16:57) you  will  check  if  there  is  if  there  are
+
+(17:00)  
+
+(17:00) no  query  parameters  passed  you  set  the
+
+(17:03)  
+
+(17:03) value  of  sort  as  dat  or  depending  on  the
+
+(17:07)  
+
+(17:07) requirements  you  can  also  set  it  to  name
+
+(17:09)  
+
+(17:09) that's  why  we  use  transformation
+
+(17:11)  
+
+(17:11) pipeline  so  that  we  can  do  a  couple  of
+
+(17:14)  
+
+(17:14) operations  on  the  data  that  we  have
+
+(17:16)  
+
+(17:16) received  from  the  client  before  it  goes
+
+(17:18)  
+
+(17:18) to  the  database  layer  or  before  it  goes
+
+(17:20)  
+
+(17:20) to  the  service  layer  so  that  we  can  make
+
+(17:23)  
+
+(17:23) it  more  intuitive  and  more  uh  convenient
+
+(17:27)  
+
+(17:27) for  our  down  stream  layers  to  process
+
+(17:30)  
+
+(17:30) the  data  in  a  more  expected  way  let's
+
+(17:32)  
+
+(17:32) say  we  did  not  pass  anything  then  the
+
+(17:34)  
+
+(17:34) service  layer  has  to  check  if  the  S
+
+(17:37)  
+
+(17:37) field  is  passed  or  not  if  it  not  passed
+
+(17:40)  
+
+(17:40) then  do  this  if  it  is  passed  then  do
+
+(17:41)  
+
+(17:41) this  then  we  have  a  condition  Branch
+
+(17:44)  
+
+(17:44) there  so  a  lot  of  inconvenience  but
+
+(17:47)  
+
+(17:47) still  doing  this  makes  your  code  a  lot
+
+(17:49)  
+
+(17:49) more  readable  it  makes  your  code  follow
+
+(17:51)  
+
+(17:51) an  expected  path  of  processing  that's
+
+(17:54)  
+
+(17:54) why  we  have  validation  and
+
+(17:55)  
+
+(17:55) transformation  byeline  we  won't  go  too
+
+(17:57)  
+
+(17:57) deep  into  this  we  have  already  covered
+
+(17:58)  
+
+(17:58) about  this  in  the  previous  video  that's
+
+(18:00)  
+
+(18:00) the  second  thing  your  Handler  does  now
+
+(18:02)  
+
+(18:03) you  have  taken  out  the  request  object
+
+(18:05)  
+
+(18:05) the  request  information  from  the  request
+
+(18:07)  
+
+(18:08) object  then  we  have  validated  the  data
+
+(18:10)  
+
+(18:10) you  have  transformed  the  data  according
+
+(18:12)  
+
+(18:12) to  your  convenience  now  you  have  a  solid
+
+(18:16)  
+
+(18:16) data  format  that  is  ready  to  get
+
+(18:19)  
+
+(18:19) processed  that  is  ready  to  get  processed
+
+(18:21)  
+
+(18:21) by  your  Downstream  layers  now  at  this
+
+(18:24)  
+
+(18:24) point  what  happens  the  controller  layer
+
+(18:27)  
+
+(18:27) controller  layer  calls  the  service  layer
+
+(18:30)  
+
+(18:30) with  all  the  data  that  it  has  properly
+
+(18:33)  
+
+(18:33) validated  and  transformed  it  passes  that
+
+(18:36)  
+
+(18:36) data  to  the  service  layer  and  all  the
+
+(18:38)  
+
+(18:38) information  that  the  service  layer  might
+
+(18:40)  
+
+(18:40) need  to  process  the  data  for  example  the
+
+(18:43)  
+
+(18:43) authentication  information  like  user  ID
+
+(18:45)  
+
+(18:45) the  user  permissions  etc  etc  pass  all
+
+(18:48)  
+
+(18:48) those  data  and  then  the  service  layer
+
+(18:50)  
+
+(18:50) starts  processing  now  what  happens  in
+
+(18:53)  
+
+(18:53) the  service  layer  now  the  service  layer
+
+(18:56)  
+
+(18:56) ideally  should  not  deal  with  any  kind  of
+
+(19:01)  
+
+(19:01) HTTP  related  stuff  we  try  to  limit  all
+
+(19:04)  
+
+(19:04) the  HTTP  related  stuff  in  the  controller
+
+(19:06)  
+
+(19:06) layer  for  good  reasons  that  we'll
+
+(19:08)  
+
+(19:08) explore  a  a  little  bit  later  now  the
+
+(19:11)  
+
+(19:11) service  layer  is  just  a  function  you  can
+
+(19:14)  
+
+(19:14) think  of  service  layer  just  a  just  a
+
+(19:16)  
+
+(19:17) function  that  has  nothing  to  do  with  any
+
+(19:20)  
+
+(19:20) kind  of  backend  frontend  interaction  or
+
+(19:22)  
+
+(19:22) such  if  you  take  a  look  at  your  service
+
+(19:25)  
+
+(19:25) method  then  from  one  look  you  should  not
+
+(19:28)  
+
+(19:28) not  be  able  to  tell  that  this  is  a
+
+(19:31)  
+
+(19:31) function  that  is  being  used  in  an  API
+
+(19:34)  
+
+(19:34) that  is  a  good  pattern  to  follow  your
+
+(19:36)  
+
+(19:36) service  layer  should  be  in  isolated
+
+(19:38)  
+
+(19:38) manner  should  be  doing  all  the
+
+(19:40)  
+
+(19:40) processing  and  then  returning  the  data
+
+(19:42)  
+
+(19:42) it  should  take  some  data  process  it  and
+
+(19:44)  
+
+(19:44) returns  and  data  without  worrying  about
+
+(19:48)  
+
+(19:48) what  Response  Code  to  return  to  the
+
+(19:50)  
+
+(19:50) client  what  kind  of  data  it  is  receiving
+
+(19:52)  
+
+(19:52) should  the  validation  etc  etc  you  should
+
+(19:54)  
+
+(19:54) not  have  to  worry  about  all  those  stuff
+
+(19:57)  
+
+(19:57) that  is  the  responsibility  of  the
+
+(19:58)  
+
+(19:58) Handler  layer  that's  where  we  draw  the
+
+(20:00)  
+
+(20:00) line  the  responsibility  line  okay  now
+
+(20:03)  
+
+(20:03) what  happens  in  the  service  layer  it
+
+(20:05)  
+
+(20:05) takes  all  the  data  that  is  needed  to
+
+(20:08)  
+
+(20:08) process  uh  that  is  needed  to  do  all  the
+
+(20:10)  
+
+(20:10) operations  that  we  want  to  do  then  what
+
+(20:13)  
+
+(20:13) it  does  it  calls  the  repository  method
+
+(20:15)  
+
+(20:15) for  your  database  operations  if  that  is
+
+(20:18)  
+
+(20:18) needed  there  are  of  course  service
+
+(20:20)  
+
+(20:20) methods  for  example  if  this  service  is
+
+(20:22)  
+
+(20:22) only  supposed  to  send  an  email  to  some
+
+(20:26)  
+
+(20:26) client  or  to  some  user  then  what  does  in
+
+(20:29)  
+
+(20:29) the  data  it  might  be  receiving  the  email
+
+(20:32)  
+
+(20:32) address  and  it  takes  that  email  address
+
+(20:34)  
+
+(20:34) it  executes  the  logic  which  sends  the
+
+(20:37)  
+
+(20:37) email  to  the  client  and  it  then  returns
+
+(20:40)  
+
+(20:40) a  response  that  looks  something  like
+
+(20:43)  
+
+(20:43) this  success  is  true  to  your  Handler
+
+(20:47)  
+
+(20:47) back  it  can  also  do  something  like  this
+
+(20:49)  
+
+(20:49) without  calling  the  repository  method  we
+
+(20:51)  
+
+(20:51) also  have  services  like  this  or  if  it
+
+(20:53)  
+
+(20:53) needs  to  deal  with  databases  whether  it
+
+(20:55)  
+
+(20:55) needs  to  persist  some  data  or  whether  it
+
+(20:58)  
+
+(20:58) needs  to  fet  some  data  from  the  database
+
+(21:01)  
+
+(21:01) then  it  uses  the  repository  layer  for
+
+(21:04)  
+
+(21:04) that  kind  of  information  now  at  this
+
+(21:07)  
+
+(21:07) point  what  happens  we  have  the
+
+(21:09)  
+
+(21:09) repository  we  have  the  repository  layer
+
+(21:12)  
+
+(21:12) or  the  database  layer  depending  on  what
+
+(21:14)  
+
+(21:14) terminology  that  you  and  your  team  is
+
+(21:16)  
+
+(21:16) using  the  r  again  takes  the  data
+
+(21:19)  
+
+(21:19) whatever  data  that  needs  to  be  inserted
+
+(21:22)  
+
+(21:22) or  whatever  data  that  needs  to  be
+
+(21:24)  
+
+(21:24) fetched  now  all  the  requirements  of  the
+
+(21:26)  
+
+(21:26) data  for  example  we  received
+
+(21:29)  
+
+(21:29) the  parameter  sort  from  Upstream  from
+
+(21:31)  
+
+(21:31) our  Handler  which  either  has  a  value
+
+(21:33)  
+
+(21:33) name  or  has  a  value  date  it  takes  the
+
+(21:36)  
+
+(21:36) data  service  layer  takes  the  data  from
+
+(21:38)  
+
+(21:38) the  Handler  and  it  passes  the  data  to
+
+(21:40)  
+
+(21:40) the  repository  layer  and  the  repository
+
+(21:42)  
+
+(21:42) layer  takes  the  data  and  it  construct
+
+(21:45)  
+
+(21:45) the  database  query  the  sole
+
+(21:47)  
+
+(21:48) responsibility  of  repository  layer  is  it
+
+(21:50)  
+
+(21:50) takes  whatever  the  data  that  has  to  be
+
+(21:52)  
+
+(21:52) inserted  or  it  takes  all  the  filtering
+
+(21:54)  
+
+(21:54) data  the  Sorting  data  whatever  data  that
+
+(21:56)  
+
+(21:56) is  needed  to  fetch  dat  from  database
+
+(22:00)  
+
+(22:00) takes  all  the  data  it  constructs  the
+
+(22:02)  
+
+(22:02) database  query  and  it  returns  whatever
+
+(22:04)  
+
+(22:04) the  result  that  was  return  return  by  the
+
+(22:06)  
+
+(22:06) database  it  has  a  single  responsibility
+
+(22:10)  
+
+(22:10) take  some  data  performs  a  database
+
+(22:11)  
+
+(22:12) operation  returns  it  again  the
+
+(22:14)  
+
+(22:14) requirement  is  one  repository  method
+
+(22:17)  
+
+(22:17) should  only  return  one  kind  of  data
+
+(22:19)  
+
+(22:19) which  means  let's  say  uh  you  have  two
+
+(22:21)  
+
+(22:21) repository  methods  one  for  getting  all
+
+(22:24)  
+
+(22:24) books  and  one  for  getting  a  single  book
+
+(22:27)  
+
+(22:27) then  ideally  you  should  not  pass  an
+
+(22:30)  
+
+(22:30) optional  parameter  in  the  same  function
+
+(22:33)  
+
+(22:33) and  depending  on  the  optional  parameter
+
+(22:35)  
+
+(22:35) you  should  not  return  a  single  book  or
+
+(22:37)  
+
+(22:37) you  should  not  return  all  books  you
+
+(22:38)  
+
+(22:38) should  not  do  that  repository  methods
+
+(22:40)  
+
+(22:40) have  a  single  responsibility  if  that
+
+(22:42)  
+
+(22:43) repository  method  uh  needs  to  return  all
+
+(22:45)  
+
+(22:45) books  then  it  should  return  all  books
+
+(22:48)  
+
+(22:48) and  if  needs  to  return  a  single  book
+
+(22:50)  
+
+(22:50) then  it  needs  to  take  the  idea  of  that
+
+(22:52)  
+
+(22:52) book  and  it  needs  to  return  the  single
+
+(22:54)  
+
+(22:54) book  that's  how  you  should  design  your
+
+(22:56)  
+
+(22:56) repository  methods  so  that  the  service
+
+(22:59)  
+
+(22:59) layer  we  have  the  service  layer  here  the
+
+(23:02)  
+
+(23:02) service  layer  has  also  service  layer
+
+(23:05)  
+
+(23:05) also  has  the  responsibility  to
+
+(23:07)  
+
+(23:07) orchestrate  which  means  it  can  take  the
+
+(23:09)  
+
+(23:09) different  different  data  that  is
+
+(23:11)  
+
+(23:11) returned  by  the  different  different
+
+(23:12)  
+
+(23:12) repository  methods  and  it  can  like  merge
+
+(23:15)  
+
+(23:15) those  data  take  the  necessary  fields  for
+
+(23:18)  
+
+(23:18) different  different  results  and  it  can
+
+(23:20)  
+
+(23:20) return  that  data  to  the  Handler  okay
+
+(23:21)  
+
+(23:21) that's  the  responsibility  of  the  service
+
+(23:23)  
+
+(23:23) layer  a  service  layer  can  use  multiple
+
+(23:26)  
+
+(23:26) repository  methods  it  can  do  different
+
+(23:28)  
+
+(23:29) different  operations  to  merge  different
+
+(23:30)  
+
+(23:30) types  of  data  from  the  database  and  ET
+
+(23:32)  
+
+(23:32) ET  a  service  layer  can  do  a  lot  of
+
+(23:34)  
+
+(23:34) things  inside  this  a  one  service  method
+
+(23:37)  
+
+(23:37) but  a  repository  method  should  do  a
+
+(23:39)  
+
+(23:39) single  thing  is  fetch  some  data
+
+(23:42)  
+
+(23:42) depending  on  the  requirements  or  insert
+
+(23:43)  
+
+(23:43) some  data  depending  on  the  requirement
+
+(23:45)  
+
+(23:45) or  delete  some  data  depending  on  the
+
+(23:46)  
+
+(23:46) requirement  okay  and  service  layer
+
+(23:49)  
+
+(23:49) orchestrates  different  different
+
+(23:50)  
+
+(23:50) repository  method  or  it  does  external
+
+(23:53)  
+
+(23:53) API  calling  it  sends  notification  it
+
+(23:55)  
+
+(23:55) sends  like  an  email  to  your  user  Etc  ET
+
+(23:58)  
+
+(23:58) it  does  everything  that  an  API  needs  to
+
+(24:00)  
+
+(24:00) do  all  the  actual  processing  of  the  API
+
+(24:04)  
+
+(24:04) happens  in  the  service  layer  handlers
+
+(24:08)  
+
+(24:08) deal  with  data  formats  the  input  data
+
+(24:10)  
+
+(24:10) formats  the  output  data  formats  the
+
+(24:12)  
+
+(24:13) actual  processing  happens  in  the  service
+
+(24:14)  
+
+(24:14) layer  all  the  database  calls  happens  in
+
+(24:17)  
+
+(24:17) the  repository  layer  that's  how  we
+
+(24:19)  
+
+(24:19) isolate  the  three  layers  okay  now  the
+
+(24:22)  
+
+(24:23) service  layer  called  the  repository
+
+(24:24)  
+
+(24:24) layer  for  fetching  all  the  books
+
+(24:27)  
+
+(24:27) depending  on  the  S
+
+(24:29)  
+
+(24:29) parameter  it  got  the  response  from  the
+
+(24:31)  
+
+(24:31) repository  layer  and  it  returned  that
+
+(24:33)  
+
+(24:33) response  to  our  Handler  or  to  our
+
+(24:35)  
+
+(24:35) controller  and  we  are  back  from  the
+
+(24:38)  
+
+(24:38) service  layer  the  controller  layer
+
+(24:40)  
+
+(24:40) called  the  service  layer  and  it  returned
+
+(24:43)  
+
+(24:43) the  data  the  service  layer  returned  data
+
+(24:45)  
+
+(24:45) and  now  we  are  back  at  the  controller
+
+(24:47)  
+
+(24:47) layer  okay  now  what  all  happened  one  we
+
+(24:51)  
+
+(24:51) did  The  Binding  of  the  data  from  the
+
+(24:53)  
+
+(24:53) request  in  the  controller  layer  we  did
+
+(24:55)  
+
+(24:55) validations  and  transformation  s  okay
+
+(25:00)  
+
+(25:00) third  thing  what  did  did  call  service
+
+(25:02)  
+
+(25:03) layer  which  did  the  actual  processing  of
+
+(25:05)  
+
+(25:05) the  data  fourth  we  got  the  data  what  the
+
+(25:09)  
+
+(25:09) next  thing  to  do  send  response  to  the
+
+(25:13)  
+
+(25:13) client  so  as  you  can  see  the  controller
+
+(25:15)  
+
+(25:15) layer  actually  controls  the  data  flow
+
+(25:19)  
+
+(25:19) from  client  to  server  from  server  to
+
+(25:21)  
+
+(25:21) client  it  got  the  data  it  did  some
+
+(25:24)  
+
+(25:24) validation  transformation  processed  the
+
+(25:26)  
+
+(25:26) data  and  now  it  will  send  the  response
+
+(25:28)  
+
+(25:28) an  appropriate  response  back  to  our  user
+
+(25:31)  
+
+(25:31) back  to  the  client  and  depending  on  the
+
+(25:33)  
+
+(25:33) success  or  failure  of  the  service  method
+
+(25:36)  
+
+(25:36) whether  we  were  able  to  process  the  data
+
+(25:38)  
+
+(25:38) or  not  the  controller  layer  decides  on  a
+
+(25:42)  
+
+(25:42) appropriate  response  code  it  can  be  200
+
+(25:45)  
+
+(25:45) codes  uh  it  can  be  200  2011  204
+
+(25:48)  
+
+(25:48) depending  on  the  success  it  can  be  any
+
+(25:51)  
+
+(25:51) of  the  200  series  codes  or  if  there  was
+
+(25:54)  
+
+(25:54) a  failure  then  it  can  also  be  400  if  it
+
+(25:57)  
+
+(25:57) is  a  class  failure  it  will  be  400  if  it
+
+(26:00)  
+
+(26:00) is  a  server  failure  it  can  also  be  500
+
+(26:03)  
+
+(26:03) and  it  is  the  responsibility  of  the
+
+(26:04)  
+
+(26:04) controller  layer  to  decide  an
+
+(26:06)  
+
+(26:06) appropriate  response  code  and  send  an
+
+(26:08)  
+
+(26:08) appropriate  error  message  if  it  was  an
+
+(26:11)  
+
+(26:11) error  or  send  an  appropriate  success
+
+(26:13)  
+
+(26:13) message  with  the  success  data  in  this
+
+(26:16)  
+
+(26:16) case  it  it  will  return  all  the  books  an
+
+(26:19)  
+
+(26:19) array  of  books  with  a  response  code  of
+
+(26:23)  
+
+(26:23) 200  because  it  it  was  successfully  able
+
+(26:25)  
+
+(26:25) to  fetch  all  the  books  and  then  it  will
+
+(26:28)  
+
+(26:28) send  the  data  back  to  the  client  that's
+
+(26:31)  
+
+(26:31) how  the  request  life  cycle  looks  for  a
+
+(26:34)  
+
+(26:34) single  API  call  and  that's  how  handlers
+
+(26:37)  
+
+(26:37) SL  controllers  services  and  repositories
+
+(26:41)  
+
+(26:41) integrate  or  cooperate  with  each  other
+
+(26:44)  
+
+(26:44) to  process  data  from  a  client  and  send
+
+(26:47)  
+
+(26:47) an  appropriate  response  back  that's  how
+
+(26:49)  
+
+(26:49) we  that's  how  cut  next  up  we  have
+
+(26:52)  
+
+(26:52) middleware  in  the  same  context  now  where
+
+(26:55)  
+
+(26:55) do  middleware  come  in  in  this  whole
+
+(26:58)  
+
+(26:58) picture  of  a  request  life  cycle  now
+
+(27:02)  
+
+(27:02) let's  do  the  whole  request  life  cycle
+
+(27:03)  
+
+(27:03) again  but  this  time  we'll  use  middle  ver
+
+(27:06)  
+
+(27:06) and  we'll  understand  how  middle  W  work
+
+(27:07)  
+
+(27:07) and  where  do  they  actually  come  in  okay
+
+(27:10)  
+
+(27:10) we  have  a  client  let's  not  imagine
+
+(27:13)  
+
+(27:13) client  now  let's  say  we  get  the  request
+
+(27:15)  
+
+(27:15) from  a  client  now  the  moment  we  get  a
+
+(27:19)  
+
+(27:19) request  the  moment  the  request  uh
+
+(27:21)  
+
+(27:21) reaches  our  entry  point  the  moment  the
+
+(27:24)  
+
+(27:24) operating  system  forwards  our  request  to
+
+(27:27)  
+
+(27:27) the  entry  point  our  server  from  that
+
+(27:30)  
+
+(27:30) moment  on  we  can  have  different
+
+(27:33)  
+
+(27:33) different
+
+(27:34)  
+
+(27:34) functions  different  different  functions
+
+(27:36)  
+
+(27:36) in  between  like  let's  imagine  these  are
+
+(27:39)  
+
+(27:39) break  points  these  are  boundaries  of
+
+(27:41)  
+
+(27:41) different  different  functions  and  we  can
+
+(27:43)  
+
+(27:43) have  this  function  then  somewhere  we  can
+
+(27:45)  
+
+(27:45) have  our  routing  route  matching  stuff
+
+(27:49)  
+
+(27:49) where  we  forward  a  particular  API  call
+
+(27:52)  
+
+(27:52) depending  on  which  route  it  wants  to  go
+
+(27:55)  
+
+(27:55) we  can  have  routing  here  then  again
+
+(27:58)  
+
+(27:58) after  routing  we  can  also  have  middle
+
+(28:01)  
+
+(28:01) wees  here  right  these  are  just  different
+
+(28:03)  
+
+(28:03) different  boundaries  here  then  we'll
+
+(28:05)  
+
+(28:05) have  our  Handler  service  repository
+
+(28:10)  
+
+(28:10) access  then  after  this  also  we  can  have
+
+(28:13)  
+
+(28:13) middle  here  until  the  response  is  sent
+
+(28:17)  
+
+(28:17) back  to  the  client  now  let's  imagine
+
+(28:19)  
+
+(28:19) What's  Happening  Here  what  are  these
+
+(28:22)  
+
+(28:22) boundaries  okay  we  have  this  boundaries
+
+(28:24)  
+
+(28:25) we  we  are  already  familiar  about  this
+
+(28:26)  
+
+(28:26) part  we  are  doing  a  routing  here  and
+
+(28:29)  
+
+(28:29) this  part  we  that  we  just  saw  that  the
+
+(28:32)  
+
+(28:32) Handler  takes  the  request  it  takes  out
+
+(28:34)  
+
+(28:34) the  unnecessary  data  it  does  validation
+
+(28:37)  
+
+(28:37) transformation  it  calls  the  service
+
+(28:38)  
+
+(28:38) layer  service  layer  does  the  processing
+
+(28:40)  
+
+(28:40) by  using  the  repository  layer  for
+
+(28:42)  
+
+(28:42) database  operations  then  it  sends  the
+
+(28:44)  
+
+(28:44) response  back  then  the  Handler  sends  the
+
+(28:46)  
+
+(28:46) response  back  to  the  client  we  already
+
+(28:49)  
+
+(28:49) understood  this  part  and  this  part  now
+
+(28:52)  
+
+(28:52) what  are  these  things  what  are  these
+
+(28:53)  
+
+(28:53) functions  that  are  coming  in  between  we
+
+(28:57)  
+
+(28:57) call  these  functions  middle  ver  and  from
+
+(29:00)  
+
+(29:00) the  name  you  can  take  some  meaning  out
+
+(29:03)  
+
+(29:03) of  it  that  these  functions  are  supposed
+
+(29:06)  
+
+(29:06) to  be  executed  somewhere  in  the  middle
+
+(29:09)  
+
+(29:09) somewhere  in  the  middle  of  what  in  the
+
+(29:11)  
+
+(29:11) middle  of  these  things  in  the  middle  of
+
+(29:13)  
+
+(29:13) routing  in  the  middle  of  Handler
+
+(29:15)  
+
+(29:16) services  and  repositories  and  in  the
+
+(29:17)  
+
+(29:17) middle  of  sending  the  response  back  to
+
+(29:19)  
+
+(29:19) the  client  these  functions  are  executed
+
+(29:21)  
+
+(29:21) in  the  middle  boundaries  of  different
+
+(29:25)  
+
+(29:25) different  execution  environments  or
+
+(29:27)  
+
+(29:27) different  different  exec  context  that's
+
+(29:29)  
+
+(29:29) why  they  are  called  middlewares  now  why
+
+(29:32)  
+
+(29:32) do  we  use  them  what  do  they  actually  do
+
+(29:35)  
+
+(29:35) middlewares  also  like  normal  handlers
+
+(29:39)  
+
+(29:39) that  we  have  already  discussed  that  an
+
+(29:41)  
+
+(29:41) Handler  typically  a  Handler  receives  two
+
+(29:44)  
+
+(29:44) things  a  request  and  a  response  by
+
+(29:48)  
+
+(29:49) default  in  its  parameters  which  is
+
+(29:52)  
+
+(29:52) provided  by  our  programming  language  or
+
+(29:54)  
+
+(29:54) our  framework  or  our  library  whatever
+
+(29:57)  
+
+(29:57) that  we  are  using  using  to  build  our
+
+(29:59)  
+
+(29:59) server  these  two  objects  request  object
+
+(30:02)  
+
+(30:02) and  the  response  object  that  is  provided
+
+(30:05)  
+
+(30:05) to  the  Handler  by  default  by  the  runtime
+
+(30:09)  
+
+(30:09) environment  in  case  of  middlewares  also
+
+(30:12)  
+
+(30:12) since  these  are  also  one  kind  of
+
+(30:13)  
+
+(30:13) handlers  but  with  a  one  additional
+
+(30:18)  
+
+(30:18) capability  these  also  get  a  request
+
+(30:20)  
+
+(30:20) these  also  get  a  response  object  but
+
+(30:23)  
+
+(30:23) these  also  get  another  thing  called  next
+
+(30:26)  
+
+(30:26) next  is  a  function  and  we'll  come  back
+
+(30:29)  
+
+(30:29) to  next  soon  these  are  the  three  things
+
+(30:32)  
+
+(30:32) a  typical  middleware  gets  by  default
+
+(30:35)  
+
+(30:35) from  the  runtime  from  the  language  run
+
+(30:37)  
+
+(30:37) time  it  gets  three  things  one  the
+
+(30:38)  
+
+(30:39) request  object  one  the  response  object
+
+(30:40)  
+
+(30:40) to  modifying  the  response  and  stuff  and
+
+(30:42)  
+
+(30:43) one  is  the  next  function  and  the  use  of
+
+(30:45)  
+
+(30:45) next  function  is  we  have  these
+
+(30:47)  
+
+(30:47) boundaries  that  we  saw  that  there  can  be
+
+(30:50)  
+
+(30:50) one  middleware  there  can  be  another
+
+(30:51)  
+
+(30:51) middleware  and  then  there  is  the  routing
+
+(30:53)  
+
+(30:53) then  there  is  the  multiple  middle  here
+
+(30:56)  
+
+(30:56) or  there  cannot  be  a  middle  from  the
+
+(30:58)  
+
+(30:58) routing  we  can  straight  up  go  to  Handler
+
+(31:01)  
+
+(31:01) right  we  can  also  skip  these  middlewares
+
+(31:03)  
+
+(31:04) all  the  middle  Wares  are  optional  that's
+
+(31:06)  
+
+(31:06) something  you  have  to  keep  in  mind
+
+(31:07)  
+
+(31:07) middlewares  are  optional  functions  that
+
+(31:10)  
+
+(31:10) depending  on  your  requirement  that  you
+
+(31:12)  
+
+(31:12) can  Implement  that  you  can  execute  these
+
+(31:15)  
+
+(31:15) things  may  be  there  and  they  may  not  be
+
+(31:17)  
+
+(31:17) there  okay  depending  on  your  requirement
+
+(31:19)  
+
+(31:19) middlewares  receive  three  objects  which
+
+(31:22)  
+
+(31:22) are  request  response  and  next  next  is  a
+
+(31:25)  
+
+(31:25) function  which  is  basically  passes  the
+
+(31:27)  
+
+(31:27) the  execution  from  one  middleware  to  the
+
+(31:30)  
+
+(31:30) next  middleware  to  cross  this  boundary
+
+(31:32)  
+
+(31:32) from  one  middleware  to  next  middleware
+
+(31:34)  
+
+(31:34) the  runtime  gives  us  one  function  called
+
+(31:36)  
+
+(31:36) Next  and  as  the  name  sounds  we  are  just
+
+(31:39)  
+
+(31:39) proceeding  to  the  next  mid  l  or  the  next
+
+(31:42)  
+
+(31:42) execution  function  we  cannot  always  say
+
+(31:46)  
+
+(31:46) the  next  middleware  because  if  we  focus
+
+(31:49)  
+
+(31:49) on  this  execution  this  is  going  from  one
+
+(31:51)  
+
+(31:51) middleware  to  our  routing  or  if  you
+
+(31:54)  
+
+(31:54) focus  on  here  this  going  from  one
+
+(31:57)  
+
+(31:57) middleware  to  our  handl  that's  why  next
+
+(32:00)  
+
+(32:00) function  passes  the  execution  to  the
+
+(32:02)  
+
+(32:02) next  context  whatever  context  next  is
+
+(32:05)  
+
+(32:05) supposed  to  process  the  request  or  is
+
+(32:07)  
+
+(32:08) supposed  to  process  the  response  next
+
+(32:10)  
+
+(32:10) function  call  that  okay  that's  the  use
+
+(32:13)  
+
+(32:13) of  next  function  it  just  passes  the
+
+(32:15)  
+
+(32:15) execution  to  the  next  processing  context
+
+(32:18)  
+
+(32:18) that's  all  about  next  okay  now  since  a
+
+(32:23)  
+
+(32:23) middleware  receives  a  request  object  and
+
+(32:25)  
+
+(32:25) a  response  object  you  can  already
+
+(32:27)  
+
+(32:27) imagine  that  a  middleware  can  take  out
+
+(32:31)  
+
+(32:31) values  from  your  request  and  it  can  send
+
+(32:34)  
+
+(32:34) a  response  back  to  the  client  from  this
+
+(32:36)  
+
+(32:36) point  only  the  request  may  not  reach  our
+
+(32:39)  
+
+(32:39) routing  part  the  request  may  not  reach
+
+(32:43)  
+
+(32:43) after  the  routing  algorithm  and  it  may
+
+(32:45)  
+
+(32:45) not  reach  to  the  handlers  Which  is  far
+
+(32:48)  
+
+(32:48) ahead  in  the  request  life  cycle  this
+
+(32:50)  
+
+(32:50) middleware  can  do  some  logic  and  it  can
+
+(32:52)  
+
+(32:53) send  a  response  back  to  the  client  from
+
+(32:55)  
+
+(32:55) this  point  on  so  okay  because  it
+
+(32:57)  
+
+(32:58) receives  a  response  object  from  the
+
+(33:00)  
+
+(33:00) runtime  that  is  the  capability  of  a
+
+(33:03)  
+
+(33:03) middleware  it  can  take  values  out  from
+
+(33:05)  
+
+(33:05) request  it  can  modify  the  values  of  the
+
+(33:08)  
+
+(33:08) request  and  it  can  also  send  back  a
+
+(33:10)  
+
+(33:10) response  to  the  client  that's  the
+
+(33:11)  
+
+(33:12) capabilities  of  a  middleware  now  why  do
+
+(33:14)  
+
+(33:14) we  use  middlewares  okay  why  not  do
+
+(33:17)  
+
+(33:17) everything  in  the  handlers  only  why  do
+
+(33:20)  
+
+(33:20) we  use  different  different  things  now
+
+(33:23)  
+
+(33:23) the  obvious  answer  is  because  the  same
+
+(33:25)  
+
+(33:25) reason  we  use  functions  why  do  we  use
+
+(33:27)  
+
+(33:27) functions  so  that  we  don't  have  to  write
+
+(33:30)  
+
+(33:30) the  same  set  of  lines  the  same  set  of
+
+(33:33)  
+
+(33:33) lines  of  execution  all  the  time  in
+
+(33:36)  
+
+(33:36) different  different  places  we  can  just
+
+(33:39)  
+
+(33:39) write  those  few  lines  in  one  function  we
+
+(33:42)  
+
+(33:42) can  pack  that  in  in  one  environment  then
+
+(33:45)  
+
+(33:45) we  can  call  that  function  again  and
+
+(33:47)  
+
+(33:47) again  in  different  different  places
+
+(33:49)  
+
+(33:49) depending  on  our  requirement  you  can
+
+(33:52)  
+
+(33:52) pass  different  different  parameter  to  it
+
+(33:54)  
+
+(33:54) and  change  the  order  of  the  execution  or
+
+(33:56)  
+
+(33:56) the  uh  result  of  the  execution  but  we
+
+(33:59)  
+
+(33:59) can  reuse  that  code  in  different
+
+(34:00)  
+
+(34:00) different  places  that's  the  reason  we
+
+(34:02)  
+
+(34:02) use  functions  in  programming  same  way  we
+
+(34:05)  
+
+(34:05) use  middleware  so  that  we  can  do  some
+
+(34:09)  
+
+(34:09) logic  in  our  whole  API  request  life
+
+(34:11)  
+
+(34:11) cycle  again  and  again  in  different
+
+(34:14)  
+
+(34:14) different  request  so  as  a  backend
+
+(34:18)  
+
+(34:18) application  your  app  receives  thousands
+
+(34:21)  
+
+(34:21) or  depending  on  the  scale  depending  on
+
+(34:23)  
+
+(34:23) the  popularity  of  your  platform  it  might
+
+(34:26)  
+
+(34:26) be  receiving  thousands  and  millions  and
+
+(34:28)  
+
+(34:28) billions  of  requests  every  day  and
+
+(34:30)  
+
+(34:30) because  of  that  you  have  to  do  some  kind
+
+(34:32)  
+
+(34:32) of  common  operations  you  have  to  do  some
+
+(34:33)  
+
+(34:33) kind  of  uh  security  operations  logging
+
+(34:36)  
+
+(34:36) operations  and  authentication  operations
+
+(34:39)  
+
+(34:39) and  data  passing  operations  for  all
+
+(34:41)  
+
+(34:41) those  requests  now  you  also  as  a  huge
+
+(34:44)  
+
+(34:44) backend  application  you  also  have
+
+(34:46)  
+
+(34:46) hundreds  and  sometimes  thousands  of  API
+
+(34:49)  
+
+(34:49) end  points  now  for  each  API  endpoint  you
+
+(34:52)  
+
+(34:52) will  have  handlers  there  is  no  way
+
+(34:53)  
+
+(34:53) avoiding  that  you  have  to  write
+
+(34:55)  
+
+(34:55) different  different  handlers  for
+
+(34:56)  
+
+(34:56) different  different  API  points  that  is
+
+(34:59)  
+
+(34:59) there  now  if  we  don't  have  middlewares
+
+(35:01)  
+
+(35:01) we  have  to  perform  the  same  set  of
+
+(35:05)  
+
+(35:05) operations  for  each  Handler  we  have  to
+
+(35:07)  
+
+(35:07) duplicate  that  code  for  each  Handler  and
+
+(35:10)  
+
+(35:10) at  this  point  you  might  also  say  that  we
+
+(35:13)  
+
+(35:13) can  write  a  function  and  we  can  call
+
+(35:15)  
+
+(35:15) that  function  in  every  Handler  you  can
+
+(35:18)  
+
+(35:18) do  that  but  this  that  is  still  some  kind
+
+(35:20)  
+
+(35:20) of  duplication  that  you  have  to  call
+
+(35:23)  
+
+(35:23) that  function  in  every  Handler  that  is
+
+(35:25)  
+
+(35:25) the  reason  to  minimize  that  code
+
+(35:28)  
+
+(35:28) duplication  to  minimize  that  redundancy
+
+(35:31)  
+
+(35:31) we  delegate  the  responsibility  of
+
+(35:34)  
+
+(35:34) dealing  with  some  common  operations
+
+(35:36)  
+
+(35:36) whether  it  is  security  whether  it  is
+
+(35:37)  
+
+(35:37) logging  whether  it  is  Data  passing
+
+(35:39)  
+
+(35:39) whether  it  is  compression  all  these
+
+(35:41)  
+
+(35:41) different  different  common  operations  we
+
+(35:43)  
+
+(35:43) delegate  those  parts  to  a  different
+
+(35:46)  
+
+(35:46) component  of  our  request  life  cycle  and
+
+(35:48)  
+
+(35:48) we  call  that  middleware  functions
+
+(35:51)  
+
+(35:51) middleware  functions  because  they  will
+
+(35:52)  
+
+(35:52) be  placed  in  the  middle  before  it
+
+(35:54)  
+
+(35:54) reaches  the  appropriate  component  before
+
+(35:56)  
+
+(35:56) it  reaches  the  Handler
+
+(35:58)  
+
+(35:58) and  they  will  do  these  common  operations
+
+(36:00)  
+
+(36:00) and  depending  on  the  result  of  those
+
+(36:02)  
+
+(36:02) operations  it  can  they  can  even  send  a
+
+(36:04)  
+
+(36:04) response  back  to  the  client  before  that
+
+(36:06)  
+
+(36:06) request  reaches  our  handlers  so  that  we
+
+(36:09)  
+
+(36:09) don't  waste  our  precious  server
+
+(36:12)  
+
+(36:12) resources  that's  I  use  middleware  number
+
+(36:15)  
+
+(36:15) one  uh  requirement  being  to  reduce  code
+
+(36:18)  
+
+(36:18) duplication  now  the  second  thing  to  keep
+
+(36:20)  
+
+(36:20) in  mind  is  the  order  of  middleware  is
+
+(36:24)  
+
+(36:24) important  this  order  is  important
+
+(36:26)  
+
+(36:26) because  as  a  request  from  our  client
+
+(36:29)  
+
+(36:29) reaches  here  at  the  enter  point  and
+
+(36:31)  
+
+(36:31) starting  from  this  every  middleware
+
+(36:33)  
+
+(36:33) using  next  function  passes  the  execution
+
+(36:36)  
+
+(36:36) to  the  next  middleware  okay  it  passes
+
+(36:38)  
+
+(36:38) this  to  the  next  middleware  then  it
+
+(36:39)  
+
+(36:39) passes  to  routing  then  routing  passes
+
+(36:41)  
+
+(36:41) the  execution  to  the  next  middleware
+
+(36:43)  
+
+(36:43) then  then  then  then  then  then  until  a
+
+(36:46)  
+
+(36:46) response  is  sent  back  to  the  client  this
+
+(36:48)  
+
+(36:48) all  happens  using  the  next  MW  can  use
+
+(36:52)  
+
+(36:52) next  function  to  pass  the  execution  to
+
+(36:53)  
+
+(36:53) the  next  middle  if  there  is  one  this
+
+(36:56)  
+
+(36:56) order  of  passing  the  execution  to  all
+
+(36:59)  
+
+(36:59) the  different  different  middle  is
+
+(37:00)  
+
+(37:00) important  that's  how  our  request  will  be
+
+(37:03)  
+
+(37:03) processed  the  order  is  important  now
+
+(37:05)  
+
+(37:05) these  are  some  examples  where  we  use
+
+(37:08)  
+
+(37:08) middleware  typically  in  a  backend
+
+(37:10)  
+
+(37:10) application  for  let's  say  security
+
+(37:12)  
+
+(37:12) purpose  security  purpose  can  be  let's
+
+(37:15)  
+
+(37:15) say  we  have  different  different
+
+(37:16)  
+
+(37:16) materials  let's  say  we  have  course  then
+
+(37:18)  
+
+(37:18) we  have
+
+(37:20)  
+
+(37:20) security  headers  to  add  security  headers
+
+(37:24)  
+
+(37:24) then  we  have  authentication  middleware
+
+(37:26)  
+
+(37:26) then  we  have  rate  limit
+
+(37:28)  
+
+(37:28) let's  see  what  each  of  these  middlewares
+
+(37:30)  
+
+(37:30) do  then  we'll  understand  why  they  are  a
+
+(37:31)  
+
+(37:32) middleware  instead  of  a  common  function
+
+(37:33)  
+
+(37:33) we  have  already  understood  course  uh
+
+(37:36)  
+
+(37:36) course  U  is  basically  a  security
+
+(37:38)  
+
+(37:39) mechanism  a  privacy  mechanism  followed
+
+(37:41)  
+
+(37:41) by  the  browsers  which  states  that  your
+
+(37:44)  
+
+(37:44) application  that  is  running  in  the
+
+(37:46)  
+
+(37:46) browser  cannot  access  resources  outside
+
+(37:49)  
+
+(37:49) of  your  own  origin  which  means  if  you
+
+(37:52)  
+
+(37:52) have  domain  example.com  then  you  can
+
+(37:54)  
+
+(37:54) only  access  resources  from  example.com
+
+(37:57)  
+
+(37:57) that  is  a  restriction  browser  poses  on
+
+(38:00)  
+
+(38:00) you  as  a  client  now  to  um  bypass  that
+
+(38:04)  
+
+(38:04) not  bypass  necessarily  but  if  the
+
+(38:06)  
+
+(38:06) resource  the  remote  resource  sends  a
+
+(38:08)  
+
+(38:08) header  remote  resource  sends  an
+
+(38:10)  
+
+(38:10) appropriate  header  which  says  that  your
+
+(38:13)  
+
+(38:13) client  is  allowed  to  access  the
+
+(38:16)  
+
+(38:16) resources  from  this  server  in  that  case
+
+(38:19)  
+
+(38:19) the  browser  won't  block  the  response
+
+(38:21)  
+
+(38:21) won't  block  that  request  that's  why  we
+
+(38:24)  
+
+(38:24) have  course  so  that  we  can  limit  what
+
+(38:27)  
+
+(38:27) kind  of  clients  at  least  web  apps  can
+
+(38:30)  
+
+(38:30) communicate  with  our  servers  okay  now  on
+
+(38:33)  
+
+(38:33) the  server  side  what  happens  is  your
+
+(38:36)  
+
+(38:36) server  gets  the  request  from  the  client
+
+(38:38)  
+
+(38:38) and  it  has  to  check  the  origin  of  the
+
+(38:40)  
+
+(38:40) request  where  it  is  coming  from  that  is
+
+(38:43)  
+
+(38:43) automatically  given  to  us  by  our  runtime
+
+(38:45)  
+
+(38:45) we  receive  an  origin  value  from  where
+
+(38:48)  
+
+(38:48) the  request  is  coming  from  and  depending
+
+(38:51)  
+
+(38:51) on  the  origin  value  and  depending  on
+
+(38:54)  
+
+(38:54) what  are  the  origins  that  we  are
+
+(38:57)  
+
+(38:57) allowing  to  communicate  with  us  we  can
+
+(39:00)  
+
+(39:00) set  some  headers  if  it  is  an  allowed
+
+(39:03)  
+
+(39:03) origin  that  is  if  it  is  the  front  end
+
+(39:06)  
+
+(39:06) domain  that  is  our  frontend  platform
+
+(39:08)  
+
+(39:08) that  is  trying  to  communicate  with  our
+
+(39:10)  
+
+(39:10) backend  platform  if  that  condition  is
+
+(39:11)  
+
+(39:12) true  if  it  is  our  frontend  platform  in
+
+(39:15)  
+
+(39:15) that  case  we  want  to  add  the  appropriate
+
+(39:18)  
+
+(39:18) headers  we  have  covered  this  whole
+
+(39:20)  
+
+(39:20) workflow  in  our  HTTP  video  right  in  the
+
+(39:22)  
+
+(39:22) back  end  from  first  principles  uh
+
+(39:24)  
+
+(39:24) playlist  that  you  can  watch  to
+
+(39:26)  
+
+(39:26) understand  how  the  course  flow  works  we
+
+(39:28)  
+
+(39:28) don't  want  to  go  too  deep  into  this
+
+(39:30)  
+
+(39:30) since  it  is  about  a  different  topic  now
+
+(39:33)  
+
+(39:33) you  want  to  add  this  particular  headers
+
+(39:35)  
+
+(39:35) that  will  tell  the  browsers  that  it  is
+
+(39:38)  
+
+(39:38) allowed  this  request  should  be  allowed
+
+(39:41)  
+
+(39:41) in  the  same  origin  policy  now  we  want
+
+(39:44)  
+
+(39:44) that  to  happen  if  the  origin  matches  our
+
+(39:46)  
+
+(39:46) frontend  origin  if  that  condition  passes
+
+(39:48)  
+
+(39:48) through  we  and  want  to  add  those  headers
+
+(39:51)  
+
+(39:51) and  then  we  want  to  pass  that  on  to  the
+
+(39:53)  
+
+(39:53) next  middleware  as  we  have  already  seen
+
+(39:55)  
+
+(39:55) as  we  have  already  seen  here  each
+
+(39:56)  
+
+(39:56) middleware  does  something  and  passes
+
+(39:58)  
+
+(39:58) that  request  to  the  next  middleware  or
+
+(40:00)  
+
+(40:00) it  can  send  the  response  back  to  the
+
+(40:02)  
+
+(40:02) client  at  this  point  in  the  course
+
+(40:04)  
+
+(40:04) middleware  what  happens  it  gets  the
+
+(40:07)  
+
+(40:07) request  it  takes  out  the  origin  It
+
+(40:09)  
+
+(40:09) checks  if  it  is  our  front  end  domain  if
+
+(40:11)  
+
+(40:11) it  is  our  front  end  domain  it  adds  some
+
+(40:15)  
+
+(40:15) headers  to  our  response  to  our  response
+
+(40:18)  
+
+(40:18) object  it  adds  our  some  response  headers
+
+(40:20)  
+
+(40:20) that  there  is  the  allowed  Origins  and
+
+(40:23)  
+
+(40:23) Etc  then  it  passes  that  to  the  next
+
+(40:26)  
+
+(40:26) execution  environment  or  for  the  next
+
+(40:27)  
+
+(40:27) middleware  okay  if  it  does  not  match
+
+(40:30)  
+
+(40:30) then  we  don't  add  any  headers  and  the
+
+(40:32)  
+
+(40:32) browser  will  block  the  request  by
+
+(40:34)  
+
+(40:34) default  when  we  send  the  response  back
+
+(40:36)  
+
+(40:36) to  the  client  okay  now  the  question  is
+
+(40:39)  
+
+(40:39) why  did  we  make  this  as  a  middleware
+
+(40:41)  
+
+(40:41) because  this  is  a  function  that  needs  to
+
+(40:44)  
+
+(40:44) happen  that  needs  to  get  executed  for
+
+(40:47)  
+
+(40:47) each  API  call  that  our  server  will
+
+(40:51)  
+
+(40:51) receive  that  is  the  first  requirement  we
+
+(40:54)  
+
+(40:54) want  to  reduce  the  code  duplication  it
+
+(40:56)  
+
+(40:56) needs  to  deal  with  the  request  object  or
+
+(40:58)  
+
+(40:58) the  response  object  in  this  case  it  it
+
+(41:00)  
+
+(41:00) deals  with  both  it  takes  the  origin  out
+
+(41:02)  
+
+(41:03) of  the  request  it  modifies  the  response
+
+(41:04)  
+
+(41:04) headers  that  is  a  second  requirement
+
+(41:06)  
+
+(41:06) there  is  some  code  that  needs  to  run  for
+
+(41:08)  
+
+(41:08) each  request  and  it  needs  to  deal  with
+
+(41:09)  
+
+(41:09) the  request  and  response  object  that's
+
+(41:11)  
+
+(41:12) why  me  made  this  a  middleware  so  that  we
+
+(41:14)  
+
+(41:14) don't  have  to  do  this  for  each  Handler
+
+(41:17)  
+
+(41:17) okay  this  is  the  perfect  requirement  for
+
+(41:20)  
+
+(41:20) a  middleware  that's  why  course  is
+
+(41:22)  
+
+(41:22) usually  implemented  in  the  middleware
+
+(41:24)  
+
+(41:24) layer  not  in  the  Handler  layer  okay
+
+(41:27)  
+
+(41:27) similarly  we  have  security  headers  from
+
+(41:30)  
+
+(41:30) the  server  we  can  set  different
+
+(41:32)  
+
+(41:32) different  security  headers  for  example
+
+(41:33)  
+
+(41:33) content  security  policy  etc  etc  and  we
+
+(41:36)  
+
+(41:36) want  to  set  that  for  each  API  call  that
+
+(41:40)  
+
+(41:40) we  receive  that's  why  we  also  made  this
+
+(41:43)  
+
+(41:43) a  middleware  it  gets  the  request  it  adds
+
+(41:45)  
+
+(41:45) the  appropriate  security  headers  and  it
+
+(41:47)  
+
+(41:47) forwards  that  to  the  next  middleware
+
+(41:50)  
+
+(41:50) similarly  we  have
+
+(41:51)  
+
+(41:51) authentication  we  make  authentication  as
+
+(41:54)  
+
+(41:54) a  middleware  because  we  don't  want  to
+
+(41:56)  
+
+(41:56) duplicate  the  function  of  getting  the
+
+(41:58)  
+
+(41:58) token  uh  usually  when  we  authenticate  we
+
+(42:01)  
+
+(42:01) take  the  token  if  you  have  seen  the
+
+(42:03)  
+
+(42:03) authentication  authorization  video  in
+
+(42:04)  
+
+(42:04) the  pack  in  from  first  principles
+
+(42:06)  
+
+(42:06) playlist  then  you'll  understand  this
+
+(42:08)  
+
+(42:08) usually  in  authentication  we  take  some
+
+(42:11)  
+
+(42:11) kind  of  token  can  be  JW  it  can  be  S  ID
+
+(42:14)  
+
+(42:14) Etc  from  the  request  object  and  from  the
+
+(42:17)  
+
+(42:17) headers  or  from  the  payload  or  whatever
+
+(42:20)  
+
+(42:20) your  implementation  is  we  do  some  kind
+
+(42:22)  
+
+(42:22) of  logic  to  verify  whether  it  is  proper
+
+(42:25)  
+
+(42:25) credentials  or  not  whether  it  is  a
+
+(42:27)  
+
+(42:27) proper  token  or  not  depending  on  the
+
+(42:30)  
+
+(42:30) success  or  failure  of  that  if  it  is  a
+
+(42:32)  
+
+(42:32) failure  then  we  send  a  401  unauthorized
+
+(42:37)  
+
+(42:37) error  code  to  the  client  right  from  here
+
+(42:40)  
+
+(42:40) without  going  to  our  Handler  layers
+
+(42:41)  
+
+(42:42) without  forwarding  the  request  to  the
+
+(42:44)  
+
+(42:44) next  middleware  we  immediately  send  an
+
+(42:47)  
+
+(42:47) error  code  back  to  the  client  and  we
+
+(42:49)  
+
+(42:49) terminate  the  request  right  there  or  if
+
+(42:52)  
+
+(42:52) it  was  a  success  what  we  do  we
+
+(42:54)  
+
+(42:54) authenticate  we  take  out  whatever
+
+(42:56)  
+
+(42:56) details  is  is  needed  for  example  the
+
+(42:59)  
+
+(42:59) user  ID  or  the  permission  or  the  role  of
+
+(43:03)  
+
+(43:03) the  user  whether  the  user  is  admin  or
+
+(43:05)  
+
+(43:05) not  etc  etc  we  take  this  we  add  this  to
+
+(43:09)  
+
+(43:09) our  request  context  and  that's  the
+
+(43:11)  
+
+(43:11) reason  the  request  context  is  our  next
+
+(43:13)  
+
+(43:13) topic  of  discussion  we  add  this
+
+(43:15)  
+
+(43:15) information  to  our  request  context  and
+
+(43:17)  
+
+(43:17) we  forward  it  to  our  next  middleware  we
+
+(43:19)  
+
+(43:19) don't  um  send  the  response  back  to  the
+
+(43:22)  
+
+(43:22) client  immediately  that  we  do  only  in
+
+(43:25)  
+
+(43:25) case  of  failures  that's  the  reason  we
+
+(43:27)  
+
+(43:27) make  authentication  as  a  middleware  so
+
+(43:29)  
+
+(43:29) that  for  each  request  and  for  each
+
+(43:32)  
+
+(43:32) request  it  verifies  the  credentials  or
+
+(43:35)  
+
+(43:35) the  token  and  accordingly  it  terminates
+
+(43:38)  
+
+(43:38) the  execution  or  it  passes  the  execution
+
+(43:40)  
+
+(43:40) with  the  appropriate  metadata  like  user
+
+(43:42)  
+
+(43:42) ID  and  user  role  to  the  next  middleware
+
+(43:45)  
+
+(43:45) similarly  rate  limits  rate  limits  we
+
+(43:47)  
+
+(43:47) Implement  so  that  one  client  cannot  do  a
+
+(43:50)  
+
+(43:50) lot  of  request  in  a  short  amount  of  time
+
+(43:54)  
+
+(43:54) we  pred  decide  a  reasonable  number
+
+(43:57)  
+
+(43:57) request  that  a  client  can  send  in  a
+
+(44:00)  
+
+(44:00) particular  period  and  we  add  a
+
+(44:03)  
+
+(44:03) middleware  which  checks  that  we  do  that
+
+(44:05)  
+
+(44:05) with  IP  addresses  we  check  that  whether
+
+(44:08)  
+
+(44:08) this  IP  address  has  made  more  than  30
+
+(44:11)  
+
+(44:11) API  calls  in  the  last  2  seconds
+
+(44:13)  
+
+(44:13) something  like  that  we  decide  the
+
+(44:14)  
+
+(44:14) threshold  ourselves  we  decide  the
+
+(44:17)  
+
+(44:17) thresholds  of  the  time  and  what  time
+
+(44:19)  
+
+(44:19) period  we  want  to  check  we  also  decide
+
+(44:21)  
+
+(44:21) the  threshold  of  the  API  calls  whether
+
+(44:23)  
+
+(44:23) it  is  30  API  calls  whether  it  is  500  API
+
+(44:25)  
+
+(44:25) calls  etc  etc  and  according  to  that  we
+
+(44:28)  
+
+(44:28) Implement  our  rate  limit  if  the  client
+
+(44:30)  
+
+(44:30) exceeds  the  limit  what  we  do  we  send  an
+
+(44:33)  
+
+(44:33) error  code  of
+
+(44:34)  
+
+(44:34) 429  which  basically  we  send  when  there
+
+(44:37)  
+
+(44:37) are  too  many  requests  from  the  client  we
+
+(44:39)  
+
+(44:39) send  an  error  code  of  4  to9  back  to  the
+
+(44:41)  
+
+(44:41) client  saying  there  are  too  many  rquest
+
+(44:43)  
+
+(44:43) in  the  short  period  of  time  if  the
+
+(44:46)  
+
+(44:46) client  has  not  exceeded  the  limits  then
+
+(44:48)  
+
+(44:48) we  pass  the  execution  to  the  next  middle
+
+(44:50)  
+
+(44:50) a  using  the  next  function  okay  that's
+
+(44:53)  
+
+(44:53) how  that's  some  of  the  examples  of  the
+
+(44:55)  
+
+(44:55) security  medal  similarly  we  have  logging
+
+(44:58)  
+
+(44:58) middlewares  and  monitoring  logging
+
+(44:59)  
+
+(44:59) middlewares  logging  and  monitoring
+
+(45:01)  
+
+(45:01) middlewares  which  basically  every  time
+
+(45:04)  
+
+(45:04) we  get  an  HTTP  request  let's  say  we  got
+
+(45:06)  
+
+(45:06) got  a  get  request  okay  we  can  do  some
+
+(45:09)  
+
+(45:09) kind  of  logging  in  our  server  uh  in  our
+
+(45:11)  
+
+(45:11) terminal  or  whether  a  log  file  so  that
+
+(45:15)  
+
+(45:15) we  can  later  on  it  helps  us  debug
+
+(45:17)  
+
+(45:17) information  it  helps  us  in  reports  ET
+
+(45:20)  
+
+(45:20) Etc  to  track  different  different
+
+(45:22)  
+
+(45:22) parameters  for  each  request  this
+
+(45:24)  
+
+(45:24) middleware  gets  different  different
+
+(45:26)  
+
+(45:26) parameters  out  of  that  request  for
+
+(45:28)  
+
+(45:28) example  what  is  the  path  we  are  trying
+
+(45:30)  
+
+(45:30) to  access  which  is  users  uh  what  is  the
+
+(45:33)  
+
+(45:33) request  method  which  is  get  what  are  the
+
+(45:36)  
+
+(45:36) query  parameters  what  is  the  request
+
+(45:37)  
+
+(45:37) board  ET  we  can  log  a  lot  of  information
+
+(45:40)  
+
+(45:40) for  each  request  so  that  it's  easier  to
+
+(45:41)  
+
+(45:42) deug  and  it's  easier  to  audit  and  etc
+
+(45:45)  
+
+(45:45) etc  okay  that  is  the  example  of  logging
+
+(45:47)  
+
+(45:47) middle  we  also  have  Global  error
+
+(45:49)  
+
+(45:50) handling  and  this  is  very  important  uh
+
+(45:52)  
+
+(45:52) you  feel  every  backend  application
+
+(45:53)  
+
+(45:53) should  some  kind  of  should  have  some
+
+(45:55)  
+
+(45:55) kind  of  global  error  handling  so  that
+
+(45:57)  
+
+(45:57) what  happens  it  does  not  matter  uh  at
+
+(46:00)  
+
+(46:00) what  point  some  error  occurs  in  your
+
+(46:03)  
+
+(46:03) application  it  can  happen  in  the  Handler
+
+(46:05)  
+
+(46:05) layer  it  can  happen  in  the  service  layer
+
+(46:06)  
+
+(46:06) or  it  can  happen  in  any  of  the
+
+(46:08)  
+
+(46:08) middlewares  that  are  executing  in
+
+(46:10)  
+
+(46:10) between  in  between  different  different
+
+(46:12)  
+
+(46:12) function  boundaries  in  all  these
+
+(46:14)  
+
+(46:14) different  different  execution
+
+(46:15)  
+
+(46:15) environments  does  not  matter  at  what
+
+(46:17)  
+
+(46:17) point  an  error  occurs  this  middle  lay
+
+(46:20)  
+
+(46:20) can  get  that  error  it  will  get  that
+
+(46:22)  
+
+(46:22) error  uh  that  generic  error  whatever
+
+(46:24)  
+
+(46:25) happened  and  from  that  what  it  can  do  it
+
+(46:28)  
+
+(46:28) can  find  out  whether  this  is  a  client
+
+(46:30)  
+
+(46:30) error  or  not  we  can  Define  different
+
+(46:32)  
+
+(46:32) different  parameters  or  different
+
+(46:34)  
+
+(46:34) different  fields  inside  the  errors  to
+
+(46:36)  
+
+(46:36) indicate  whether  this  error  was  a  client
+
+(46:38)  
+
+(46:38) error  or  this  was  a  server  error
+
+(46:40)  
+
+(46:40) something  went  wrong  in  our  server
+
+(46:41)  
+
+(46:41) execution  depending  on  that  it  can  send
+
+(46:44)  
+
+(46:44) a  400  errors  or  500  errors  and  it  can
+
+(46:48)  
+
+(46:48) send  a  properly  structured  error  message
+
+(46:51)  
+
+(46:51) which  usually  has  a  message  or  some  kind
+
+(46:54)  
+
+(46:54) of  code  so  that  the  front  end  can  render
+
+(46:56)  
+
+(46:56) different  different  uh  userfriendly
+
+(46:58)  
+
+(46:58) messages  depending  on  the  code  or  the  ID
+
+(47:02)  
+
+(47:02) sometimes  also  called  ID  and  the  status
+
+(47:05)  
+
+(47:05) back  to  our  client  so  the  goal  of  the
+
+(47:07)  
+
+(47:07) global  error  handling  middleware  is  it
+
+(47:09)  
+
+(47:09) takes  out  an  unstructured  error  from
+
+(47:12)  
+
+(47:12) anywhere  from  our  app  and  since  it  is  a
+
+(47:15)  
+
+(47:15) middleware  it  has  access  to  that  and
+
+(47:18)  
+
+(47:18) because  of  the  nature  of  global  error
+
+(47:20)  
+
+(47:20) handling  middleware  usually  what  we  do
+
+(47:22)  
+
+(47:22) in  our  middleware  life  cycle  we  have
+
+(47:24)  
+
+(47:24) different  different  middleware  at
+
+(47:25)  
+
+(47:25) different  different  points  right  it  is
+
+(47:27)  
+
+(47:27) the  entry  point  this  is  the  first
+
+(47:28)  
+
+(47:28) middleware  that  happens  and  this  is  the
+
+(47:30)  
+
+(47:30) last  middleware  usually  what  happens  we
+
+(47:32)  
+
+(47:32) keep  the  error  handling  middleware  at
+
+(47:34)  
+
+(47:34) the  last  we  send  a  response  back  to  our
+
+(47:36)  
+
+(47:36) client  because  in  all  these  different
+
+(47:39)  
+
+(47:39) different  executions  error  might  happen
+
+(47:41)  
+
+(47:41) in  any  of  these  cases  so  the  last
+
+(47:43)  
+
+(47:43) middleware  can  get  that  it  can  check
+
+(47:46)  
+
+(47:46) whether  some  error  occurred  if  it  did
+
+(47:48)  
+
+(47:48) then  it  can  properly  structure  that
+
+(47:50)  
+
+(47:50) error  and  send  a  properly  structured
+
+(47:52)  
+
+(47:52) error  message  back  to  the  client  that's
+
+(47:54)  
+
+(47:54) the  reason  we  use  error  middleware  error
+
+(47:56)  
+
+(47:56) close  Global  error  handling  middleware
+
+(47:58)  
+
+(47:58) at  the  last  point  of  our  execution  as
+
+(48:00)  
+
+(48:00) the  last  middleware  and  as  I  said  The
+
+(48:03)  
+
+(48:03) Ordering  of  middleware  is  important
+
+(48:05)  
+
+(48:05) because  if  you  use  error  middleware
+
+(48:08)  
+
+(48:08) somewhere  in  the  middle  then  if  some
+
+(48:11)  
+
+(48:11) error  happens  in  our  Handler  at  this
+
+(48:13)  
+
+(48:13) point  then  the  error  middleware  won't
+
+(48:15)  
+
+(48:15) have  access  to  that  error  because  the
+
+(48:17)  
+
+(48:17) execution  of  that  middleware  was
+
+(48:19)  
+
+(48:19) happening  here  but  our  error  occurred
+
+(48:22)  
+
+(48:22) somewhere  in  the  here  and  the  request
+
+(48:24)  
+
+(48:24) flows  this  way  okay  it  flows  one  way  we
+
+(48:28)  
+
+(48:28) cannot  get  the  error  back  here  that's
+
+(48:31)  
+
+(48:31) the  reason  we  should  think  more  about
+
+(48:34)  
+
+(48:34) how  we  are  ordering  our  middlewares  now
+
+(48:36)  
+
+(48:36) coming  back  we  similarly  have
+
+(48:38)  
+
+(48:38) compression  middle  so  that  uh  if  you
+
+(48:40)  
+
+(48:40) have  a  large  response  let's  say  we  have
+
+(48:42)  
+
+(48:42) a  Json  which  has  thousands  and  thousands
+
+(48:44)  
+
+(48:44) of  fields  we  can  use  some  kind  of
+
+(48:46)  
+
+(48:46) compression  algorithm  like  G  etc  etc  to
+
+(48:49)  
+
+(48:49) compress  that  response  and  send  the
+
+(48:51)  
+
+(48:51) response  back  typically  modern  browsers
+
+(48:53)  
+
+(48:53) have  the  capability  to  decompress  that
+
+(48:56)  
+
+(48:56) response  back  to  a  format  that  browsers
+
+(48:59)  
+
+(48:59) can  understand  that  clients  can
+
+(49:01)  
+
+(49:01) understand  so  that  during  the  transit  a
+
+(49:04)  
+
+(49:04) compressed  format  is  in  use  but  during
+
+(49:08)  
+
+(49:08) the  client  dation  process  that
+
+(49:10)  
+
+(49:10) compressed  format  is  again  converted
+
+(49:12)  
+
+(49:12) into  a  proper  client  form  for  example  a
+
+(49:14)  
+
+(49:14) JavaScript  project  etc  etc  right  we  also
+
+(49:18)  
+
+(49:18) use  middle  in  case  of  compression  Etc
+
+(49:20)  
+
+(49:20) similarly  for  data  passing  the  process
+
+(49:23)  
+
+(49:23) of  serialization  and  deserialization  we
+
+(49:25)  
+
+(49:25) can  also  delegate  that  to  a  middleware
+
+(49:27)  
+
+(49:27) so  that  we  don't  have  to  do  that  in
+
+(49:29)  
+
+(49:29) different  different  handlers  of  course
+
+(49:30)  
+
+(49:30) that  depends  on  the  requirement  of  your
+
+(49:33)  
+
+(49:33) backend  on  your  code  base  and  what  are
+
+(49:35)  
+
+(49:35) the  standards  that  you  use  what  are  the
+
+(49:37)  
+
+(49:37) styling  standards  that  you  are  using  but
+
+(49:40)  
+
+(49:40) you  can  also  do  that  you  can  delegate
+
+(49:42)  
+
+(49:42) the  validation  transformation  into  a
+
+(49:44)  
+
+(49:44) different  middleware  the  data  passing
+
+(49:45)  
+
+(49:46) The  Binding  of  data  the  serialization
+
+(49:47)  
+
+(49:47) and  deserialization  data  to  a  different
+
+(49:49)  
+
+(49:49) middleware  so  these  are  all  the  examples
+
+(49:51)  
+
+(49:51) of  how  middlewares  work  and  as  I  said
+
+(49:54)  
+
+(49:54) The  Ordering  of  middleware  is  important
+
+(49:56)  
+
+(49:56) that's  the  reason  typically  in  our  rec
+
+(49:58)  
+
+(49:58) life  cycle  the  first  middleware  that
+
+(50:00)  
+
+(50:00) gets  executed  is  course  because  if  it  is
+
+(50:04)  
+
+(50:05) coming  from  An  Origin  that  is  not
+
+(50:06)  
+
+(50:06) supposed  to  have  access  to  your  server
+
+(50:09)  
+
+(50:09) in  that  case  you  want  to  find  out  that
+
+(50:11)  
+
+(50:11) information  at  the  early  stage  of  your
+
+(50:14)  
+
+(50:14) request  so  that  you  can  terminate  the
+
+(50:15)  
+
+(50:15) request  right  here  that's  the  reason
+
+(50:18)  
+
+(50:18) course  is  executed  the  early
+
+(50:21)  
+
+(50:21) face  then  we  usually  execute  some  kind
+
+(50:24)  
+
+(50:24) of  logging  middleware  then  we  have
+
+(50:26)  
+
+(50:26) authentication  then  at  the  end  we  have
+
+(50:28)  
+
+(50:28) Global  error  handling  as  I  said  The
+
+(50:30)  
+
+(50:30) Ordering  of  middleware  is  important
+
+(50:32)  
+
+(50:32) depending  on  how  you're  structuring  your
+
+(50:35)  
+
+(50:35) application  and  what  are  your
+
+(50:37)  
+
+(50:37) requirements  you  should  spend  some  time
+
+(50:39)  
+
+(50:39) in  thinking  at  what  order  these  requests
+
+(50:43)  
+
+(50:43) has  to  be  modified  or  at  what  order  the
+
+(50:46)  
+
+(50:46) request  life  cycle  should  follow  to
+
+(50:49)  
+
+(50:49) provide  a  appropriate  experience  to  the
+
+(50:52)  
+
+(50:52) client  which  is  making  the  API  call  and
+
+(50:55)  
+
+(50:55) that's  pretty  much  all  about  middle
+
+(50:57)  
+
+(50:57) now  somewhere  at  this  point  somewhere  at
+
+(51:00)  
+
+(51:00) this  point  we  talked  about  the
+
+(51:01)  
+
+(51:01) authentication  middleware  and  how  it
+
+(51:05)  
+
+(51:05) stores  some  kind  of  information  like  the
+
+(51:07)  
+
+(51:07) user  ID  and  the  user  role  in  some  kind
+
+(51:09)  
+
+(51:09) of  storage  and  it  passes  that  to  the
+
+(51:11)  
+
+(51:11) next  middleware  uh  to  the  next  Handler
+
+(51:14)  
+
+(51:14) okay  and  that  part  is  called  a  request
+
+(51:17)  
+
+(51:17) context  is  called  a  request  context
+
+(51:19)  
+
+(51:19) request  context  is  also  something  that
+
+(51:23)  
+
+(51:23) you  will  see  in  a  lot  of  backend
+
+(51:25)  
+
+(51:25) applications  uh  does  not  whether  we  are
+
+(51:27)  
+
+(51:27) using  nodejs  or  goang  or  python  etc  etc
+
+(51:31)  
+
+(51:31) every  framework  every  language  every
+
+(51:32)  
+
+(51:32) Library  provides  some  kind  of  request
+
+(51:35)  
+
+(51:35) context  implementation  uh  request
+
+(51:37)  
+
+(51:37) context  can  be  an  abstract  concept  um
+
+(51:40)  
+
+(51:40) but  it  it  is  also  a  concrete
+
+(51:42)  
+
+(51:42) implementation  the  implementation  logic
+
+(51:45)  
+
+(51:45) might  vary  depending  on  what  language  or
+
+(51:48)  
+
+(51:48) environment  that  you're  using  but  this
+
+(51:50)  
+
+(51:50) concept  kind  of  Remains  the  Same  across
+
+(51:52)  
+
+(51:52) different  different  languages  so  what  is
+
+(51:54)  
+
+(51:54) this  concept  exactly  request  concept  is
+
+(51:56)  
+
+(51:56) basically  some  kind  of  storage  or  some
+
+(51:58)  
+
+(51:58) kind  of  state  that  is  scoped  for  a
+
+(52:02)  
+
+(52:02) particular  request  that  is  scoped  for  a
+
+(52:04)  
+
+(52:04) particular  request  that  is  limited  to  a
+
+(52:07)  
+
+(52:07) particular  request  so  each  request  so
+
+(52:10)  
+
+(52:10) let's  say  you  have  a  server  you  have  a
+
+(52:11)  
+
+(52:11) client  a  client  across  the  worlds  you
+
+(52:14)  
+
+(52:14) have  hundreds  and  thousands  of  clients
+
+(52:16)  
+
+(52:16) and  each  of  them  send  different
+
+(52:18)  
+
+(52:18) different  different  different  requests
+
+(52:19)  
+
+(52:19) hundreds  and  thousands  of  requests  for
+
+(52:21)  
+
+(52:21) each  client  each  of  these  API  calls  each
+
+(52:24)  
+
+(52:24) of  this  request  will  will  have  a  context
+
+(52:28)  
+
+(52:28) attached  to  them  depending  on  the
+
+(52:30)  
+
+(52:30) implementation  of  your  HTTP  server  okay
+
+(52:34)  
+
+(52:34) each  of  them  will  have  some  kind  of
+
+(52:35)  
+
+(52:35) context  and  why  do  we  have  this  context
+
+(52:38)  
+
+(52:38) so  that  we  can  have  some  kind  of  storage
+
+(52:42)  
+
+(52:42) or  some  kind  of  state  attached  which  is
+
+(52:46)  
+
+(52:46) accessible  across  our  middleware  and
+
+(52:49)  
+
+(52:49) Handler  boundary  so  as  you  saw  somewhere
+
+(52:51)  
+
+(52:51) early  here  when  the  request  reaches  here
+
+(52:54)  
+
+(52:55) and  until  the  response  is  sent  back  to
+
+(52:57)  
+
+(52:57) the  client  there  are  different  different
+
+(52:58)  
+
+(52:58) function  boundaries  usually  we  have
+
+(53:00)  
+
+(53:00) different  different  middlewares  that  are
+
+(53:02)  
+
+(53:02) processing  here  there's  a  course
+
+(53:04)  
+
+(53:04) middleware  there's  a  logging  middleware
+
+(53:05)  
+
+(53:05) then  we  have  routing  then  we  have
+
+(53:07)  
+
+(53:07) authentication  middleware  then  we  have
+
+(53:10)  
+
+(53:10) some  kind  of  middleware  that  is  limited
+
+(53:11)  
+
+(53:11) to  the  application  okay  some  kind  of
+
+(53:13)  
+
+(53:13) permission  checks  then  we  have  the
+
+(53:15)  
+
+(53:15) Handler  logic  then  at  the  end  we  have
+
+(53:17)  
+
+(53:18) Global  error  handling  mod  etc  etc  until
+
+(53:20)  
+
+(53:20) response  is  sent  back  to  the  client  we
+
+(53:22)  
+
+(53:22) have  different  different  middlewares  now
+
+(53:24)  
+
+(53:24) a  context  a  context  is  typically  some
+
+(53:28)  
+
+(53:28) kind  of  storage  usually  a  key  value  pair
+
+(53:31)  
+
+(53:31) we  store  some  kind  of  key  value  pairs
+
+(53:33)  
+
+(53:33) inside  the  context  so  that  this
+
+(53:36)  
+
+(53:36) information  is  accessible  by  all  these
+
+(53:39)  
+
+(53:39) different  different  execution
+
+(53:40)  
+
+(53:40) environments  it  is  accessible  in  all
+
+(53:42)  
+
+(53:42) these  middlewares  now  this  middleware
+
+(53:45)  
+
+(53:45) can  set  some  value  in  this  context  now
+
+(53:48)  
+
+(53:48) this  value  will  be  accessible  to  this
+
+(53:50)  
+
+(53:50) middleware  at  this  point  without
+
+(53:52)  
+
+(53:52) explicitly  passing  those  values  directly
+
+(53:56)  
+
+(53:56) with  without  coupling  the  system
+
+(53:58)  
+
+(53:58) together  too  closely  that's  the  reason
+
+(54:00)  
+
+(54:00) we  have  some  kind  of  state  which  is
+
+(54:02)  
+
+(54:02) accessible  by  all  these  middlewares  and
+
+(54:04)  
+
+(54:04) all  these  handlers  all  of  them  receive
+
+(54:06)  
+
+(54:06) this  context  this  context  or  also  called
+
+(54:09)  
+
+(54:09) as  a  state  which  is  limited  to  this
+
+(54:11)  
+
+(54:11) request  and  is  accessible  by  all  the
+
+(54:14)  
+
+(54:14) execution  environments  all  the
+
+(54:15)  
+
+(54:15) middlewares  all  the  handlers  etc  etc
+
+(54:19)  
+
+(54:19) okay  so  that  our  system  is  not  closely
+
+(54:21)  
+
+(54:21) coupled  we  have  this  state  this  is
+
+(54:23)  
+
+(54:23) accessible  by  all  of  them  which  is
+
+(54:25)  
+
+(54:25) modifiable  by  all  of  them  some  kind  of
+
+(54:27)  
+
+(54:27) storage  for  the  sake  of  convenience  so
+
+(54:31)  
+
+(54:31) in  this  example  what  we  did  in  the
+
+(54:33)  
+
+(54:33) authentication  middleware  what  we  did  we
+
+(54:35)  
+
+(54:35) verified  the  credentials  of  the  user  if
+
+(54:38)  
+
+(54:38) it  was  a  login  attempt  it  was  the  first
+
+(54:40)  
+
+(54:40) time  the  user  was  logging  in  we  verified
+
+(54:44)  
+
+(54:44) the  credentials  the  email  and  the
+
+(54:46)  
+
+(54:46) password  and  and  if  it  was  successful  we
+
+(54:50)  
+
+(54:50) created  a  user  if  it  was  an  already
+
+(54:52)  
+
+(54:52) existing  user  we  took  out  the  user  ID
+
+(54:56)  
+
+(54:56) and  we  also  took  out  the  role  the  role
+
+(54:58)  
+
+(54:58) can  be  user  or  admin  or  sales  any  role
+
+(55:03)  
+
+(55:03) right  depending  on  your  RB
+
+(55:05)  
+
+(55:05) implementation  we  have  already  discussed
+
+(55:06)  
+
+(55:06) RB  in  our  authentication  and
+
+(55:08)  
+
+(55:08) authorization  video  from  there  you  can
+
+(55:11)  
+
+(55:11) uh  understand  what  are  roles  and  why  do
+
+(55:13)  
+
+(55:13) use  them  and  also  about  different
+
+(55:15)  
+
+(55:15) different  authentication  methods  okay  so
+
+(55:17)  
+
+(55:17) we  have  some  kind  of  authentication
+
+(55:19)  
+
+(55:19) mechanism  and  using  which  after  the
+
+(55:21)  
+
+(55:21) authentication  is  successful  we  have
+
+(55:23)  
+
+(55:23) different  different  information  you  have
+
+(55:25)  
+
+(55:25) the  ID  of  the  user  for  our  platform  we
+
+(55:27)  
+
+(55:27) have  the  role  of  the  user  whether  it  is
+
+(55:29)  
+
+(55:29) a  user  it  is  admin  Etc  have  a  sales  or
+
+(55:34)  
+
+(55:34) different  permissions  whether  the  user
+
+(55:36)  
+
+(55:36) has  read  permission  for  the  resource
+
+(55:38)  
+
+(55:38) whether  it  is  a  write  permission  etc  etc
+
+(55:40)  
+
+(55:40) all  this  metadata  about  the  request  and
+
+(55:43)  
+
+(55:43) it  is  only  limited  to  this  request  this
+
+(55:46)  
+
+(55:47) particular  HTTP  request  this  will  be
+
+(55:50)  
+
+(55:50) store  in  the  context  so  that  let's  say
+
+(55:53)  
+
+(55:53) your  authentication  middleware  set  these
+
+(55:55)  
+
+(55:55) values  in  inside  the  context  so  later  on
+
+(55:58)  
+
+(55:58) Downstream  your  handlers  your  handlers
+
+(56:01)  
+
+(56:01) which  is  going  to  insert  so  it  is  a  API
+
+(56:06)  
+
+(56:06) which  is  a  post  API  to  the  slash  books
+
+(56:08)  
+
+(56:08) endpoint  so  what  your  Handler  can  do
+
+(56:11)  
+
+(56:11) somewhere  Upstream  your  authentication
+
+(56:14)  
+
+(56:14) middleware  uh  verified  the  credentials
+
+(56:16)  
+
+(56:16) of  the  user  verified  the  token  of  the
+
+(56:18)  
+
+(56:18) user  and  it  found  out  these  information
+
+(56:21)  
+
+(56:21) and  it  saved  those  information  in  the
+
+(56:22)  
+
+(56:22) request  context  now  what  happens  in  the
+
+(56:25)  
+
+(56:25) Handler
+
+(56:27)  
+
+(56:27) when  the  execution  reaches  your  Handler
+
+(56:30)  
+
+(56:30) the  Handler  can  take  out  this
+
+(56:32)  
+
+(56:32) information  the  user  ID  the  user  role
+
+(56:34)  
+
+(56:34) etc  etc  and  what  it  can
+
+(56:36)  
+
+(56:36) do  it  want  to  insert  a  book  it  want  to
+
+(56:40)  
+
+(56:40) insert  a  book  into  the  database  so  a
+
+(56:42)  
+
+(56:42) book  table  might  have  a  field  called
+
+(56:44)  
+
+(56:44) user  ID  so  instead  of  taking  the  value
+
+(56:48)  
+
+(56:48) of  user  ID  from  the  client  from  the  user
+
+(56:51)  
+
+(56:51) payload  instead  of  doing  that  what  we  do
+
+(56:53)  
+
+(56:53) we  take  the  user  ID  from  the  authentic
+
+(56:56)  
+
+(56:56) ation  information  from  the  result  of  the
+
+(56:59)  
+
+(56:59) successful  authentication  we  can  take
+
+(57:01)  
+
+(57:01) out  who  is  the  user  that  is  making  this
+
+(57:03)  
+
+(57:03) API  call  and  that's  how  we  take  the  user
+
+(57:06)  
+
+(57:06) ID  and  we  insert  that  into  the  database
+
+(57:09)  
+
+(57:09) and  why  do  we  do  this  because  if  we  take
+
+(57:11)  
+
+(57:11) the  user  ID  from  the  client  a  client
+
+(57:13)  
+
+(57:13) with  a  malicious  intent  client  with  a
+
+(57:15)  
+
+(57:15) malicious  intent  can  send  the  user  ID  of
+
+(57:18)  
+
+(57:18) some  other  user  to  do  unexpected
+
+(57:21)  
+
+(57:21) operations  in  our  server  that's  the
+
+(57:23)  
+
+(57:23) reason  when  we  want  to  access  the  user
+
+(57:25)  
+
+(57:25) ID  we  want  to  store  or  when  we  want  to
+
+(57:27)  
+
+(57:27) check  different  different  user  related
+
+(57:29)  
+
+(57:29) information  we  take  that  information  out
+
+(57:31)  
+
+(57:31) of  the  authentication  middleware  we  save
+
+(57:33)  
+
+(57:33) that  into  a  context  and  in  the
+
+(57:36)  
+
+(57:36) downstream  methods  in  the  handlers  and
+
+(57:38)  
+
+(57:38) in  the  next  middlewares  we  take  that
+
+(57:40)  
+
+(57:40) user  ID  and  we  perform  different
+
+(57:41)  
+
+(57:41) different  permission  checks  in  the
+
+(57:43)  
+
+(57:43) database  layer  or  in  different  different
+
+(57:45)  
+
+(57:45) RB  layers  depending  on  that  information
+
+(57:48)  
+
+(57:48) whether  the  user  has  permission  to
+
+(57:50)  
+
+(57:50) insert  a  book  or  not  we  can  take  that
+
+(57:52)  
+
+(57:52) from  this  if  the  user  is  an  user  if  the
+
+(57:55)  
+
+(57:55) user  is  an  admin
+
+(57:56)  
+
+(57:56) so  all  in  all  a  context  is  just  a  shared
+
+(58:00)  
+
+(58:00) state  that  is  accessible  to  all  the
+
+(58:02)  
+
+(58:02) middlewares  and  handlers  so  that  our
+
+(58:05)  
+
+(58:05) system  is  not  closely  coupled  and  we
+
+(58:07)  
+
+(58:07) have  some  kind  of  state  some  kind  of
+
+(58:10)  
+
+(58:10) storage  that  is  limited  to  one  request
+
+(58:12)  
+
+(58:12) similarly  uh  we  can  use  uh  the  request
+
+(58:15)  
+
+(58:15) context  to  store  the  request  ID  so
+
+(58:19)  
+
+(58:19) initially  somewhere  Upstream  we  can  have
+
+(58:21)  
+
+(58:21) a  middleware  which  let's  say  somewhere
+
+(58:24)  
+
+(58:24) here  we  have  have  a  middle  a  somewhere
+
+(58:27)  
+
+(58:27) here  where  we  generate  a  unique  ID  let's
+
+(58:30)  
+
+(58:30) say  a  uu  ID  we  generate  a  uu  ID  and  save
+
+(58:33)  
+
+(58:33) that  in  the  context  so  throughout  the
+
+(58:36)  
+
+(58:36) execution  of  this  request  life  cycle  we
+
+(58:38)  
+
+(58:38) use  this  particular  ID  we  take  that  out
+
+(58:41)  
+
+(58:41) from  our  context  and  we  use  that  in
+
+(58:43)  
+
+(58:43) different  different  information  we  can
+
+(58:45)  
+
+(58:45) log  the  ID  here  and  we  can  use  the  ID  to
+
+(58:48)  
+
+(58:48) make  API  calls  to  different  different  uh
+
+(58:51)  
+
+(58:51) Services  let's  say  it's  a  microservice
+
+(58:53)  
+
+(58:53) architecture  so  we  can  take  that  ID  and
+
+(58:55)  
+
+(58:55) we  can
+
+(58:56)  
+
+(58:56) call  that  API  with  this  ID  in  somewhere
+
+(58:59)  
+
+(58:59) in  the  header  let's  say  x  request  ID  or
+
+(59:02)  
+
+(59:02) something  like  that  so  that  when  we  are
+
+(59:05)  
+
+(59:05) auditing  our  logs  or  when  we  are
+
+(59:07)  
+
+(59:07) reviewing  our  logs  when  we  are  debugging
+
+(59:08)  
+
+(59:08) something  we  can  trace  the  request  where
+
+(59:12)  
+
+(59:12) it  started  from  which  service  it  started
+
+(59:14)  
+
+(59:14) from  all  all  the  services  that  it  called
+
+(59:17)  
+
+(59:17) etc  etc  right  and  we  can  do  that  because
+
+(59:20)  
+
+(59:20) we  have  a  shared  state  which  is  called
+
+(59:22)  
+
+(59:22) request  context  where  we  can  save
+
+(59:24)  
+
+(59:24) information  for  that  request
+
+(59:26)  
+
+(59:26) okay  that  is  another  example  of  when  we
+
+(59:28)  
+
+(59:28) use  request  context  request  context  we
+
+(59:31)  
+
+(59:31) also  use  to  send  cancellation  signals
+
+(59:34)  
+
+(59:34) and  abort  signals  and  deadlines  to  our
+
+(59:38)  
+
+(59:38) Downstream  external  services  so  that  our
+
+(59:41)  
+
+(59:41) service  does  not  hang  up
+
+(59:44)  
+
+(59:44) perpetually  these  are  all  the  use  cases
+
+(59:46)  
+
+(59:46) of  request  contexts  that  we  typically
+
+(59:48)  
+
+(59:49) have  in  a  backin  server  so  that's  all
+
+(59:51)  
+
+(59:51) about  uh  handlers  Services  repositories
+
+(59:54)  
+
+(59:54) middlewares  and  request  context

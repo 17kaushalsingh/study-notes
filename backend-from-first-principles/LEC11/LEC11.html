@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lecture 11: Complete REST API Design</title>
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --text-color: #c9d1d9;
+            --accent-color: #58a6ff;
+            --secondary-bg: #161b22;
+            --border-color: #30363d;
+            --code-bg: #1f242c;
+            --header-color: #f0f6fc;
+            --table-header: #21262d;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        h1, h2, h3, h4 {
+            color: var(--header-color);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+            margin-top: 1.5em;
+        }
+        h1 { font-size: 2.5em; border-bottom: 2px solid var(--accent-color); }
+        h2 { font-size: 1.8em; color: var(--accent-color); }
+        .keywords {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 20px 0;
+        }
+        .keyword-tag {
+            background-color: var(--secondary-bg);
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            padding: 2px 10px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            font-weight: 500;
+        }
+        .section {
+            margin-bottom: 50px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: var(--table-header);
+            color: var(--accent-color);
+        }
+        tr:nth-child(even) {
+            background-color: rgba(22, 27, 34, 0.5);
+        }
+        code {
+            background-color: var(--code-bg);
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-family: "SFMono-Regular", Consolas, monospace;
+            font-size: 0.9em;
+            color: #ff7b72;
+        }
+        pre {
+            background-color: var(--code-bg);
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            border: 1px solid var(--border-color);
+            line-height: 1.4;
+        }
+        .diagram {
+            text-align: center;
+            margin: 30px 0;
+            padding: 20px;
+            background: var(--secondary-bg);
+            border-radius: 12px;
+        }
+        .diagram img {
+            max-width: 100%;
+            border-radius: 4px;
+        }
+        .note-box {
+            background-color: rgba(88, 166, 255, 0.05);
+            border-left: 4px solid var(--accent-color);
+            padding: 15px 20px;
+            margin: 25px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .important {
+            color: #ffa657;
+            font-weight: bold;
+        }
+        footer {
+            margin-top: 50px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+            text-align: center;
+            color: var(--accent-color);
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Lecture 11: Complete REST API Design</h1>
+        
+        <div class="keywords">
+            <span class="keyword-tag">REST</span>
+            <span class="keyword-tag">API Design</span>
+            <span class="keyword-tag">Roy Fielding</span>
+            <span class="keyword-tag">Idempotency</span>
+            <span class="keyword-tag">HTTP Methods</span>
+            <span class="keyword-tag">URL Structure</span>
+            <span class="keyword-tag">Uniform Interface</span>
+            <span class="keyword-tag">Stateless</span>
+        </div>
+
+        <section class="section">
+            <h2>The History &amp; Purpose of REST</h2>
+            <p>In the 1990s, the World Wide Web faced a massive scalability crisis due to exponential user growth. To solve this, <strong>Roy Fielding</strong> (co-founder of Apache) proposed an architectural style in his 2000 PhD dissertation designed to make the web scalable. He called it <strong>REST (Representational State Transfer)</strong>.</p>
+            
+            <h3>The 6 Constraints of REST</h3>
+            <p>For an architecture to be considered truly "RESTful", it must follow these constraints:</p>
+            <ol>
+                <li><strong>Client-Server:</strong> Strict separation of concerns (UI vs. Data/Logic) so they can evolve independently.</li>
+                <li><strong>Uniform Interface:</strong> A standardized way for components to communicate (e.g., standard HTTP methods and standard payloads).</li>
+                <li><strong>Layered System:</strong> Components cannot "see" beyond their immediate layer. This allows for intermediate layers like Load Balancers or Proxies without breaking the system.</li>
+                <li><strong>Cacheable:</strong> Server responses must explicitly label themselves as cacheable or non-cacheable to improve network efficiency.</li>
+                <li><strong>Stateless:</strong> Every single request from the client must contain <em>all</em> the information the server needs to understand it. The server cannot rely on memory of previous requests. (This is crucial for horizontal scaling).</li>
+                <li><strong>Code on Demand (Optional):</strong> Servers can temporarily extend client functionality by sending executable code (like JavaScript).</li>
+            </ol>
+        </section>
+
+        <section class="section">
+            <h2>Decoding "Representational State Transfer"</h2>
+            <ul>
+                <li><strong>Representational:</strong> Resources (data) on the server can be <em>represented</em> in various formats (JSON, XML, HTML) depending on who is asking for them.</li>
+                <li><strong>State:</strong> The current condition or attributes of a resource at a given moment (e.g., a Shopping Cart's current items and total price).</li>
+                <li><strong>Transfer:</strong> Moving these representations between the client and server using standard HTTP methods.</li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2>Standard URL Structure</h2>
+            <p>A well-designed REST API URL follows a clear, hierarchical pattern:</p>
+            <pre><code>https://api.example.com/v1/resources/:id/custom-action</code></pre>
+            
+            <h3>URL Best Practices</h3>
+            <ol>
+                <li><strong>Always use Plural Nouns:</strong> Use <code>/books</code>, not <code>/book</code>. Even when fetching a single item (<code>/books/123</code>), you are fetching a specific ID from the <em>collection of books</em>.</li>
+                <li><strong>Use Hyphens for Slugs:</strong> Do not use spaces or underscores. If a book is named "Harry Potter", the slug should be <code>harry-potter</code> (<code>/books/harry-potter</code>).</li>
+                <li><strong>Hierarchy:</strong> Use forward slashes (<code>/</code>) to indicate relationships.</li>
+            </ol>
+        </section>
+
+        <section class="section">
+            <h2>HTTP Methods &amp; Idempotency</h2>
+            <p><strong>Idempotency</strong> is a critical theoretical concept with practical implications.</p>
+            <div class="note-box">
+                An operation is <strong>idempotent</strong> if performing it <em>once</em> has the exact same side-effect on the server as performing it <em>1,000 times</em>.
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Method</th>
+                        <th>Purpose</th>
+                        <th>Idempotent?</th>
+                        <th>Why?</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>GET</strong></td>
+                        <td>Retrieve data.</td>
+                        <td>✅ Yes</td>
+                        <td>Fetching data doesn't change the server state.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>PUT</strong></td>
+                        <td>Completely replace a resource.</td>
+                        <td>✅ Yes</td>
+                        <td>Replacing <code>{name: "B"}</code> with <code>{name: "B"}</code> 100 times results in the same final state.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>PATCH</strong></td>
+                        <td>Partially update a resource.</td>
+                        <td>✅ Yes</td>
+                        <td>Updating <code>{status: "active"}</code> to <code>{status: "active"}</code> repeatedly yields the same state.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>DELETE</strong></td>
+                        <td>Remove a resource.</td>
+                        <td>✅ Yes</td>
+                        <td>The first call deletes it. Subsequent calls return a <code>404 Not Found</code>, but the <em>server state</em> (the item being gone) doesn't change again.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>POST</strong></td>
+                        <td>Create a new resource.</td>
+                        <td>❌ <strong>No</strong></td>
+                        <td>Calling <code>POST /books</code> 100 times creates 100 <em>different</em> books with 100 different IDs.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>The "Open-Ended" POST for Custom Actions</h3>
+            <p>What if you need an API to "Send an Email" or "Clone a Project"? These aren't standard CRUD (Create, Read, Update, Delete) operations.</p>
+            <ul>
+                <li>When an action doesn't fit a standard method, use <strong>POST</strong>.</li>
+                <li>Append the custom action to the end of the resource URL: <code>POST /projects/:id/clone</code> or <code>POST /organizations/:id/archive</code>.</li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2>API Design Best Practices</h2>
+            <ol>
+                <li><strong>Consistency is King:</strong> If you use <code>description</code> in one payload, don't use <code>desc</code> in another. Don't force clients to guess your naming conventions.</li>
+                <li><strong>Provide Sane Defaults:</strong> 
+                    <ul>
+                        <li>If a client requests a list without query parameters, default to <code>?page=1&amp;limit=20</code>.</li>
+                        <li>If a client creates an organization, default its status to <code>active</code> instead of requiring them to pass it.</li>
+                    </ul>
+                </li>
+                <li><strong>Avoid Abbreviations:</strong> Write clear, complete words (e.g., <code>description</code> instead of <code>desc</code>). The developer implementing your API shouldn't need a decoder ring.</li>
+                <li><strong>Interactive Documentation:</strong> Provide a Swagger/OpenAPI playground so clients can test endpoints directly.</li>
+            </ol>
+        </section>
+    </div>
+</body>
+</html>
