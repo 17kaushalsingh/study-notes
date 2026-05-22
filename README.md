@@ -4,11 +4,7 @@ This repository collects study material and problem-solving notes across multipl
 
 ## Top-Level Structure
 
-- `Database-system-concepts/`: database notes, summaries, and reference PDFs
-- `backend-from-first-principles/`: backend engineering notes and lecture material
-- `java/`: Java notes, examples, and roadmap material
-- `learn-cpp/`: C++ learning notes
-- `low-level-design/`: low-level design exercises and patterns
-- `contests/`: competitive programming contest solutions imported from `cp`
-- `cp31/`: competitive programming practice grouped by approximate rating, imported from `cp`
-- `cses-problems/`: CSES solutions grouped by topic, imported from `cp`
+- `docs/databases/`: Database system concepts and CMU lectures.
+- `docs/dsa-and-cp/`: Data structures, algorithms, and competitive programming problems (CSES, CP31).
+- `docs/languages/`: C++ and Java learning notes.
+- `docs/systems-and-backend/`: Backend engineering and low-level design patterns.

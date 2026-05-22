@@ -1,0 +1,44 @@
+site_name: Kaushal Notes
+site_url: https://17kaushalsingh.github.io/study-notes/
+
+theme:
+  name: material
+  palette:
+    scheme: slate
+
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.arithmatex:
+      generic: true
+
+extra_javascript:
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
+nav:
+  - Home: index.md
+
+  - DSA & CP:
+      - Overview: dsa-and-cp/index.md
+
+  - Systems & Backend:
+      - Backend From First Principles: systems-and-backend/backend-from-first-principles/Backend-From-First-Principles.md
+      - Low Level Design: systems-and-backend/low-level-design/README.md
+
+  - Databases:
+      - Database System Concepts: databases/README.md
+
+  - Languages:
+      - Java: languages/java/LEC1_Core_Java.md
+      - C++: languages/learn-cpp/README.md
