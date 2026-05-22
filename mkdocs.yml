@@ -33,7 +33,32 @@ nav:
       - Overview: dsa-and-cp/index.md
 
   - Systems & Backend:
-      - Backend From First Principles: systems-and-backend/backend-from-first-principles/Backend-From-First-Principles.md
+      - Backend From First Principles:
+          - Overview: systems-and-backend/backend-from-first-principles/Backend-From-First-Principles.md
+          - Lecture 1: systems-and-backend/backend-from-first-principles/LEC1.md
+          - Lecture 2: systems-and-backend/backend-from-first-principles/LEC2.md
+          - Lecture 3: systems-and-backend/backend-from-first-principles/LEC3.md
+          - Lecture 4: systems-and-backend/backend-from-first-principles/LEC4.md
+          - Lecture 5: systems-and-backend/backend-from-first-principles/LEC5.md
+          - Lecture 6: systems-and-backend/backend-from-first-principles/LEC6.md
+          - Lecture 7: systems-and-backend/backend-from-first-principles/LEC7.md
+          - Lecture 8: systems-and-backend/backend-from-first-principles/LEC8.md
+          - Lecture 9: systems-and-backend/backend-from-first-principles/LEC9.md
+          - Lecture 10: systems-and-backend/backend-from-first-principles/LEC10.md
+          - Lecture 11: systems-and-backend/backend-from-first-principles/LEC11.md
+          - Lecture 12: systems-and-backend/backend-from-first-principles/LEC12.md
+          - Lecture 13: systems-and-backend/backend-from-first-principles/LEC13.md
+          - Lecture 14: systems-and-backend/backend-from-first-principles/LEC14.md
+          - Lecture 15: systems-and-backend/backend-from-first-principles/LEC15.md
+          - Lecture 16: systems-and-backend/backend-from-first-principles/LEC16.md
+          - Lecture 17: systems-and-backend/backend-from-first-principles/LEC17.md
+          - Lecture 18: systems-and-backend/backend-from-first-principles/LEC18.md
+          - Lecture 19: systems-and-backend/backend-from-first-principles/LEC19.md
+          - Lecture 20: systems-and-backend/backend-from-first-principles/LEC20.md
+          - Lecture 21: systems-and-backend/backend-from-first-principles/LEC21.md
+          - Lecture 22: systems-and-backend/backend-from-first-principles/LEC22.md
+          - Lecture 23: systems-and-backend/backend-from-first-principles/LEC23.md
+          - Lecture 24: systems-and-backend/backend-from-first-principles/LEC24.md
       - Low Level Design: systems-and-backend/low-level-design/README.md
 
   - Databases:
