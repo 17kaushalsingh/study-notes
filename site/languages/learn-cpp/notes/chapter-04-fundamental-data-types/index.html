@@ -1,0 +1,1874 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://17kaushalsingh.github.io/study-notes/languages/learn-cpp/notes/chapter-04-fundamental-data-types/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Chapter 4: Fundamental Data Types - Kaushal Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chapter-4-fundamental-data-types" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="Kaushal Notes" class="md-header__button md-logo" aria-label="Kaushal Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Kaushal Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Chapter 4: Fundamental Data Types
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../dsa-and-cp/" class="md-tabs__link">
+          
+  
+  
+  DSA & CP
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../systems-and-backend/backend-from-first-principles/Backend-From-First-Principles/" class="md-tabs__link">
+          
+  
+  
+  Systems & Backend
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../databases/" class="md-tabs__link">
+          
+  
+  
+  Databases
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../java/LEC1_Core_Java/" class="md-tabs__link">
+          
+  
+  
+  Languages
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="Kaushal Notes" class="md-nav__button md-logo" aria-label="Kaushal Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Kaushal Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA & CP
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    DSA & CP
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../dsa-and-cp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Systems & Backend
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Systems & Backend
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../systems-and-backend/backend-from-first-principles/Backend-From-First-Principles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backend From First Principles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../systems-and-backend/low-level-design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Low Level Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Databases
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Databases
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../databases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Database System Concepts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Languages
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Languages
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../java/LEC1_Core_Java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C++
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#41-introduction-to-fundamental-data-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Introduction to Fundamental Data Types
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.1 Introduction to Fundamental Data Types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-complete-table-of-fundamental-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Complete Table of Fundamental Types
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#important-terminology" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Important Terminology
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#42-void" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Void
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#43-object-sizes-and-the-sizeof-operator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 Object Sizes and the sizeof Operator
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.3 Object Sizes and the sizeof Operator">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#memory-basics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Memory Basics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sizeof-operator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sizeof Operator
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#44-signed-integers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 Signed Integers
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.4 Signed Integers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#types-and-minimum-sizes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Types and Minimum Sizes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ranges-by-size" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ranges (by size)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integer-division" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integer Division
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#overflow-undefined-behavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overflow = Undefined Behavior
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#45-unsigned-integers-and-why-to-avoid-them" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.5 Unsigned Integers, and Why to Avoid Them
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.5 Unsigned Integers, and Why to Avoid Them">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#declaration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Declaration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#range" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Range
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-wraparound-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Wraparound Problem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-to-avoid-unsigned" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why to AVOID Unsigned
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acceptable-uses-of-unsigned" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Acceptable Uses of Unsigned
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#46-fixed-width-integers-and-size_t" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.6 Fixed-Width Integers and size_t
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.6 Fixed-Width Integers and size_t">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fixed-width-types-from-cstdint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixed-Width Types (from &lt;cstdint&gt;)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fast-and-least-types-avoid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fast and Least Types (Avoid)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stdsize_t" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        std::size_t
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#47-introduction-to-scientific-notation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.7 Introduction to Scientific Notation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#48-floating-point-numbers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.8 Floating Point Numbers
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.8 Floating Point Numbers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#types-and-precision" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Types and Precision
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rounding-errors-a-critical-concept" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rounding Errors — A Critical Concept
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#special-values-ieee-754" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Special Values (IEEE 754)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#49-boolean-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.9 Boolean Values
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.9 Boolean Values">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#printing-booleans" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Printing Booleans
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#input" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Input
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#negation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Negation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#410-introduction-to-if-statements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.10 Introduction to if Statements
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#411-chars" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.11 Chars
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.11 Chars">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ascii-table-key-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ASCII Table (Key Values)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#initialization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Initialization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#escape-sequences" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Escape Sequences
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#single-vs-double-quotes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Single vs Double Quotes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reading-input" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reading Input
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#412-introduction-to-type-conversion-and-static_cast" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.12 Introduction to Type Conversion and static_cast
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.12 Introduction to Type Conversion and static_cast">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#implicit-conversion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implicit Conversion
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#explicit-conversion-with-static_cast" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Explicit Conversion with static_cast
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-4-quick-reference-card" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 4 — Quick Reference Card
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="chapter-4-fundamental-data-types">Chapter 4: Fundamental Data Types</h1>
+<h2 id="41-introduction-to-fundamental-data-types">4.1 Introduction to Fundamental Data Types</h2>
+<p>C++ provides a set of built-in (<strong>fundamental</strong>) data types that tell the compiler how to interpret memory contents.</p>
+<h3 id="the-complete-table-of-fundamental-types">The Complete Table of Fundamental Types</h3>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Types</th>
+<th>Purpose</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Floating Point</td>
+<td><code>float</code>, <code>double</code>, <code>long double</code></td>
+<td>Numbers with fractional parts</td>
+<td><code>3.14159</code></td>
+</tr>
+<tr>
+<td>Boolean</td>
+<td><code>bool</code></td>
+<td>True/false values</td>
+<td><code>true</code></td>
+</tr>
+<tr>
+<td>Character</td>
+<td><code>char</code>, <code>wchar_t</code>, <code>char8_t</code> (C++20), <code>char16_t</code>, <code>char32_t</code></td>
+<td>Single text characters</td>
+<td><code>'c'</code></td>
+</tr>
+<tr>
+<td>Integer</td>
+<td><code>short</code>, <code>int</code>, <code>long</code>, <code>long long</code></td>
+<td>Whole numbers</td>
+<td><code>64</code></td>
+</tr>
+<tr>
+<td>Null Pointer</td>
+<td><code>std::nullptr_t</code></td>
+<td>Null pointer representation</td>
+<td><code>nullptr</code></td>
+</tr>
+<tr>
+<td>Void</td>
+<td><code>void</code></td>
+<td>No type / incomplete type</td>
+<td>n/a</td>
+</tr>
+</tbody>
+</table>
+<h3 id="important-terminology">Important Terminology</h3>
+<ul>
+<li><strong>Integral types</strong>: Includes <code>bool</code>, character types, AND integer types — all stored as integers in memory</li>
+<li><strong>Standard integer types</strong>: Only <code>short</code>, <code>int</code>, <code>long</code>, <code>long long</code> (and their unsigned variants)</li>
+<li>The <code>_t</code> suffix means "type" (e.g., <code>std::nullptr_t</code>, <code>size_t</code>)</li>
+</ul>
+<hr />
+<h2 id="42-void">4.2 Void</h2>
+<ul>
+<li><code>void</code> means "no type"</li>
+<li>Most commonly used for functions that don't return a value</li>
+<li>You <strong>cannot</strong> declare variables of type <code>void</code></li>
+<li>Other uses covered later (void pointers)</li>
+</ul>
+<hr />
+<h2 id="43-object-sizes-and-the-sizeof-operator">4.3 Object Sizes and the sizeof Operator</h2>
+<h3 id="memory-basics">Memory Basics</h3>
+<ul>
+<li>A <strong>bit</strong> is the smallest unit (0 or 1)</li>
+<li>A <strong>byte</strong> = 8 bits (standard addressable unit)</li>
+<li>Each byte has a unique memory address</li>
+</ul>
+<h3 id="sizeof-operator">sizeof Operator</h3>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;bool:</span><span class="se">\t\t</span><span class="s">&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">bool</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; bytes</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;char:</span><span class="se">\t\t</span><span class="s">&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">char</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; bytes</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;int:</span><span class="se">\t\t</span><span class="s">&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; bytes</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;double:</span><span class="se">\t\t</span><span class="s">&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">double</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; bytes</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li><code>sizeof</code> returns a value of type <code>std::size_t</code> (an unsigned integer)</li>
+<li><code>sizeof(char)</code> is always 1 byte</li>
+</ul>
+<hr />
+<h2 id="44-signed-integers">4.4 Signed Integers</h2>
+<h3 id="types-and-minimum-sizes">Types and Minimum Sizes</h3>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Minimum Size</th>
+<th>Typical Size</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>short</code></td>
+<td>16 bits</td>
+<td>16 bits</td>
+</tr>
+<tr>
+<td><code>int</code></td>
+<td>16 bits</td>
+<td><strong>32 bits</strong></td>
+</tr>
+<tr>
+<td><code>long</code></td>
+<td>32 bits</td>
+<td>32 or 64 bits</td>
+</tr>
+<tr>
+<td><code>long long</code></td>
+<td>64 bits</td>
+<td>64 bits</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ranges-by-size">Ranges (by size)</h3>
+<table>
+<thead>
+<tr>
+<th>Size</th>
+<th>Range</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>8-bit</td>
+<td>-128 to 127</td>
+</tr>
+<tr>
+<td>16-bit</td>
+<td>-32,768 to 32,767</td>
+</tr>
+<tr>
+<td>32-bit</td>
+<td>-2,147,483,648 to 2,147,483,647</td>
+</tr>
+<tr>
+<td>64-bit</td>
+<td>-9.2 quintillion to 9.2 quintillion</td>
+</tr>
+</tbody>
+</table>
+<p>Formula: <strong>-(2^(n-1))</strong> to <strong>(2^(n-1)) - 1</strong></p>
+<h3 id="integer-division">Integer Division</h3>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">{</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="p">};</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">y</span><span class="p">{</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="p">};</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">y</span><span class="p">;</span><span class="w"> </span><span class="c1">// prints 1, NOT 1.6 (fractional part dropped!)</span>
+</code></pre></div>
+<blockquote>
+<p><strong>Warning</strong>: Integer division drops the fractional part entirely — it does NOT round.</p>
+</blockquote>
+<h3 id="overflow-undefined-behavior">Overflow = Undefined Behavior</h3>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">{</span><span class="w"> </span><span class="mi">2147483647</span><span class="w"> </span><span class="p">};</span><span class="w"> </span><span class="c1">// max value for 32-bit int</span>
+<span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">           </span><span class="c1">// UNDEFINED BEHAVIOR - overflow!</span>
+</code></pre></div>
+<blockquote>
+<p><strong>Best Practice</strong>: Use <code>int</code> when the value fits. Use <code>long long</code> when you need larger values.</p>
+</blockquote>
+<hr />
+<h2 id="45-unsigned-integers-and-why-to-avoid-them">4.5 Unsigned Integers, and Why to Avoid Them</h2>
+<h3 id="declaration">Declaration</h3>
+<div class="highlight"><pre><span></span><code><span class="kt">unsigned</span><span class="w"> </span><span class="kt">short</span><span class="w"> </span><span class="n">us</span><span class="p">;</span>
+<span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">ui</span><span class="p">;</span>
+<span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">ul</span><span class="p">;</span>
+<span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">ull</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="range">Range</h3>
+<p>An n-bit unsigned integer holds: <strong>0</strong> to <strong>(2^n) - 1</strong>
+- 8-bit: 0 to 255
+- 16-bit: 0 to 65,535</p>
+<h3 id="the-wraparound-problem">The Wraparound Problem</h3>
+<p>Unlike signed overflow (undefined behavior), unsigned overflow wraps around:</p>
+<div class="highlight"><pre><span></span><code><span class="kt">unsigned</span><span class="w"> </span><span class="kt">short</span><span class="w"> </span><span class="n">x</span><span class="p">{</span><span class="w"> </span><span class="mi">65535</span><span class="w"> </span><span class="p">};</span><span class="w"> </span><span class="c1">// max 16-bit value</span>
+<span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">65536</span><span class="p">;</span><span class="w">                  </span><span class="c1">// wraps to 0</span>
+<span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">65537</span><span class="p">;</span><span class="w">                  </span><span class="c1">// wraps to 1</span>
+
+<span class="kt">unsigned</span><span class="w"> </span><span class="kt">short</span><span class="w"> </span><span class="n">y</span><span class="p">{</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">};</span>
+<span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w">                     </span><span class="c1">// wraps to 65535!</span>
+</code></pre></div>
+<h3 id="why-to-avoid-unsigned">Why to AVOID Unsigned</h3>
+<p><strong>Problem 1: Easy underflow</strong>
+<div class="highlight"><pre><span></span><code><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">{</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="p">};</span>
+<span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">y</span><span class="p">{</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="p">};</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">y</span><span class="p">;</span><span class="w"> </span><span class="c1">// prints 4294967295 (NOT -1!)</span>
+</code></pre></div></p>
+<p><strong>Problem 2: Mixed signed/unsigned comparisons</strong>
+<div class="highlight"><pre><span></span><code><span class="kt">signed</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">s</span><span class="p">{</span><span class="w"> </span><span class="mi">-1</span><span class="w"> </span><span class="p">};</span>
+<span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">u</span><span class="p">{</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">};</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">s</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">u</span><span class="p">)</span><span class="w">  </span><span class="c1">// FALSE! -1 converts to 4294967295</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;this won&#39;t print&quot;</span><span class="p">;</span>
+</code></pre></div></p>
+<blockquote>
+<p><strong>Best Practice</strong>: Favor signed numbers for quantities and math operations. Avoid mixing signed and unsigned.</p>
+</blockquote>
+<h3 id="acceptable-uses-of-unsigned">Acceptable Uses of Unsigned</h3>
+<ul>
+<li>Bit manipulation</li>
+<li>Algorithms requiring wraparound (encryption, hashing)</li>
+<li>Array indexing (when required by APIs)</li>
+<li>Embedded systems with tight memory</li>
+</ul>
+<hr />
+<h2 id="46-fixed-width-integers-and-size_t">4.6 Fixed-Width Integers and size_t</h2>
+<h3 id="fixed-width-types-from-cstdint">Fixed-Width Types (from <code>&lt;cstdint&gt;</code>)</h3>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Size</th>
+<th>Range</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>std::int8_t</code></td>
+<td>1 byte</td>
+<td>-128 to 127</td>
+</tr>
+<tr>
+<td><code>std::int16_t</code></td>
+<td>2 bytes</td>
+<td>-32,768 to 32,767</td>
+</tr>
+<tr>
+<td><code>std::int32_t</code></td>
+<td>4 bytes</td>
+<td>-2.1B to 2.1B</td>
+</tr>
+<tr>
+<td><code>std::int64_t</code></td>
+<td>8 bytes</td>
+<td>±9.2 quintillion</td>
+</tr>
+</tbody>
+</table>
+<p>Unsigned versions: <code>std::uint8_t</code>, <code>std::uint16_t</code>, <code>std::uint32_t</code>, <code>std::uint64_t</code></p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cstdint&gt;</span>
+
+<span class="n">std</span><span class="o">::</span><span class="kt">int32_t</span><span class="w"> </span><span class="n">x</span><span class="p">{</span><span class="w"> </span><span class="mi">32767</span><span class="w"> </span><span class="p">};</span>
+<span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="c1">// Always safe — guaranteed 32-bit</span>
+</code></pre></div>
+<blockquote>
+<p><strong>Warning</strong>: <code>std::int8_t</code> and <code>std::uint8_t</code> behave like <code>char</code> on most systems — printing them shows characters, not numbers!</p>
+</blockquote>
+<h3 id="fast-and-least-types-avoid">Fast and Least Types (Avoid)</h3>
+<ul>
+<li><code>std::int_fast32_t</code> — fastest type with at least 32 bits</li>
+<li><code>std::int_least32_t</code> — smallest type with at least 32 bits</li>
+<li>These are implementation-defined — avoid for portable code</li>
+</ul>
+<h3 id="stdsize_t">std::size_t</h3>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cstddef&gt;</span>
+<span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="w"> </span><span class="n">s</span><span class="p">{</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="p">};</span><span class="w"> </span><span class="c1">// sizeof returns std::size_t</span>
+</code></pre></div>
+<ul>
+<li>Unsigned integral type for object sizes</li>
+<li>32-bit on 32-bit systems, 64-bit on 64-bit systems</li>
+</ul>
+<blockquote>
+<p><strong>Best Practice</strong>:
+- Use <code>int</code> for values that always fit
+- Use <code>std::int#_t</code> when you need guaranteed size
+- Avoid <code>short</code>, <code>long</code> — prefer fixed-width types</p>
+</blockquote>
+<hr />
+<h2 id="47-introduction-to-scientific-notation">4.7 Introduction to Scientific Notation</h2>
+<ul>
+<li><code>1.2e4</code> = 1.2 × 10^4 = 12000</li>
+<li><code>5.0e-2</code> = 5.0 × 10^-2 = 0.05</li>
+<li>Used internally by floating-point numbers</li>
+</ul>
+<hr />
+<h2 id="48-floating-point-numbers">4.8 Floating Point Numbers</h2>
+<h3 id="types-and-precision">Types and Precision</h3>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Size</th>
+<th>Significant Digits</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>float</code></td>
+<td>4 bytes</td>
+<td>6-9 digits</td>
+</tr>
+<tr>
+<td><code>double</code></td>
+<td>8 bytes</td>
+<td>15-18 digits</td>
+</tr>
+<tr>
+<td><code>long double</code></td>
+<td>8-16 bytes</td>
+<td>15-36 digits</td>
+</tr>
+</tbody>
+</table>
+<h3 id="rounding-errors-a-critical-concept">Rounding Errors — A Critical Concept</h3>
+<div class="highlight"><pre><span></span><code><span class="kt">double</span><span class="w"> </span><span class="n">d1</span><span class="p">{</span><span class="w"> </span><span class="mf">1.0</span><span class="w"> </span><span class="p">};</span>
+<span class="kt">double</span><span class="w"> </span><span class="n">d2</span><span class="p">{</span><span class="w"> </span><span class="mf">0.1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">0.1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">0.1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">0.1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">0.1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">0.1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">0.1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">0.1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">0.1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">0.1</span><span class="w"> </span><span class="p">};</span>
+<span class="c1">// d2 == 0.99999999999999989, NOT exactly 1.0!</span>
+</code></pre></div>
+<blockquote>
+<p><strong>Key Takeaway</strong>: Many decimal numbers (like 0.1) cannot be represented exactly in binary. Never assume floating-point numbers are exact!</p>
+</blockquote>
+<h3 id="special-values-ieee-754">Special Values (IEEE 754)</h3>
+<ul>
+<li><strong>Inf</strong> / <strong>-Inf</strong>: Result of dividing by zero (e.g., <code>5.0 / 0.0</code>)</li>
+<li><strong>NaN</strong>: "Not a Number" (e.g., <code>0.0 / 0.0</code>)</li>
+<li><strong>NaN is not equal to anything</strong>, including itself</li>
+</ul>
+<blockquote>
+<p><strong>Best Practice</strong>: Favor <code>double</code> over <code>float</code>. Float's limited precision causes frequent inaccuracies. Never compare floating-point values directly for equality.</p>
+</blockquote>
+<hr />
+<h2 id="49-boolean-values">4.9 Boolean Values</h2>
+<div class="highlight"><pre><span></span><code><span class="kt">bool</span><span class="w"> </span><span class="n">b1</span><span class="p">{</span><span class="w"> </span><span class="nb">true</span><span class="w"> </span><span class="p">};</span><span class="w">   </span><span class="c1">// stored as 1</span>
+<span class="kt">bool</span><span class="w"> </span><span class="n">b2</span><span class="p">{</span><span class="w"> </span><span class="nb">false</span><span class="w"> </span><span class="p">};</span><span class="w">  </span><span class="c1">// stored as 0</span>
+</code></pre></div>
+<h3 id="printing-booleans">Printing Booleans</h3>
+<div class="highlight"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span><span class="w">                  </span><span class="c1">// prints 1</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span><span class="w">                 </span><span class="c1">// prints 0</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">boolalpha</span><span class="p">;</span><span class="w">       </span><span class="c1">// enable text output</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span><span class="w">                  </span><span class="c1">// prints &quot;true&quot;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span><span class="w">                 </span><span class="c1">// prints &quot;false&quot;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">noboolalpha</span><span class="p">;</span><span class="w">     </span><span class="c1">// back to numeric</span>
+</code></pre></div>
+<h3 id="input">Input</h3>
+<div class="highlight"><pre><span></span><code><span class="kt">bool</span><span class="w"> </span><span class="n">b</span><span class="p">{};</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w">                     </span><span class="c1">// only accepts 0 or 1</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">boolalpha</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w">                     </span><span class="c1">// accepts &quot;true&quot; or &quot;false&quot; (case-sensitive)</span>
+</code></pre></div>
+<h3 id="negation">Negation</h3>
+<div class="highlight"><pre><span></span><code><span class="kt">bool</span><span class="w"> </span><span class="n">b1</span><span class="p">{</span><span class="w"> </span><span class="o">!</span><span class="nb">true</span><span class="w"> </span><span class="p">};</span><span class="w">   </span><span class="c1">// false</span>
+<span class="kt">bool</span><span class="w"> </span><span class="n">b2</span><span class="p">{</span><span class="w"> </span><span class="o">!</span><span class="nb">false</span><span class="w"> </span><span class="p">};</span><span class="w">  </span><span class="c1">// true</span>
+</code></pre></div>
+<hr />
+<h2 id="410-introduction-to-if-statements">4.10 Introduction to if Statements</h2>
+<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">condition</span><span class="p">)</span>
+<span class="w">    </span><span class="n">statement_true</span><span class="p">;</span>
+<span class="k">else</span>
+<span class="w">    </span><span class="n">statement_false</span><span class="p">;</span>
+</code></pre></div>
+<ul>
+<li>Condition evaluates to <code>true</code> (non-zero) or <code>false</code> (zero)</li>
+<li>Non-zero integers implicitly convert to <code>true</code></li>
+<li>Zero converts to <code>false</code></li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w">  </span><span class="c1">// 4 is non-zero, so this is true</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;this prints</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+</code></pre></div>
+<hr />
+<h2 id="411-chars">4.11 Chars</h2>
+<h3 id="ascii-table-key-values">ASCII Table (Key Values)</h3>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Character</th>
+<th>Code</th>
+<th>Character</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>48-57</td>
+<td>'0' to '9'</td>
+<td>65-90</td>
+<td>'A' to 'Z'</td>
+</tr>
+<tr>
+<td>97-122</td>
+<td>'a' to 'z'</td>
+<td>32</td>
+<td>space</td>
+</tr>
+</tbody>
+</table>
+<h3 id="initialization">Initialization</h3>
+<div class="highlight"><pre><span></span><code><span class="kt">char</span><span class="w"> </span><span class="n">ch1</span><span class="p">{</span><span class="w"> </span><span class="sc">&#39;a&#39;</span><span class="w"> </span><span class="p">};</span><span class="w">    </span><span class="c1">// preferred — character literal</span>
+<span class="kt">char</span><span class="w"> </span><span class="n">ch2</span><span class="p">{</span><span class="w"> </span><span class="mi">97</span><span class="w"> </span><span class="p">};</span><span class="w">     </span><span class="c1">// works but less readable</span>
+<span class="c1">// Note: char ch{5} is NOT the same as char ch{&#39;5&#39;} (ASCII 53)!</span>
+</code></pre></div>
+<h3 id="escape-sequences">Escape Sequences</h3>
+<table>
+<thead>
+<tr>
+<th>Sequence</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>\n</code></td>
+<td>Newline</td>
+</tr>
+<tr>
+<td><code>\t</code></td>
+<td>Tab</td>
+</tr>
+<tr>
+<td><code>\\</code></td>
+<td>Backslash</td>
+</tr>
+<tr>
+<td><code>\'</code></td>
+<td>Single quote</td>
+</tr>
+<tr>
+<td><code>\"</code></td>
+<td>Double quote</td>
+</tr>
+<tr>
+<td><code>\0</code></td>
+<td>Null terminator</td>
+</tr>
+</tbody>
+</table>
+<h3 id="single-vs-double-quotes">Single vs Double Quotes</h3>
+<div class="highlight"><pre><span></span><code><span class="kt">char</span><span class="w"> </span><span class="n">ch</span><span class="p">{</span><span class="w"> </span><span class="sc">&#39;a&#39;</span><span class="w"> </span><span class="p">};</span><span class="w">      </span><span class="c1">// single quotes = char literal (one character)</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">s</span><span class="p">{</span><span class="w"> </span><span class="s">&quot;a&quot;</span><span class="w"> </span><span class="p">};</span><span class="w"> </span><span class="c1">// double quotes = string literal (char sequence + \0)</span>
+</code></pre></div>
+<h3 id="reading-input">Reading Input</h3>
+<div class="highlight"><pre><span></span><code><span class="kt">char</span><span class="w"> </span><span class="n">ch</span><span class="p">{};</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">ch</span><span class="p">;</span><span class="w">           </span><span class="c1">// reads one char, skips leading whitespace</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cin</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">ch</span><span class="p">);</span><span class="w">         </span><span class="c1">// reads one char INCLUDING whitespace</span>
+</code></pre></div>
+<hr />
+<h2 id="412-introduction-to-type-conversion-and-static_cast">4.12 Introduction to Type Conversion and static_cast</h2>
+<h3 id="implicit-conversion">Implicit Conversion</h3>
+<p>The compiler automatically converts between types when needed:</p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">printDouble</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">d</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">d</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="n">printDouble</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span><span class="w">  </span><span class="c1">// int 5 implicitly converted to double 5.0</span>
+</code></pre></div>
+<blockquote>
+<p><strong>Warning</strong>: Converting <code>double</code> to <code>int</code> loses the fractional part and generates a compiler warning.</p>
+</blockquote>
+<h3 id="explicit-conversion-with-static_cast">Explicit Conversion with static_cast</h3>
+<div class="highlight"><pre><span></span><code><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">new_type</span><span class="o">&gt;</span><span class="p">(</span><span class="n">expression</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="kt">char</span><span class="w"> </span><span class="n">ch</span><span class="p">{</span><span class="w"> </span><span class="mi">97</span><span class="w"> </span><span class="p">};</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">ch</span><span class="p">;</span><span class="w">                        </span><span class="c1">// prints &#39;a&#39;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">ch</span><span class="p">);</span><span class="w">      </span><span class="c1">// prints 97</span>
+
+<span class="kt">double</span><span class="w"> </span><span class="n">d</span><span class="p">{</span><span class="w"> </span><span class="mf">5.5</span><span class="w"> </span><span class="p">};</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">{</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">d</span><span class="p">)</span><span class="w"> </span><span class="p">};</span><span class="w">          </span><span class="c1">// i = 5, no warning</span>
+</code></pre></div>
+<blockquote>
+<p><strong>Best Practice</strong>:
+- Use <code>static_cast</code> when you intentionally want to convert types
+- Prefer brace initialization <code>{}</code> to catch unsafe implicit conversions at compile time</p>
+</blockquote>
+<hr />
+<h2 id="chapter-4-quick-reference-card">Chapter 4 — Quick Reference Card</h2>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Recommendation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Default integer</td>
+<td>Use <code>int</code></td>
+</tr>
+<tr>
+<td>Large integers</td>
+<td>Use <code>long long</code></td>
+</tr>
+<tr>
+<td>Guaranteed size</td>
+<td>Use <code>std::int32_t</code> etc.</td>
+</tr>
+<tr>
+<td>Floating point</td>
+<td>Use <code>double</code> (not <code>float</code>)</td>
+</tr>
+<tr>
+<td>Unsigned integers</td>
+<td><strong>Avoid</strong> for quantities</td>
+</tr>
+<tr>
+<td>Type conversion</td>
+<td>Use <code>static_cast&lt;&gt;()</code></td>
+</tr>
+<tr>
+<td>Float comparison</td>
+<td><strong>Never</strong> use <code>==</code> directly</td>
+</tr>
+<tr>
+<td>Integer division</td>
+<td>Drops fractional part (not rounded)</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

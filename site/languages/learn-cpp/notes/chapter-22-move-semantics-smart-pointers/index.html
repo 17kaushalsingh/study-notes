@@ -1,0 +1,1419 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://17kaushalsingh.github.io/study-notes/languages/learn-cpp/notes/chapter-22-move-semantics-smart-pointers/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Chapter 22: Move Semantics and Smart Pointers - Kaushal Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chapter-22-move-semantics-and-smart-pointers" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="Kaushal Notes" class="md-header__button md-logo" aria-label="Kaushal Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Kaushal Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Chapter 22: Move Semantics and Smart Pointers
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../dsa-and-cp/" class="md-tabs__link">
+          
+  
+  
+  DSA & CP
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../systems-and-backend/backend-from-first-principles/Backend-From-First-Principles/" class="md-tabs__link">
+          
+  
+  
+  Systems & Backend
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../databases/" class="md-tabs__link">
+          
+  
+  
+  Databases
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../java/LEC1_Core_Java/" class="md-tabs__link">
+          
+  
+  
+  Languages
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="Kaushal Notes" class="md-nav__button md-logo" aria-label="Kaushal Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Kaushal Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA & CP
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    DSA & CP
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../dsa-and-cp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Systems & Backend
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Systems & Backend
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../systems-and-backend/backend-from-first-principles/Backend-From-First-Principles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backend From First Principles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../systems-and-backend/low-level-design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Low Level Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Databases
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Databases
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../databases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Database System Concepts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Languages
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Languages
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../java/LEC1_Core_Java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C++
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#221-introduction-to-smart-pointers-and-move-semantics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        22.1 Introduction to Smart Pointers and Move Semantics
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#222-r-value-references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        22.2 R-value References
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="22.2 R-value References">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#binding-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Binding Rules
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-insight" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Insight
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#223-move-constructors-and-move-assignment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        22.3 Move Constructors and Move Assignment
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="22.3 Move Constructors and Move Assignment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#move-constructor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Move Constructor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#move-assignment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Move Assignment
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-move-differs-from-copy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How Move Differs from Copy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#224-stdmove" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        22.4 std::move
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="22.4 std::move">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use-stdmove" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Use std::move
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#225-stdunique_ptr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        22.5 std::unique_ptr
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="22.5 std::unique_ptr">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Operations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unique_ptr-with-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unique_ptr with Functions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#226-stdshared_ptr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        22.6 std::shared_ptr
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="22.6 std::shared_ptr">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-counting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Counting
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-shared_ptr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creating shared_ptr
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#227-circular-dependencies-and-stdweak_ptr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        22.7 Circular Dependencies and std::weak_ptr
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="22.7 Circular Dependencies and std::weak_ptr">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Problem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-solution-stdweak_ptr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Solution: std::weak_ptr
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-weak_ptr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using weak_ptr
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#smart-pointer-decision-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Smart Pointer Decision Guide
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-22-quick-reference-card" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 22 — Quick Reference Card
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="chapter-22-move-semantics-and-smart-pointers">Chapter 22: Move Semantics and Smart Pointers</h1>
+<h2 id="221-introduction-to-smart-pointers-and-move-semantics">22.1 Introduction to Smart Pointers and Move Semantics</h2>
+<p><strong>The Problem</strong>: Raw <code>new</code>/<code>delete</code> leads to memory leaks and dangling pointers.</p>
+<p><strong>The Solution</strong>: Smart pointers — classes that manage dynamic memory and automatically clean up when they go out of scope (RAII).</p>
+<hr />
+<h2 id="222-r-value-references">22.2 R-value References</h2>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="o">&amp;</span><span class="w"> </span><span class="n">lref</span><span class="p">{</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="p">};</span><span class="w">     </span><span class="c1">// lvalue reference — binds to lvalues</span>
+<span class="kt">int</span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">rref</span><span class="p">{</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="p">};</span><span class="w">    </span><span class="c1">// rvalue reference — binds to rvalues (temporaries)</span>
+</code></pre></div>
+<h3 id="binding-rules">Binding Rules</h3>
+<table>
+<thead>
+<tr>
+<th>Reference type</th>
+<th>Binds to lvalues?</th>
+<th>Binds to rvalues?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>T&amp;</code></td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td><code>const T&amp;</code></td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>T&amp;&amp;</code></td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
+<h3 id="key-insight">Key Insight</h3>
+<ul>
+<li>R-value references extend the lifetime of temporaries</li>
+<li>Enable overloading to distinguish temporaries from persistent objects</li>
+<li><strong>Important</strong>: An r-value reference variable IS an lvalue when used in expressions!</li>
+</ul>
+<hr />
+<h2 id="223-move-constructors-and-move-assignment">22.3 Move Constructors and Move Assignment</h2>
+<h3 id="move-constructor">Move Constructor</h3>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">MyString</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">m_data</span><span class="p">{};</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">m_length</span><span class="p">{};</span>
+
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="c1">// Move constructor — &quot;steals&quot; resources from the source</span>
+<span class="w">    </span><span class="n">MyString</span><span class="p">(</span><span class="n">MyString</span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">source</span><span class="p">)</span><span class="w"> </span><span class="k">noexcept</span>
+<span class="w">        </span><span class="o">:</span><span class="w"> </span><span class="n">m_data</span><span class="p">{</span><span class="w"> </span><span class="n">source</span><span class="p">.</span><span class="n">m_data</span><span class="w"> </span><span class="p">}</span>
+<span class="w">        </span><span class="p">,</span><span class="w"> </span><span class="n">m_length</span><span class="p">{</span><span class="w"> </span><span class="n">source</span><span class="p">.</span><span class="n">m_length</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">source</span><span class="p">.</span><span class="n">m_data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">nullptr</span><span class="p">;</span><span class="w">   </span><span class="c1">// leave source in valid but empty state</span>
+<span class="w">        </span><span class="n">source</span><span class="p">.</span><span class="n">m_length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
+<h3 id="move-assignment">Move Assignment</h3>
+<div class="highlight"><pre><span></span><code><span class="n">MyString</span><span class="o">&amp;</span><span class="w"> </span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">MyString</span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">source</span><span class="p">)</span><span class="w"> </span><span class="k">noexcept</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="k">this</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="o">&amp;</span><span class="n">source</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="o">*</span><span class="k">this</span><span class="p">;</span><span class="w">  </span><span class="c1">// self-assignment check</span>
+
+<span class="w">    </span><span class="k">delete</span><span class="p">[]</span><span class="w"> </span><span class="n">m_data</span><span class="p">;</span><span class="w">                    </span><span class="c1">// free existing resource</span>
+
+<span class="w">    </span><span class="n">m_data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">source</span><span class="p">.</span><span class="n">m_data</span><span class="p">;</span><span class="w">            </span><span class="c1">// steal from source</span>
+<span class="w">    </span><span class="n">m_length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">source</span><span class="p">.</span><span class="n">m_length</span><span class="p">;</span>
+<span class="w">    </span><span class="n">source</span><span class="p">.</span><span class="n">m_data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">nullptr</span><span class="p">;</span>
+<span class="w">    </span><span class="n">source</span><span class="p">.</span><span class="n">m_length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">*</span><span class="k">this</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="how-move-differs-from-copy">How Move Differs from Copy</h3>
+<table>
+<thead>
+<tr>
+<th>Copy</th>
+<th>Move</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Allocates new memory</td>
+<td>No allocation</td>
+</tr>
+<tr>
+<td>Copies data</td>
+<td>Transfers pointer ownership</td>
+</tr>
+<tr>
+<td>Source unchanged</td>
+<td>Source left empty (valid but unspecified)</td>
+</tr>
+<tr>
+<td>Slow for large objects</td>
+<td>Fast (constant time)</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Key</strong>: Always mark move operations <code>noexcept</code> — enables compiler optimizations.</p>
+</blockquote>
+<hr />
+<h2 id="224-stdmove">22.4 std::move</h2>
+<p><code>std::move</code> casts an lvalue to an rvalue reference, enabling move semantics:</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;utility&gt;</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">a</span><span class="p">{</span><span class="w"> </span><span class="s">&quot;Hello&quot;</span><span class="w"> </span><span class="p">};</span>
+<span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">b</span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="p">};</span><span class="w">  </span><span class="c1">// a is now empty, b owns &quot;Hello&quot;</span>
+</code></pre></div>
+<ul>
+<li><code>std::move</code> doesn't actually move anything — it's just a cast</li>
+<li>After <code>std::move</code>, the source object is in a <strong>valid but unspecified state</strong></li>
+<li>Don't use the source object's value after moving (only reassign or destroy)</li>
+</ul>
+<h3 id="when-to-use-stdmove">When to Use std::move</h3>
+<ul>
+<li>Passing ownership of a resource</li>
+<li>Returning expensive local objects from functions (though copy elision often handles this)</li>
+<li>Swapping values efficiently</li>
+</ul>
+<hr />
+<h2 id="225-stdunique_ptr">22.5 std::unique_ptr</h2>
+<p><strong>Exclusive ownership</strong> — only one <code>unique_ptr</code> can own a resource at a time.</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;memory&gt;</span>
+
+<span class="c1">// Creating (prefer make_unique)</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">ptr</span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span><span class="w"> </span><span class="p">};</span>
+
+<span class="c1">// Accessing</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="o">*</span><span class="n">ptr</span><span class="p">;</span><span class="w">        </span><span class="c1">// dereference: 42</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">ptr</span><span class="p">.</span><span class="n">get</span><span class="p">();</span><span class="w">   </span><span class="c1">// raw pointer</span>
+
+<span class="c1">// Transfer ownership</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">ptr2</span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">ptr</span><span class="p">)</span><span class="w"> </span><span class="p">};</span><span class="w">  </span><span class="c1">// ptr is now nullptr</span>
+
+<span class="c1">// Checking</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ptr2</span><span class="p">)</span><span class="w">                 </span><span class="c1">// true if not null</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="o">*</span><span class="n">ptr2</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="key-operations">Key Operations</h3>
+<div class="highlight"><pre><span></span><code><span class="n">ptr</span><span class="p">.</span><span class="n">reset</span><span class="p">();</span><span class="w">              </span><span class="c1">// delete resource and set to nullptr</span>
+<span class="n">ptr</span><span class="p">.</span><span class="n">reset</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="kt">int</span><span class="p">{</span><span class="mi">99</span><span class="p">});</span><span class="w">   </span><span class="c1">// delete old, take ownership of new</span>
+<span class="n">ptr</span><span class="p">.</span><span class="n">release</span><span class="p">();</span><span class="w">            </span><span class="c1">// return raw pointer, release ownership (rare)</span>
+</code></pre></div>
+<h3 id="unique_ptr-with-functions">Unique_ptr with Functions</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// Pass raw pointer when function doesn&#39;t need ownership</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">useResource</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Resource</span><span class="o">*</span><span class="w"> </span><span class="n">res</span><span class="p">);</span>
+<span class="n">useResource</span><span class="p">(</span><span class="n">ptr</span><span class="p">.</span><span class="n">get</span><span class="p">());</span>
+
+<span class="c1">// Transfer ownership (rare)</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">takeOwnership</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">Resource</span><span class="o">&gt;</span><span class="w"> </span><span class="n">res</span><span class="p">);</span>
+<span class="n">takeOwnership</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">ptr</span><span class="p">));</span>
+
+<span class="c1">// Return unique_ptr by value (factory pattern)</span>
+<span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">Resource</span><span class="o">&gt;</span><span class="w"> </span><span class="n">createResource</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">Resource</span><span class="o">&gt;</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div>
+<blockquote>
+<p><strong>Best Practices</strong>:
+- Use <code>std::make_unique&lt;T&gt;()</code> instead of <code>new</code>
+- Pass raw pointers or references to functions (not unique_ptr) unless transferring ownership
+- Never dynamically allocate a unique_ptr itself</p>
+</blockquote>
+<hr />
+<h2 id="226-stdshared_ptr">22.6 std::shared_ptr</h2>
+<p><strong>Shared ownership</strong> — multiple <code>shared_ptr</code> can own the same resource. The resource is freed when the LAST shared_ptr is destroyed.</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;memory&gt;</span>
+
+<span class="k">auto</span><span class="w"> </span><span class="n">ptr1</span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">Resource</span><span class="o">&gt;</span><span class="p">()</span><span class="w"> </span><span class="p">};</span>
+
+<span class="p">{</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">ptr2</span><span class="p">{</span><span class="w"> </span><span class="n">ptr1</span><span class="w"> </span><span class="p">};</span><span class="w">  </span><span class="c1">// reference count: 2 (COPY, not move!)</span>
+<span class="w">    </span><span class="c1">// ptr1 and ptr2 both point to same Resource</span>
+<span class="p">}</span><span class="w">  </span><span class="c1">// ptr2 destroyed, reference count: 1</span>
+
+<span class="c1">// ptr1 still valid, Resource still alive</span>
+</code></pre></div>
+<h3 id="reference-counting">Reference Counting</h3>
+<div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="n">ptr</span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span><span class="w"> </span><span class="p">};</span>
+<span class="n">ptr</span><span class="p">.</span><span class="n">use_count</span><span class="p">();</span><span class="w">  </span><span class="c1">// 1</span>
+
+<span class="k">auto</span><span class="w"> </span><span class="n">ptr2</span><span class="p">{</span><span class="w"> </span><span class="n">ptr</span><span class="w"> </span><span class="p">};</span>
+<span class="n">ptr</span><span class="p">.</span><span class="n">use_count</span><span class="p">();</span><span class="w">  </span><span class="c1">// 2</span>
+
+<span class="n">ptr2</span><span class="p">.</span><span class="n">reset</span><span class="p">();</span>
+<span class="n">ptr</span><span class="p">.</span><span class="n">use_count</span><span class="p">();</span><span class="w">  </span><span class="c1">// 1</span>
+</code></pre></div>
+<h3 id="creating-shared_ptr">Creating shared_ptr</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// PREFERRED — single allocation for object + control block</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">ptr</span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">Resource</span><span class="o">&gt;</span><span class="p">()</span><span class="w"> </span><span class="p">};</span>
+
+<span class="c1">// AVOID — two separate allocations</span>
+<span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Resource</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ptr</span><span class="p">{</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Resource</span><span class="p">{}</span><span class="w"> </span><span class="p">};</span>
+</code></pre></div>
+<blockquote>
+<p><strong>Warning</strong>: Never create two independent shared_ptrs from the same raw pointer — causes double-deletion!
+<div class="highlight"><pre><span></span><code><span class="n">Resource</span><span class="o">*</span><span class="w"> </span><span class="n">raw</span><span class="p">{</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Resource</span><span class="p">{}</span><span class="w"> </span><span class="p">};</span>
+<span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Resource</span><span class="o">&gt;</span><span class="w"> </span><span class="n">p1</span><span class="p">{</span><span class="w"> </span><span class="n">raw</span><span class="w"> </span><span class="p">};</span>
+<span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Resource</span><span class="o">&gt;</span><span class="w"> </span><span class="n">p2</span><span class="p">{</span><span class="w"> </span><span class="n">raw</span><span class="w"> </span><span class="p">};</span><span class="w">  </span><span class="c1">// BUG: both think they own it!</span>
+</code></pre></div></p>
+</blockquote>
+<hr />
+<h2 id="227-circular-dependencies-and-stdweak_ptr">22.7 Circular Dependencies and std::weak_ptr</h2>
+<h3 id="the-problem">The Problem</h3>
+<div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">A</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">B</span><span class="o">&gt;</span><span class="w"> </span><span class="n">bPtr</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">B</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">A</span><span class="o">&gt;</span><span class="w"> </span><span class="n">aPtr</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">auto</span><span class="w"> </span><span class="n">a</span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">A</span><span class="o">&gt;</span><span class="p">()</span><span class="w"> </span><span class="p">};</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">b</span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">B</span><span class="o">&gt;</span><span class="p">()</span><span class="w"> </span><span class="p">};</span>
+<span class="n">a</span><span class="o">-&gt;</span><span class="n">bPtr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+<span class="n">b</span><span class="o">-&gt;</span><span class="n">aPtr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">;</span>
+<span class="c1">// Neither can be freed! Circular reference = memory leak</span>
+</code></pre></div>
+<h3 id="the-solution-stdweak_ptr">The Solution: std::weak_ptr</h3>
+<p><code>std::weak_ptr</code> observes a shared resource <strong>without</strong> incrementing the reference count:</p>
+<div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">B</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">weak_ptr</span><span class="o">&lt;</span><span class="n">A</span><span class="o">&gt;</span><span class="w"> </span><span class="n">aPtr</span><span class="p">;</span><span class="w">  </span><span class="c1">// doesn&#39;t keep A alive</span>
+<span class="p">};</span>
+</code></pre></div>
+<h3 id="using-weak_ptr">Using weak_ptr</h3>
+<div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="n">shared</span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">Resource</span><span class="o">&gt;</span><span class="p">()</span><span class="w"> </span><span class="p">};</span>
+<span class="n">std</span><span class="o">::</span><span class="n">weak_ptr</span><span class="o">&lt;</span><span class="n">Resource</span><span class="o">&gt;</span><span class="w"> </span><span class="n">weak</span><span class="p">{</span><span class="w"> </span><span class="n">shared</span><span class="w"> </span><span class="p">};</span>
+
+<span class="c1">// Can&#39;t dereference directly — must convert to shared_ptr first:</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="n">locked</span><span class="p">{</span><span class="w"> </span><span class="n">weak</span><span class="p">.</span><span class="n">lock</span><span class="p">()</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="p">{</span><span class="w">  </span><span class="c1">// returns shared_ptr (or nullptr if expired)</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="o">*</span><span class="n">locked</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">weak</span><span class="p">.</span><span class="n">expired</span><span class="p">();</span><span class="w">  </span><span class="c1">// true if the resource has been freed</span>
+</code></pre></div>
+<hr />
+<h2 id="smart-pointer-decision-guide">Smart Pointer Decision Guide</h2>
+<div class="highlight"><pre><span></span><code>Do you need shared ownership?
+├── No  → std::unique_ptr (default choice)
+└── Yes → std::shared_ptr
+         └── Breaking circular ref? → std::weak_ptr
+</code></pre></div>
+<hr />
+<h2 id="chapter-22-quick-reference-card">Chapter 22 — Quick Reference Card</h2>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Rule</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Default smart pointer</td>
+<td><code>std::unique_ptr</code></td>
+</tr>
+<tr>
+<td>Creation</td>
+<td><code>std::make_unique&lt;T&gt;()</code> / <code>std::make_shared&lt;T&gt;()</code></td>
+</tr>
+<tr>
+<td>Move semantics</td>
+<td><code>std::move()</code> casts lvalue → rvalue</td>
+</tr>
+<tr>
+<td>After moving</td>
+<td>Object in valid but unspecified state</td>
+</tr>
+<tr>
+<td><code>noexcept</code></td>
+<td>Always mark move operations noexcept</td>
+</tr>
+<tr>
+<td>Shared ownership</td>
+<td><code>std::shared_ptr</code> (reference counted)</td>
+</tr>
+<tr>
+<td>Circular references</td>
+<td>Use <code>std::weak_ptr</code> to break cycles</td>
+</tr>
+<tr>
+<td>Pass to functions</td>
+<td>Pass raw pointer/ref, not smart pointer</td>
+</tr>
+<tr>
+<td>Raw <code>new</code>/<code>delete</code></td>
+<td><strong>Avoid</strong> — use smart pointers</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

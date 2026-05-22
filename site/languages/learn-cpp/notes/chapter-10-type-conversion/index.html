@@ -1,0 +1,1425 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://17kaushalsingh.github.io/study-notes/languages/learn-cpp/notes/chapter-10-type-conversion/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Chapter 10: Type Conversion, Type Aliases, and Type Deduction - Kaushal Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chapter-10-type-conversion-type-aliases-and-type-deduction" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="Kaushal Notes" class="md-header__button md-logo" aria-label="Kaushal Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Kaushal Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Chapter 10: Type Conversion, Type Aliases, and Type Deduction
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../dsa-and-cp/" class="md-tabs__link">
+          
+  
+  
+  DSA & CP
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../systems-and-backend/backend-from-first-principles/Backend-From-First-Principles/" class="md-tabs__link">
+          
+  
+  
+  Systems & Backend
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../databases/" class="md-tabs__link">
+          
+  
+  
+  Databases
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../java/LEC1_Core_Java/" class="md-tabs__link">
+          
+  
+  
+  Languages
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="Kaushal Notes" class="md-nav__button md-logo" aria-label="Kaushal Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Kaushal Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA & CP
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    DSA & CP
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../dsa-and-cp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Systems & Backend
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Systems & Backend
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../systems-and-backend/backend-from-first-principles/Backend-From-First-Principles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backend From First Principles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../systems-and-backend/low-level-design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Low Level Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Databases
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Databases
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../databases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Database System Concepts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Languages
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Languages
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../java/LEC1_Core_Java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C++
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#101-implicit-type-conversion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.1 Implicit Type Conversion
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10.1 Implicit Type Conversion">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#standard-conversion-categories" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Standard Conversion Categories
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#102-floating-point-and-integral-promotion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.2 Floating-Point and Integral Promotion
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10.2 Floating-Point and Integral Promotion">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#integral-promotions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integral Promotions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#floating-point-promotion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Floating-Point Promotion
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#103-numeric-conversions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.3 Numeric Conversions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#104-narrowing-conversions-and-list-initialization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.4 Narrowing Conversions and List Initialization
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10.4 Narrowing Conversions and List Initialization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#list-initialization-prevents-narrowing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        List Initialization Prevents Narrowing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#constexpr-exception" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Constexpr Exception
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-narrowing-is-intentional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When Narrowing is Intentional
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#105-arithmetic-conversions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.5 Arithmetic Conversions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#106-explicit-type-conversion-casting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.6 Explicit Type Conversion (Casting)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10.6 Explicit Type Conversion (Casting)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#static_cast-preferred" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        static_cast (Preferred)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#other-casts-brief-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Other Casts (Brief Overview)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#107-typedefs-and-type-aliases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.7 Typedefs and Type Aliases
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10.7 Typedefs and Type Aliases">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#type-alias-modern-preferred" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Type Alias (Modern — Preferred)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#typedef-legacy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Typedef (Legacy)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use-type-aliases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Use Type Aliases
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#naming-convention" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Naming Convention
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#108-type-deduction-with-auto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.8 Type Deduction with auto
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10.8 Type Deduction with auto">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#auto-drops-const-and-references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        auto Drops const and References
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#string-literal-gotcha" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        String Literal Gotcha
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#109-type-deduction-for-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.9 Type Deduction for Functions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10.9 Type Deduction for Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Limitations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trailing-return-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trailing Return Type
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-10-quick-reference-card" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 10 — Quick Reference Card
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="chapter-10-type-conversion-type-aliases-and-type-deduction">Chapter 10: Type Conversion, Type Aliases, and Type Deduction</h1>
+<h2 id="101-implicit-type-conversion">10.1 Implicit Type Conversion</h2>
+<p>Implicit conversion happens automatically when a value of one type is used where another is expected:</p>
+<div class="highlight"><pre><span></span><code><span class="kt">double</span><span class="w"> </span><span class="n">d</span><span class="p">{</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="p">};</span><span class="w">           </span><span class="c1">// int → double</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="w">                    </span><span class="c1">// int → bool</span>
+<span class="kt">double</span><span class="w"> </span><span class="n">result</span><span class="p">{</span><span class="w"> </span><span class="mf">4.0</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="p">};</span><span class="w"> </span><span class="c1">// int 3 → double 3.0</span>
+</code></pre></div>
+<h3 id="standard-conversion-categories">Standard Conversion Categories</h3>
+<ol>
+<li><strong>Numeric promotions</strong> — small types → int/double (value-preserving)</li>
+<li><strong>Numeric conversions</strong> — other numeric type changes (may lose data)</li>
+<li><strong>Qualification conversions</strong> — adding/removing const</li>
+<li><strong>Pointer conversions</strong> — between pointer types</li>
+</ol>
+<hr />
+<h2 id="102-floating-point-and-integral-promotion">10.2 Floating-Point and Integral Promotion</h2>
+<p>Promotion converts narrower types to wider types <strong>without data loss</strong>.</p>
+<h3 id="integral-promotions">Integral Promotions</h3>
+<p>These all promote to <code>int</code>:
+- <code>bool</code> → <code>int</code> (false=0, true=1)
+- <code>char</code>, <code>signed char</code>, <code>unsigned char</code> → <code>int</code>
+- <code>short</code>, <code>unsigned short</code> → <code>int</code></p>
+<h3 id="floating-point-promotion">Floating-Point Promotion</h3>
+<ul>
+<li><code>float</code> → <code>double</code></li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">printInt</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="n">printInt</span><span class="p">(</span><span class="sc">&#39;a&#39;</span><span class="p">);</span><span class="w">    </span><span class="c1">// char promoted to int (97)</span>
+<span class="n">printInt</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span><span class="w">   </span><span class="c1">// bool promoted to int (1)</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">printDouble</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">d</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">d</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="n">printDouble</span><span class="p">(</span><span class="mf">3.5f</span><span class="p">);</span><span class="w"> </span><span class="c1">// float promoted to double</span>
+</code></pre></div>
+<blockquote>
+<p><strong>Key</strong>: Not all widening conversions are promotions. <code>int</code> → <code>long</code> is a numeric conversion, not a promotion.</p>
+</blockquote>
+<hr />
+<h2 id="103-numeric-conversions">10.3 Numeric Conversions</h2>
+<p>Conversions that are NOT promotions. May lose data:</p>
+<table>
+<thead>
+<tr>
+<th>Conversion</th>
+<th>Risk</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>int</code> → <code>float</code></td>
+<td>Loss of precision for large values</td>
+</tr>
+<tr>
+<td><code>double</code> → <code>float</code></td>
+<td>Loss of precision</td>
+</tr>
+<tr>
+<td><code>double</code> → <code>int</code></td>
+<td>Fractional part dropped</td>
+</tr>
+<tr>
+<td><code>int</code> → <code>short</code></td>
+<td>Value may overflow</td>
+</tr>
+<tr>
+<td><code>int</code> → <code>unsigned</code></td>
+<td>Negative values wrap around</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="104-narrowing-conversions-and-list-initialization">10.4 Narrowing Conversions and List Initialization</h2>
+<p>A <strong>narrowing conversion</strong> is one where the destination type can't represent all values of the source.</p>
+<h3 id="list-initialization-prevents-narrowing">List Initialization Prevents Narrowing</h3>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">{</span><span class="w"> </span><span class="mf">3.5</span><span class="w"> </span><span class="p">};</span><span class="w">      </span><span class="c1">// COMPILE ERROR — narrowing!</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">3.5</span><span class="p">;</span><span class="w">        </span><span class="c1">// Warning only — silently truncates to 3</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">z</span><span class="p">(</span><span class="w"> </span><span class="mf">3.5</span><span class="w"> </span><span class="p">);</span><span class="w">       </span><span class="c1">// Warning only — silently truncates to 3</span>
+</code></pre></div>
+<h3 id="constexpr-exception">Constexpr Exception</h3>
+<p>If the value is <code>constexpr</code> and fits in the destination, it's allowed:</p>
+<div class="highlight"><pre><span></span><code><span class="k">constexpr</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">{</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="p">};</span>
+<span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">u</span><span class="p">{</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="p">};</span><span class="w">    </span><span class="c1">// OK: 5 fits in unsigned int</span>
+<span class="k">constexpr</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">neg</span><span class="p">{</span><span class="w"> </span><span class="mi">-5</span><span class="w"> </span><span class="p">};</span>
+<span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">u2</span><span class="p">{</span><span class="w"> </span><span class="n">neg</span><span class="w"> </span><span class="p">};</span><span class="w"> </span><span class="c1">// ERROR: -5 doesn&#39;t fit</span>
+</code></pre></div>
+<h3 id="when-narrowing-is-intentional">When Narrowing is Intentional</h3>
+<div class="highlight"><pre><span></span><code><span class="kt">double</span><span class="w"> </span><span class="n">d</span><span class="p">{</span><span class="w"> </span><span class="mf">5.0</span><span class="w"> </span><span class="p">};</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">{</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">d</span><span class="p">)</span><span class="w"> </span><span class="p">};</span><span class="w">  </span><span class="c1">// explicit — no warning</span>
+</code></pre></div>
+<hr />
+<h2 id="105-arithmetic-conversions">10.5 Arithmetic Conversions</h2>
+<p>When binary operators have operands of different types, the compiler converts using these priority rules:</p>
+<ol>
+<li>If either operand is <code>long double</code> → other becomes <code>long double</code></li>
+<li>If either is <code>double</code> → other becomes <code>double</code></li>
+<li>If either is <code>float</code> → other becomes <code>float</code></li>
+<li>Otherwise, integral promotion first, then:</li>
+<li>If both same sign → smaller converts to larger</li>
+<li>If unsigned rank ≥ signed rank → signed converts to unsigned</li>
+<li>If signed can hold all unsigned values → unsigned converts to signed</li>
+<li>Otherwise → both convert to unsigned version of the signed type</li>
+</ol>
+<blockquote>
+<p><strong>Warning</strong>: Mixing signed and unsigned in arithmetic often converts signed to unsigned, causing bugs:
+<div class="highlight"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">5u</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span><span class="w">  </span><span class="c1">// huge number (unsigned wraparound!)</span>
+</code></pre></div></p>
+</blockquote>
+<hr />
+<h2 id="106-explicit-type-conversion-casting">10.6 Explicit Type Conversion (Casting)</h2>
+<h3 id="static_cast-preferred">static_cast (Preferred)</h3>
+<div class="highlight"><pre><span></span><code><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">new_type</span><span class="o">&gt;</span><span class="p">(</span><span class="n">expression</span><span class="p">)</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">{</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="mf">3.5</span><span class="p">)</span><span class="w"> </span><span class="p">};</span><span class="w">           </span><span class="c1">// 3</span>
+<span class="kt">char</span><span class="w"> </span><span class="n">ch</span><span class="p">{</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">97</span><span class="p">)</span><span class="w"> </span><span class="p">};</span><span class="w">          </span><span class="c1">// &#39;a&#39;</span>
+<span class="kt">double</span><span class="w"> </span><span class="n">d</span><span class="p">{</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="p">};</span><span class="w">    </span><span class="c1">// 1.666...</span>
+</code></pre></div>
+<h3 id="other-casts-brief-overview">Other Casts (Brief Overview)</h3>
+<table>
+<thead>
+<tr>
+<th>Cast</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>static_cast</code></td>
+<td>Safe compile-time type conversion</td>
+</tr>
+<tr>
+<td><code>dynamic_cast</code></td>
+<td>Safe downcasting in inheritance</td>
+</tr>
+<tr>
+<td><code>const_cast</code></td>
+<td>Add/remove const (avoid!)</td>
+</tr>
+<tr>
+<td><code>reinterpret_cast</code></td>
+<td>Raw bit reinterpretation (dangerous!)</td>
+</tr>
+<tr>
+<td><code>(type)expr</code></td>
+<td>C-style cast — <strong>avoid</strong> (unsafe, no checks)</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Best Practice</strong>: Always use <code>static_cast</code> for intentional type conversions. Never use C-style casts.</p>
+</blockquote>
+<hr />
+<h2 id="107-typedefs-and-type-aliases">10.7 Typedefs and Type Aliases</h2>
+<h3 id="type-alias-modern-preferred">Type Alias (Modern — Preferred)</h3>
+<div class="highlight"><pre><span></span><code><span class="k">using</span><span class="w"> </span><span class="n">Distance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">double</span><span class="p">;</span>
+<span class="k">using</span><span class="w"> </span><span class="n">VecPairSI</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="o">&gt;&gt;</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="typedef-legacy">Typedef (Legacy)</h3>
+<div class="highlight"><pre><span></span><code><span class="k">typedef</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">Distance</span><span class="p">;</span>
+<span class="k">typedef</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">VecPairSI</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="when-to-use-type-aliases">When to Use Type Aliases</h3>
+<ul>
+<li>Simplify complex types: <code>using StringMap = std::map&lt;std::string, std::string&gt;;</code></li>
+<li>Platform independence: Fixed-width integers (<code>int32_t</code> is a typedef)</li>
+<li>Documentation: <code>using StudentId = int;</code></li>
+</ul>
+<h3 id="naming-convention">Naming Convention</h3>
+<p>Start with a capital letter: <code>Distance</code>, <code>StudentId</code>, <code>StringMap</code></p>
+<blockquote>
+<p><strong>Warning</strong>: Type aliases are NOT distinct types — <code>Distance</code> and <code>double</code> are interchangeable. The compiler won't prevent mixing <code>Miles</code> and <code>Kilometers</code> if both alias <code>double</code>.</p>
+</blockquote>
+<hr />
+<h2 id="108-type-deduction-with-auto">10.8 Type Deduction with auto</h2>
+<div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="n">d</span><span class="p">{</span><span class="w"> </span><span class="mf">5.0</span><span class="w"> </span><span class="p">};</span><span class="w">       </span><span class="c1">// double</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">i</span><span class="p">{</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="p">};</span><span class="w">     </span><span class="c1">// int</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">s</span><span class="p">{</span><span class="w"> </span><span class="s">&quot;hello&quot;</span><span class="n">sv</span><span class="w"> </span><span class="p">};</span><span class="w">  </span><span class="c1">// std::string_view</span>
+</code></pre></div>
+<h3 id="auto-drops-const-and-references">auto Drops const and References</h3>
+<div class="highlight"><pre><span></span><code><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">{</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="p">};</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">y</span><span class="p">{</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="p">};</span><span class="w">          </span><span class="c1">// int (const dropped!)</span>
+<span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">z</span><span class="p">{</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="p">};</span><span class="w">    </span><span class="c1">// const int (const reapplied)</span>
+</code></pre></div>
+<h3 id="string-literal-gotcha">String Literal Gotcha</h3>
+<div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="n">s</span><span class="p">{</span><span class="w"> </span><span class="s">&quot;hello&quot;</span><span class="w"> </span><span class="p">};</span><span class="w">    </span><span class="c1">// const char* — NOT std::string!</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">s</span><span class="p">{</span><span class="w"> </span><span class="s">&quot;hello&quot;</span><span class="n">s</span><span class="w"> </span><span class="p">};</span><span class="w">   </span><span class="c1">// std::string (with using namespace std::string_literals)</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">s</span><span class="p">{</span><span class="w"> </span><span class="s">&quot;hello&quot;</span><span class="n">sv</span><span class="w"> </span><span class="p">};</span><span class="w">  </span><span class="c1">// std::string_view</span>
+</code></pre></div>
+<blockquote>
+<p><strong>Best Practice</strong>: Use <code>auto</code> when the type doesn't matter or is obvious from context. Use explicit types when you need a specific type or clarity matters.</p>
+</blockquote>
+<hr />
+<h2 id="109-type-deduction-for-functions">10.9 Type Deduction for Functions</h2>
+<div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="n">add</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">y</span><span class="p">;</span><span class="w">       </span><span class="c1">// return type deduced as int</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="limitations">Limitations</h3>
+<ul>
+<li>All <code>return</code> statements must return the same type</li>
+<li>Forward declarations can't use <code>auto</code> return types</li>
+<li>Reduces readability (caller can't see the return type)</li>
+</ul>
+<h3 id="trailing-return-type">Trailing Return Type</h3>
+<div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="n">add</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="p">{</span><span class="w">  </span><span class="c1">// explicit return type after -&gt;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">y</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<blockquote>
+<p><strong>Best Practice</strong>: Avoid <code>auto</code> return types for normal functions (makes API harder to understand). Use when required by templates.</p>
+</blockquote>
+<hr />
+<h2 id="chapter-10-quick-reference-card">Chapter 10 — Quick Reference Card</h2>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Rule</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Narrowing conversions</td>
+<td>Use brace init <code>{}</code> to catch them</td>
+</tr>
+<tr>
+<td>Explicit conversion</td>
+<td>Use <code>static_cast&lt;&gt;()</code></td>
+</tr>
+<tr>
+<td>C-style casts <code>(int)x</code></td>
+<td><strong>Avoid</strong> — unsafe</td>
+</tr>
+<tr>
+<td><code>auto</code> drops const</td>
+<td>Use <code>const auto</code> if needed</td>
+</tr>
+<tr>
+<td><code>auto</code> with strings</td>
+<td>Deduces <code>const char*</code>, not <code>std::string</code></td>
+</tr>
+<tr>
+<td>Type aliases</td>
+<td><code>using Name = Type;</code> (prefer over typedef)</td>
+</tr>
+<tr>
+<td>Mixed signed/unsigned</td>
+<td>Signed may convert to unsigned — danger!</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

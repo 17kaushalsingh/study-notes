@@ -1,0 +1,1765 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://17kaushalsingh.github.io/study-notes/languages/learn-cpp/notes/chapter-00-introduction/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Chapter 0: Introduction / Getting Started - Kaushal Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chapter-0-introduction-getting-started" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="Kaushal Notes" class="md-header__button md-logo" aria-label="Kaushal Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Kaushal Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Chapter 0: Introduction / Getting Started
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../dsa-and-cp/" class="md-tabs__link">
+          
+  
+  
+  DSA & CP
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../systems-and-backend/backend-from-first-principles/Backend-From-First-Principles/" class="md-tabs__link">
+          
+  
+  
+  Systems & Backend
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../databases/" class="md-tabs__link">
+          
+  
+  
+  Databases
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../java/LEC1_Core_Java/" class="md-tabs__link">
+          
+  
+  
+  Languages
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="Kaushal Notes" class="md-nav__button md-logo" aria-label="Kaushal Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Kaushal Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA & CP
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    DSA & CP
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../dsa-and-cp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Systems & Backend
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Systems & Backend
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../systems-and-backend/backend-from-first-principles/Backend-From-First-Principles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backend From First Principles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../systems-and-backend/low-level-design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Low Level Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Databases
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Databases
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../databases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Database System Concepts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Languages
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Languages
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../java/LEC1_Core_Java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C++
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#01-introduction-to-these-tutorials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0.1 -- Introduction to These Tutorials
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0.1 -- Introduction to These Tutorials">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#target-audience" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Target Audience
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#goals-of-the-tutorials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Goals of the Tutorials
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#best-practices-for-learning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Best Practices for Learning
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#02-introduction-to-programming-languages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0.2 -- Introduction to Programming Languages
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0.2 -- Introduction to Programming Languages">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#computer-programs-and-hardware" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Computer Programs and Hardware
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#three-categories-of-programming-languages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Three Categories of Programming Languages
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Three Categories of Programming Languages">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#machine-language" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Machine Language
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#assembly-language" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Assembly Language
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#high-level-languages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        High-Level Languages
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#03-introduction-to-cc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0.3 -- Introduction to C/C++
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0.3 -- Introduction to C/C++">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#historical-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Historical Context
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-characteristics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Characteristics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#where-c-excels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where C++ Excels
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#04-introduction-to-c-development" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0.4 -- Introduction to C++ Development
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0.4 -- Introduction to C++ Development">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-software-development-process-7-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Software Development Process (7 Steps)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-solution-design-most-neglected-step" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Solution Design (Most Neglected Step)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-writing-the-program" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Writing the Program
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#essential-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Essential Tools
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#file-naming-conventions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        File Naming Conventions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-terminology" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Terminology
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#05-introduction-to-the-compiler-linker-and-libraries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0.5 -- Introduction to the Compiler, Linker, and Libraries
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0.5 -- Introduction to the Compiler, Linker, and Libraries">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-4-compiling-source-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Compiling Source Code
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5-linking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5: Linking
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-c-standard-library" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The C++ Standard Library
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#steps-6-and-7-testing-and-debugging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Steps 6 and 7: Testing and Debugging
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integrated-development-environments-ides" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integrated Development Environments (IDEs)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#09-configuring-your-compiler-build-configurations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0.9 -- Configuring Your Compiler: Build Configurations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0.9 -- Configuring Your Compiler: Build Configurations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-are-build-configurations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Are Build Configurations?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#two-standard-configurations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Two Standard Configurations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#command-line-flags-gccclang" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Command-Line Flags (GCC/Clang)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#010-configuring-your-compiler-compiler-extensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0.10 -- Configuring Your Compiler: Compiler Extensions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0.10 -- Configuring Your Compiler: Compiler Extensions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-are-compiler-extensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Are Compiler Extensions?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Problem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-disable-extensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How to Disable Extensions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#011-configuring-your-compiler-warning-and-error-levels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0.11 -- Configuring Your Compiler: Warning and Error Levels
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0.11 -- Configuring Your Compiler: Warning and Error Levels">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagnostic-messages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagnostic Messages
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recommended-warning-flags" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recommended Warning Flags
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#treating-warnings-as-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Treating Warnings as Errors
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#012-configuring-your-compiler-choosing-a-language-standard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0.12 -- Configuring Your Compiler: Choosing a Language Standard
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0.12 -- Configuring Your Compiler: Choosing a Language Standard">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#c-language-standards" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        C++ Language Standards
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-set-the-standard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How to Set the Standard
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#choosing-a-standard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Choosing a Standard
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="chapter-0-introduction-getting-started">Chapter 0: Introduction / Getting Started</h1>
+<hr />
+<h2 id="01-introduction-to-these-tutorials">0.1 -- Introduction to These Tutorials</h2>
+<p>This lesson establishes the foundation and philosophy for learning C++.</p>
+<h3 id="target-audience">Target Audience</h3>
+<p>No prior programming experience is required. The tutorials are designed for hobbyists and professionals alike, beginning with a broad overview and deepening understanding in subsequent chapters.</p>
+<h3 id="goals-of-the-tutorials">Goals of the Tutorials</h3>
+<ol>
+<li><strong>Holistic programming education</strong> -- covers general programming topics (style, debugging, pitfalls, best practices), not just C++ syntax.</li>
+<li><strong>Rich examples</strong> -- numerous clear, concise examples prioritized over pure theory.</li>
+<li><strong>Practical exercises</strong> -- practice programs with solutions throughout for skill reinforcement.</li>
+<li><strong>Engagement</strong> -- programming should be enjoyable. Tired or unhappy programmers make mistakes.</li>
+</ol>
+<h3 id="best-practices-for-learning">Best Practices for Learning</h3>
+<ol>
+<li><strong>Type code by hand</strong> -- do not copy-paste. You learn error patterns and diagnostics by typing.</li>
+<li><strong>Solve problems independently first</strong> -- debug your own code before seeking help.</li>
+<li><strong>Experiment actively</strong> -- modify examples, test edge cases, explore variations.</li>
+<li><strong>Attempt quizzes multiple times</strong> -- struggle strengthens understanding.</li>
+<li><strong>Write original programs</strong> -- reinforce concepts with your own projects.</li>
+</ol>
+<blockquote>
+<p><strong>Key Takeaway:</strong> If you get stuck: read comments on the lesson, scan ahead in the tutorials, search externally, consult AI cautiously, or ask on Stack Overflow.</p>
+</blockquote>
+<hr />
+<h2 id="02-introduction-to-programming-languages">0.2 -- Introduction to Programming Languages</h2>
+<h3 id="computer-programs-and-hardware">Computer Programs and Hardware</h3>
+<p>A <strong>computer program</strong> is a sequence of instructions that directs a computer to perform certain actions in a specified order. Programs run on hardware (CPU, memory, storage, interactive devices) and interact with the operating system.</p>
+<h3 id="three-categories-of-programming-languages">Three Categories of Programming Languages</h3>
+<h4 id="machine-language">Machine Language</h4>
+<ul>
+<li>The only format CPUs natively understand.</li>
+<li>Appears as binary strings: <code>10110000 01100001</code></li>
+<li>Specific to each CPU family/instruction set.</li>
+<li>Extremely difficult for humans to write and maintain.</li>
+</ul>
+<h4 id="assembly-language">Assembly Language</h4>
+<ul>
+<li>Human-readable intermediary using mnemonics: <code>mov al, 0x61</code></li>
+<li>Translated to machine code via an <strong>assembler</strong>.</li>
+<li>Still platform-specific and not portable.</li>
+</ul>
+<h4 id="high-level-languages">High-Level Languages</h4>
+<ul>
+<li>Examples: C, C++, Java, Python.</li>
+<li>Abstract away platform specifics and enable cross-platform development.</li>
+<li>Two execution methods:</li>
+<li><strong>Compiling</strong>: translates entire program to machine code before execution.</li>
+<li><strong>Interpreting</strong>: executes code directly, line by line, without prior compilation.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1">// High-level C++ vs. low-level assembly</span>
+<span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">97</span><span class="p">;</span><span class="w">           </span><span class="c1">// C++ equivalent to a machine instruction</span>
+<span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span><span class="w">    </span><span class="c1">// Single line replacing 4-6 assembly instructions</span>
+</code></pre></div>
+<blockquote>
+<p><strong>Key Takeaway:</strong> High-level languages provide portability -- write code once, run on multiple platforms. C++ sits as a "mid-level language" balancing performance with convenience.</p>
+<p><strong>Warning:</strong> Compiler-specific extensions and platform-specific code break cross-platform compatibility. Design for portability early.</p>
+</blockquote>
+<hr />
+<h2 id="03-introduction-to-cc">0.3 -- Introduction to C/C++</h2>
+<h3 id="historical-context">Historical Context</h3>
+<ul>
+<li><strong>C Language</strong>: Developed in 1972 by Dennis Ritchie at Bell Labs as a systems programming language.</li>
+<li><strong>C++</strong>: Created by Bjarne Stroustrup starting in 1979 as an extension to C, adding object-oriented programming.</li>
+<li><strong>Standardization</strong>: C++ was formally standardized in 1998 by ISO. Major updates: C++11, C++14, C++17, C++20, C++23.</li>
+</ul>
+<h3 id="key-characteristics">Key Characteristics</h3>
+<ul>
+<li>C++ is best thought of as a superset of C.</li>
+<li>Design philosophy: <strong>"trust the programmer"</strong> -- grants high freedom but demands responsibility.</li>
+<li>"Knowing what you shouldn't do in C/C++ is almost as important as knowing what you should do."</li>
+</ul>
+<h3 id="where-c-excels">Where C++ Excels</h3>
+<ul>
+<li>Video games</li>
+<li>Real-time systems (e.g., transportation, manufacturing)</li>
+<li>High-performance financial applications</li>
+<li>Embedded software</li>
+<li>AI and neural networks</li>
+</ul>
+<blockquote>
+<p><strong>Key Takeaway:</strong> C++ remains one of the top 2-3 most popular compiled languages. No prior C knowledge is required before learning C++. The language receives updates roughly every 3 years.</p>
+</blockquote>
+<hr />
+<h2 id="04-introduction-to-c-development">0.4 -- Introduction to C++ Development</h2>
+<h3 id="the-software-development-process-7-steps">The Software Development Process (7 Steps)</h3>
+<ol>
+<li><strong>Define the problem</strong> -- conceptualize what you want to build.</li>
+<li><strong>Determine the solution approach</strong> -- design before coding.</li>
+<li><strong>Write the program</strong> -- use a text editor to create source code.</li>
+<li><strong>Compile</strong> -- translate source code to machine code.</li>
+<li><strong>Link</strong> -- combine object files into an executable.</li>
+<li><strong>Test</strong> -- verify the program works correctly.</li>
+<li><strong>Debug</strong> -- find and fix errors.</li>
+</ol>
+<h3 id="step-2-solution-design-most-neglected-step">Step 2: Solution Design (Most Neglected Step)</h3>
+<p>Effective solutions share these traits:
+- Straightforward and not overly complicated.
+- Well-documented with clear assumptions.
+- Built modularly for reusability.
+- Graceful error handling with useful messages.</p>
+<blockquote>
+<p><strong>Remember:</strong> Only 10-40% of developer time involves writing initial code. The remaining 60-90% goes to maintenance, debugging, updates, and improvements.</p>
+</blockquote>
+<h3 id="step-3-writing-the-program">Step 3: Writing the Program</h3>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Here is some text.&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="essential-tools">Essential Tools</h3>
+<ul>
+<li><strong>Line numbering</strong> -- helps locate compiler errors.</li>
+<li><strong>Syntax highlighting</strong> -- color-codes program components.</li>
+<li><strong>Monospace font</strong> -- distinguishes similar characters (0 vs O, 1 vs l vs I).</li>
+</ul>
+<h3 id="file-naming-conventions">File Naming Conventions</h3>
+<ul>
+<li>Name the primary source file <code>main.cpp</code>.</li>
+<li><code>.cpp</code> is the standard C++ extension (alternatives: <code>.cc</code>, <code>.cxx</code>).</li>
+</ul>
+<h3 id="key-terminology">Key Terminology</h3>
+<ul>
+<li><strong>Bug</strong>: any programming error that prevents correct operation.</li>
+<li><strong>Debugging</strong>: removing bugs from code.</li>
+<li><strong>Source code</strong>: the C++ instructions saved in a text file.</li>
+</ul>
+<blockquote>
+<p><strong>Key Takeaway:</strong> Spending extra time on design prevents significant problems later. Use proper tools (a code editor, not a word processor).</p>
+</blockquote>
+<hr />
+<h2 id="05-introduction-to-the-compiler-linker-and-libraries">0.5 -- Introduction to the Compiler, Linker, and Libraries</h2>
+<h3 id="step-4-compiling-source-code">Step 4: Compiling Source Code</h3>
+<p>The C++ compiler performs two critical functions:
+1. <strong>Syntax validation</strong> -- checks code against C++ language rules; reports errors with line numbers.
+2. <strong>Translation</strong> -- converts C++ code into machine language instructions stored in <strong>object files</strong> (<code>.o</code> or <code>.obj</code>).</p>
+<h3 id="step-5-linking">Step 5: Linking</h3>
+<p>The <strong>linker</strong> combines object files and libraries to produce the final executable:
+- Validates object files.
+- Resolves cross-file dependencies (connecting definitions across multiple <code>.cpp</code> files).
+- Links library files containing precompiled code.
+- Generates the executable.</p>
+<h3 id="the-c-standard-library">The C++ Standard Library</h3>
+<p>A set of useful precompiled capabilities included with every C++ compiler. The <strong>iostream</strong> library is the most commonly used for console I/O. Most linkers include the standard library automatically.</p>
+<h3 id="steps-6-and-7-testing-and-debugging">Steps 6 and 7: Testing and Debugging</h3>
+<ul>
+<li><strong>Testing</strong>: assessing software behavior against expected outcomes through varied inputs.</li>
+<li><strong>Debugging</strong>: finding and fixing errors when behavior diverges from expectations.</li>
+</ul>
+<h3 id="integrated-development-environments-ides">Integrated Development Environments (IDEs)</h3>
+<p>IDEs bundle the editor, compiler, linker, and debugger into a single unified application, streamlining the development workflow.</p>
+<blockquote>
+<p><strong>Key Takeaway:</strong> Compilation and linking are distinct sequential processes. "Building" refers to the complete conversion from source code to executable.</p>
+</blockquote>
+<hr />
+<h2 id="09-configuring-your-compiler-build-configurations">0.9 -- Configuring Your Compiler: Build Configurations</h2>
+<h3 id="what-are-build-configurations">What Are Build Configurations?</h3>
+<p>A <strong>build configuration</strong> (or build target) is a collection of project settings determining how the IDE compiles and packages programs.</p>
+<h3 id="two-standard-configurations">Two Standard Configurations</h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Debug</th>
+<th>Release</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Optimizations</td>
+<td>Disabled</td>
+<td>Enabled</td>
+</tr>
+<tr>
+<td>Debug info</td>
+<td>Included</td>
+<td>Excluded</td>
+</tr>
+<tr>
+<td>Executable size</td>
+<td>Larger</td>
+<td>Smaller</td>
+</tr>
+<tr>
+<td>Speed</td>
+<td>Slower</td>
+<td>Faster</td>
+</tr>
+<tr>
+<td>Use case</td>
+<td>Development</td>
+<td>Distribution</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example:</strong> A Hello World program produced a 65KB debug executable vs. 12KB in release mode.</p>
+<h3 id="command-line-flags-gccclang">Command-Line Flags (GCC/Clang)</h3>
+<div class="highlight"><pre><span></span><code>Debug:    -O0 -ggdb
+Release:  -O2 -DNDEBUG
+Aggressive: -O3 (requires testing)
+</code></pre></div>
+<blockquote>
+<p><strong>Best Practice:</strong> Use the <strong>debug</strong> build configuration during development. Switch to <strong>release</strong> when distributing to others or testing performance.</p>
+<p><strong>Remember:</strong> Apply configuration changes across all build profiles to prevent inconsistent settings.</p>
+</blockquote>
+<hr />
+<h2 id="010-configuring-your-compiler-compiler-extensions">0.10 -- Configuring Your Compiler: Compiler Extensions</h2>
+<h3 id="what-are-compiler-extensions">What Are Compiler Extensions?</h3>
+<p>Compiler extensions are <strong>compiler-specific behaviors</strong> that deviate from the C++ standard. They allow non-standard features, often enabled by default.</p>
+<h3 id="the-problem">The Problem</h3>
+<ul>
+<li>Programs using extensions won't compile reliably across different compilers.</li>
+<li>Learners may mistake non-standard behavior for official C++ functionality.</li>
+</ul>
+<h3 id="how-to-disable-extensions">How to Disable Extensions</h3>
+<table>
+<thead>
+<tr>
+<th>Compiler</th>
+<th>Setting</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Visual Studio</td>
+<td>Set Conformance mode to <code>Yes (/permissive-)</code> in project properties</td>
+</tr>
+<tr>
+<td>Code::Blocks</td>
+<td>Check <code>-pedantic-errors</code> in Settings &gt; Compiler</td>
+</tr>
+<tr>
+<td>GCC/Clang</td>
+<td>Add <code>-pedantic-errors</code> flag</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Best Practice:</strong> Disable compiler extensions to ensure your programs remain compliant with C++ standards and will work on any system. This must be configured for each new project.</p>
+</blockquote>
+<hr />
+<h2 id="011-configuring-your-compiler-warning-and-error-levels">0.11 -- Configuring Your Compiler: Warning and Error Levels</h2>
+<h3 id="diagnostic-messages">Diagnostic Messages</h3>
+<p>The compiler generates two types of diagnostics:</p>
+<ol>
+<li><strong>Compilation Errors</strong> -- serious issues that halt compilation.</li>
+<li><strong>Warnings</strong> -- potential problems where compilation continues but the code may behave unexpectedly.</li>
+</ol>
+<blockquote>
+<p><strong>Warning:</strong> Different compilers may categorize the same issue differently. One compiler's error might be another's warning.</p>
+</blockquote>
+<h3 id="recommended-warning-flags">Recommended Warning Flags</h3>
+<table>
+<thead>
+<tr>
+<th>Compiler</th>
+<th>Flags</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Visual Studio</td>
+<td><code>/W4</code>, <code>/w44365</code> for signed/unsigned warnings</td>
+</tr>
+<tr>
+<td>Code::Blocks</td>
+<td><code>-Wall -Weffc++ -Wextra -Wconversion -Wsign-conversion</code></td>
+</tr>
+<tr>
+<td>GCC/Clang</td>
+<td><code>-Wall -Weffc++ -Wextra -Wconversion -Wsign-conversion</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="treating-warnings-as-errors">Treating Warnings as Errors</h3>
+<table>
+<thead>
+<tr>
+<th>Compiler</th>
+<th>Flag</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GCC/Clang</td>
+<td><code>-Werror</code></td>
+</tr>
+<tr>
+<td>Visual Studio</td>
+<td><code>/WX</code> or "Treat Warnings As Errors" in properties</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Best Practice:</strong> Turn warning levels up to maximum, especially while learning. Do not let warnings pile up -- resolve them immediately. Enable "treat warnings as errors" to enforce this discipline.</p>
+<p><strong>Warning:</strong> Avoid <code>/Wall</code> in Visual Studio -- it generates excessive standard library warnings that are not useful.</p>
+</blockquote>
+<hr />
+<h2 id="012-configuring-your-compiler-choosing-a-language-standard">0.12 -- Configuring Your Compiler: Choosing a Language Standard</h2>
+<h3 id="c-language-standards">C++ Language Standards</h3>
+<p>C++ has multiple versions based on publication years:</p>
+<table>
+<thead>
+<tr>
+<th>Standard</th>
+<th>Year</th>
+<th>Development Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C++11</td>
+<td>2011</td>
+<td>C++0x</td>
+</tr>
+<tr>
+<td>C++14</td>
+<td>2014</td>
+<td>C++1y</td>
+</tr>
+<tr>
+<td>C++17</td>
+<td>2017</td>
+<td>C++1z</td>
+</tr>
+<tr>
+<td>C++20</td>
+<td>2020</td>
+<td>C++2a</td>
+</tr>
+<tr>
+<td>C++23</td>
+<td>2024</td>
+<td>C++2b</td>
+</tr>
+<tr>
+<td>C++26</td>
+<td>(in progress)</td>
+<td>C++2c</td>
+</tr>
+</tbody>
+</table>
+<h3 id="how-to-set-the-standard">How to Set the Standard</h3>
+<p><strong>GCC/Clang command-line flags:</strong>
+<div class="highlight"><pre><span></span><code>-std=c++17
+-std=c++20
+-std=c++23
+</code></pre></div></p>
+<p><strong>Visual Studio:</strong>
+- Project &gt; Properties &gt; C/C++ &gt; Language &gt; C++ Language Standard
+- Recommended: <code>ISO C++ Latest (/std:c++latest)</code>
+- Must be set for each new project (no global setting).</p>
+<p><strong>Code::Blocks:</strong>
+- Settings &gt; Compiler &gt; select checkbox for desired standard.
+- Allows a global setting (more convenient than Visual Studio).</p>
+<h3 id="choosing-a-standard">Choosing a Standard</h3>
+<ul>
+<li><strong>Professional environments</strong>: use one or two versions behind the latest for stability.</li>
+<li><strong>Personal/learning projects</strong>: use the latest finalized standard -- there is little downside.</li>
+</ul>
+<blockquote>
+<p><strong>Best Practice:</strong> When changing the language standard (or any project setting), make the change to <strong>all</strong> build configurations.</p>
+<p><strong>Warning:</strong> Even after a standard is finalized, compiler support may be incomplete, partial, or buggy. Check CPPReference compiler support tables if code fails to compile.</p>
+</blockquote>
+<h3 id="troubleshooting">Troubleshooting</h3>
+<p>If standards-compliant code won't compile:
+1. Verify your compiler is using the intended language standard.
+2. Check CPPReference for compiler support tables.
+3. Consider upgrading your compiler.
+4. Try an alternative compiler.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

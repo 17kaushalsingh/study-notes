@@ -1,0 +1,1197 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://17kaushalsingh.github.io/study-notes/systems-and-backend/backend-from-first-principles/LEC6/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>HTTP Routing — Lecture Notes - Kaushal Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#http-routing-lecture-notes" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Kaushal Notes" class="md-header__button md-logo" aria-label="Kaushal Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Kaushal Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              HTTP Routing — Lecture Notes
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../dsa-and-cp/" class="md-tabs__link">
+          
+  
+  
+  DSA & CP
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../Backend-From-First-Principles/" class="md-tabs__link">
+          
+  
+  
+  Systems & Backend
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../databases/" class="md-tabs__link">
+          
+  
+  
+  Databases
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../languages/java/LEC1_Core_Java/" class="md-tabs__link">
+          
+  
+  
+  Languages
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Kaushal Notes" class="md-nav__button md-logo" aria-label="Kaushal Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Kaushal Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA & CP
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    DSA & CP
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dsa-and-cp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Systems & Backend
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Systems & Backend
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Backend-From-First-Principles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backend From First Principles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../low-level-design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Low Level Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Databases
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Databases
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../databases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Database System Concepts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Languages
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Languages
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../languages/java/LEC1_Core_Java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../languages/learn-cpp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C++
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-what-is-routing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. What is Routing?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-types-of-routes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Types of Routes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Types of Routes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-static-routes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Static Routes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-dynamic-routes-path-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Dynamic Routes (Path Parameters)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-query-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 Query Parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-nested-routes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 Nested Routes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-route-versioning-and-deprecation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5 Route Versioning and Deprecation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26-catch-all-route" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6 Catch-All Route
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-summary-route-types-at-a-glance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Summary: Route Types at a Glance
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-path-params-vs-query-params-when-to-use-which" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Path Params vs Query Params — When to Use Which
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-revision-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Revision Checklist
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="http-routing-lecture-notes">HTTP Routing — Lecture Notes</h1>
+<hr />
+<h2 id="1-what-is-routing">1. What is Routing?</h2>
+<p>If HTTP <strong>methods</strong> express the <em>what</em> (intent/action) of a request, then <strong>routing</strong> expresses the <em>where</em> — which resource or address the action should be performed on.</p>
+<div class="highlight"><pre><span></span><code>GET   /users      →  fetch a list of users
+POST  /users      →  create a new user
+</code></pre></div>
+<p>The server takes the <strong>(method, route)</strong> pair as a composite key and maps it to a specific handler that runs the business logic, performs DB operations, and returns a response.</p>
+<blockquote>
+<p><strong>Routing = mapping URL paths + HTTP methods to server-side handler logic.</strong></p>
+</blockquote>
+<hr />
+<h2 id="2-types-of-routes">2. Types of Routes</h2>
+<h3 id="21-static-routes">2.1 Static Routes</h3>
+<p>Routes with <strong>no variable parts</strong> — the path string is a constant that never changes.</p>
+<div class="highlight"><pre><span></span><code>GET   /api/books    →  returns list of all books
+POST  /api/books    →  creates a new book
+</code></pre></div>
+<ul>
+<li>Same path <code>/api/books</code>, but different methods → two distinct handlers.</li>
+<li>The method + route combination is always unique; they never clash.</li>
+<li>Always returns the same <em>kind</em> of response for the same method.</li>
+</ul>
+<hr />
+<h3 id="22-dynamic-routes-path-parameters">2.2 Dynamic Routes (Path Parameters)</h3>
+<p>Routes where <strong>part of the path is a variable</strong> supplied by the client — called a <strong>path parameter</strong> or <strong>route parameter</strong>.</p>
+<div class="highlight"><pre><span></span><code>GET  /api/users/:id
+</code></pre></div>
+<ul>
+<li><code>:id</code> is a placeholder; the server extracts whatever string appears in that position.</li>
+<li>Convention: <code>:paramName</code> — used universally across Node.js, Python, Go, Java, Rust, etc.</li>
+<li>Everything in a route path is treated as a string (even numeric IDs).</li>
+</ul>
+<p><strong>Example:</strong>
+<div class="highlight"><pre><span></span><code>GET /api/users/123   →  handler extracts id = &quot;123&quot;, fetches user 123
+GET /api/users/456   →  same handler, id = &quot;456&quot;, fetches user 456
+</code></pre></div></p>
+<p><strong>Server-side matching (pseudocode — language-agnostic):</strong>
+<div class="highlight"><pre><span></span><code>r.get(&quot;/api/users/:id&quot;, handler)
+// Matches any GET request of the form /api/users/&lt;anything&gt;
+</code></pre></div></p>
+<p><strong>When to use:</strong> When the route semantically identifies a specific resource instance (e.g., a user, a post, a product).</p>
+<hr />
+<h3 id="23-query-parameters">2.3 Query Parameters</h3>
+<p>Key-value pairs appended to the URL after a <code>?</code>, separated by <code>&amp;</code>.</p>
+<div class="highlight"><pre><span></span><code>GET  /api/search?query=some+value
+GET  /api/books?page=2&amp;limit=20&amp;sort=asc
+</code></pre></div>
+<ul>
+<li>The server reads these from the query string, not the path.</li>
+<li><strong>Not part of route matching</strong> — the handler is matched on <code>/api/search</code> alone; query params are just data passed to it.</li>
+</ul>
+<p><strong>Why not use path params for this?</strong></p>
+<p>Putting search/filter values in the path (<code>/api/search/some-value</code>) is technically possible but breaks REST semantics — path params are meant to identify <em>which</em> resource, not <em>how</em> to filter or paginate it.</p>
+<p><strong>Common use cases:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Use Case</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Search/filter</td>
+<td><code>?query=laptop&amp;brand=dell</code></td>
+</tr>
+<tr>
+<td>Pagination</td>
+<td><code>?page=2&amp;limit=20</code></td>
+</tr>
+<tr>
+<td>Sorting</td>
+<td><code>?sort=price&amp;order=asc</code></td>
+</tr>
+<tr>
+<td>Feature flags</td>
+<td><code>?debug=true</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Why GET requests specifically?</strong> GET requests have no body in REST. Query params fill that role — they're the way to pass metadata/filters to the server in a GET request.</p>
+<hr />
+<h3 id="24-nested-routes">2.4 Nested Routes</h3>
+<p>Nesting multiple resource levels in a single path to express hierarchical relationships semantically.</p>
+<div class="highlight"><pre><span></span><code>/api/users                        →  all users
+/api/users/:userId                →  a specific user
+/api/users/:userId/posts          →  all posts of that user
+/api/users/:userId/posts/:postId  →  a specific post of that user
+</code></pre></div>
+<p>Each level of nesting is a separate, valid route with its own handler — they don't clash.</p>
+<p><strong>Example from demo:</strong>
+<div class="highlight"><pre><span></span><code>GET /api/users/123/posts/456
+</code></pre></div>
+Reads as: <em>"Fetch the post with ID 456 belonging to user with ID 123."</em></p>
+<ul>
+<li>Each additional segment narrows the scope of the resource.</li>
+<li>Results in different handlers and different response shapes at each level.</li>
+<li>Very common in any API with medium-to-high complexity.</li>
+</ul>
+<hr />
+<h3 id="25-route-versioning-and-deprecation">2.5 Route Versioning and Deprecation</h3>
+<p>Embedding a version identifier in the path prefix to manage breaking changes over time.</p>
+<div class="highlight"><pre><span></span><code>GET  /api/v1/products   →  returns { id, name, price }
+GET  /api/v2/products   →  returns { id, title, price }
+</code></pre></div>
+<p><strong>Why version routes?</strong>
+- A new client (e.g., mobile app) may need a different response shape than the existing web client.
+- Changing the existing route breaks all current consumers.
+- Versioning lets both coexist simultaneously.</p>
+<p><strong>Deprecation workflow:</strong>
+1. Release v2 alongside v1.
+2. Notify client teams that v1 is deprecated with a migration window.
+3. Clients migrate to v2 during that window.
+4. Eventually remove v1; rename v2 → v1 if desired.</p>
+<blockquote>
+<p>Versioning avoids the need for ugly route names like <code>/api/new-products</code> and provides a clean, stable migration path for all consumers.</p>
+</blockquote>
+<hr />
+<h3 id="26-catch-all-route">2.6 Catch-All Route</h3>
+<p>A wildcard route defined <strong>last</strong> that matches any request that didn't match any previous handler.</p>
+<div class="highlight"><pre><span></span><code>GET  /api/v3/products   →  no handler exists → falls through to catch-all
+/*  →  &quot;Route not found&quot; (user-friendly 404 message)
+</code></pre></div>
+<ul>
+<li>Defined as <code>/*</code> or equivalent at the end of all route definitions.</li>
+<li>Without it, unmatched routes return a null/empty response by default — confusing for clients.</li>
+<li>Catch-all returns a meaningful error (typically with status <code>404</code>) explaining the route doesn't exist.</li>
+</ul>
+<hr />
+<h2 id="3-summary-route-types-at-a-glance">3. Summary: Route Types at a Glance</h2>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Example</th>
+<th>Key Characteristic</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Static</td>
+<td><code>GET /api/books</code></td>
+<td>Constant path, no variables</td>
+</tr>
+<tr>
+<td>Dynamic (path param)</td>
+<td><code>GET /api/users/:id</code></td>
+<td>Variable segment in path, identifies a specific resource</td>
+</tr>
+<tr>
+<td>Query params</td>
+<td><code>GET /api/search?q=foo</code></td>
+<td>Key-value pairs after <code>?</code>, used for filters/pagination</td>
+</tr>
+<tr>
+<td>Nested</td>
+<td><code>GET /api/users/:uid/posts/:pid</code></td>
+<td>Hierarchical resource relationships</td>
+</tr>
+<tr>
+<td>Versioned</td>
+<td><code>GET /api/v2/products</code></td>
+<td>Breaking changes without disrupting old consumers</td>
+</tr>
+<tr>
+<td>Catch-all</td>
+<td><code>/*</code></td>
+<td>Fallback for unmatched routes</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="4-path-params-vs-query-params-when-to-use-which">4. Path Params vs Query Params — When to Use Which</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Path Parameter</th>
+<th>Query Parameter</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Purpose</strong></td>
+<td>Identify a specific resource</td>
+<td>Filter, sort, paginate, or pass metadata</td>
+</tr>
+<tr>
+<td><strong>Syntax</strong></td>
+<td><code>/users/:id</code></td>
+<td><code>/search?q=foo&amp;page=2</code></td>
+</tr>
+<tr>
+<td><strong>Part of route matching?</strong></td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>Used with</strong></td>
+<td>GET, PATCH, DELETE on a specific entity</td>
+<td>Mostly GET</td>
+</tr>
+<tr>
+<td><strong>REST semantics</strong></td>
+<td>"Which resource?"</td>
+<td>"How to process the resource?"</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="quick-revision-checklist">Quick Revision Checklist</h2>
+<ul>
+<li>[ ] Routing = (method + path) → handler mapping</li>
+<li>[ ] Static route: constant path, no variables</li>
+<li>[ ] Dynamic route: <code>:param</code> in path, extracted server-side as a string</li>
+<li>[ ] Query params: <code>?key=val</code> — used for filters/pagination in GET, not part of route matching</li>
+<li>[ ] Nested routes: hierarchical resource paths, each level is its own valid route</li>
+<li>[ ] Versioning: <code>/v1/</code>, <code>/v2/</code> prefix — enables breaking changes without disrupting existing consumers</li>
+<li>[ ] Catch-all (<code>/*</code>): defined last, handles all unmatched routes with a friendly error</li>
+<li>[ ] Path param = "which resource"; Query param = "how to process it"</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

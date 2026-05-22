@@ -1,0 +1,1607 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://17kaushalsingh.github.io/study-notes/languages/learn-cpp/notes/chapter-06-operators/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Chapter 6: Operators - Kaushal Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chapter-6-operators" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="Kaushal Notes" class="md-header__button md-logo" aria-label="Kaushal Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Kaushal Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Chapter 6: Operators
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../dsa-and-cp/" class="md-tabs__link">
+          
+  
+  
+  DSA & CP
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../systems-and-backend/backend-from-first-principles/Backend-From-First-Principles/" class="md-tabs__link">
+          
+  
+  
+  Systems & Backend
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../databases/" class="md-tabs__link">
+          
+  
+  
+  Databases
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../java/LEC1_Core_Java/" class="md-tabs__link">
+          
+  
+  
+  Languages
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="Kaushal Notes" class="md-nav__button md-logo" aria-label="Kaushal Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Kaushal Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA & CP
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    DSA & CP
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../dsa-and-cp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Systems & Backend
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Systems & Backend
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../systems-and-backend/backend-from-first-principles/Backend-From-First-Principles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backend From First Principles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../systems-and-backend/low-level-design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Low Level Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Databases
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Databases
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../databases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Database System Concepts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Languages
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Languages
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../java/LEC1_Core_Java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C++
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#61-operator-precedence-and-associativity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 Operator Precedence and Associativity
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.1 Operator Precedence and Associativity">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#precedence-table-key-levels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Precedence Table (Key Levels)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#62-arithmetic-operators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 Arithmetic Operators
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.2 Arithmetic Operators">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#unary-operators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unary Operators
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#binary-operators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Binary Operators
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integer-vs-floating-point-division" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integer vs. Floating-Point Division
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compound-assignment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Compound Assignment
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#63-remainder-and-exponentiation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 Remainder and Exponentiation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.3 Remainder and Exponentiation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#remainder-operator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Remainder Operator %
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exponentiation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exponentiation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#64-incrementdecrement-operators-and-side-effects" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4 Increment/Decrement Operators and Side Effects
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.4 Increment/Decrement Operators and Side Effects">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prefix-vs-postfix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prefix vs Postfix
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#side-effects-and-undefined-behavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Side Effects and Undefined Behavior
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#65-the-comma-operator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.5 The Comma Operator
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#66-the-conditional-operator-ternary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.6 The Conditional Operator (Ternary)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.6 The Conditional Operator (Ternary)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parenthesization-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parenthesization Rules
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#67-relational-operators-and-floating-point-comparisons" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.7 Relational Operators and Floating-Point Comparisons
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.7 Relational Operators and Floating-Point Comparisons">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#relational-operators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Relational Operators
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-floating-point-comparison-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Floating-Point Comparison Problem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#epsilon-based-comparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Epsilon-Based Comparison
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#68-logical-operators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.8 Logical Operators
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.8 Logical Operators">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-three-logical-operators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Three Logical Operators
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#short-circuit-evaluation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Short-Circuit Evaluation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#de-morgans-laws" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        De Morgan's Laws
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#precedence-gotcha" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Precedence Gotcha
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-6-quick-reference-card" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 6 — Quick Reference Card
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="chapter-6-operators">Chapter 6: Operators</h1>
+<h2 id="61-operator-precedence-and-associativity">6.1 Operator Precedence and Associativity</h2>
+<h3 id="precedence-table-key-levels">Precedence Table (Key Levels)</h3>
+<table>
+<thead>
+<tr>
+<th>Level</th>
+<th>Assoc.</th>
+<th>Operators</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>L→R</td>
+<td><code>::</code></td>
+<td>Scope resolution</td>
+</tr>
+<tr>
+<td>2</td>
+<td>L→R</td>
+<td><code>()</code> <code>[]</code> <code>.</code> <code>-&gt;</code> postfix <code>++</code>/<code>--</code></td>
+<td>Postfix / function call</td>
+</tr>
+<tr>
+<td>3</td>
+<td>R→L</td>
+<td>prefix <code>++</code>/<code>--</code> unary <code>+</code>/<code>-</code> <code>!</code> <code>~</code> <code>*</code> <code>&amp;</code> <code>sizeof</code> <code>new</code> <code>delete</code></td>
+<td>Unary / prefix</td>
+</tr>
+<tr>
+<td>5</td>
+<td>L→R</td>
+<td><code>*</code> <code>/</code> <code>%</code></td>
+<td>Multiplicative</td>
+</tr>
+<tr>
+<td>6</td>
+<td>L→R</td>
+<td><code>+</code> <code>-</code></td>
+<td>Additive</td>
+</tr>
+<tr>
+<td>7</td>
+<td>L→R</td>
+<td><code>&lt;&lt;</code> <code>&gt;&gt;</code></td>
+<td>Bitwise shift / stream I/O</td>
+</tr>
+<tr>
+<td>9</td>
+<td>L→R</td>
+<td><code>&lt;</code> <code>&lt;=</code> <code>&gt;</code> <code>&gt;=</code></td>
+<td>Relational</td>
+</tr>
+<tr>
+<td>10</td>
+<td>L→R</td>
+<td><code>==</code> <code>!=</code></td>
+<td>Equality</td>
+</tr>
+<tr>
+<td>11</td>
+<td>L→R</td>
+<td><code>&amp;</code></td>
+<td>Bitwise AND</td>
+</tr>
+<tr>
+<td>12</td>
+<td>L→R</td>
+<td><code>^</code></td>
+<td>Bitwise XOR</td>
+</tr>
+<tr>
+<td>13</td>
+<td>L→R</td>
+<td><code>\|</code></td>
+<td>Bitwise OR</td>
+</tr>
+<tr>
+<td>14</td>
+<td>L→R</td>
+<td><code>&amp;&amp;</code></td>
+<td>Logical AND</td>
+</tr>
+<tr>
+<td>15</td>
+<td>L→R</td>
+<td><code>\|\|</code></td>
+<td>Logical OR</td>
+</tr>
+<tr>
+<td>16</td>
+<td>R→L</td>
+<td><code>?:</code> <code>=</code> <code>+=</code> <code>-=</code> <code>*=</code> <code>/=</code> <code>%=</code></td>
+<td>Ternary / Assignment</td>
+</tr>
+<tr>
+<td>17</td>
+<td>L→R</td>
+<td><code>,</code></td>
+<td>Comma</td>
+</tr>
+</tbody>
+</table>
+<p>Lower number = higher precedence (evaluated first).</p>
+<blockquote>
+<p><strong>Best Practice</strong>: Use parentheses to make complex expressions clear. Don't rely on memorizing the full table.</p>
+</blockquote>
+<hr />
+<h2 id="62-arithmetic-operators">6.2 Arithmetic Operators</h2>
+<h3 id="unary-operators">Unary Operators</h3>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">{</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="p">};</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">y</span><span class="p">{</span><span class="w"> </span><span class="o">-</span><span class="n">x</span><span class="w"> </span><span class="p">};</span><span class="w">   </span><span class="c1">// unary minus: y = -5</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">z</span><span class="p">{</span><span class="w"> </span><span class="o">+</span><span class="n">x</span><span class="w"> </span><span class="p">};</span><span class="w">   </span><span class="c1">// unary plus: z = 5 (rarely used)</span>
+</code></pre></div>
+<h3 id="binary-operators">Binary Operators</h3>
+<table>
+<thead>
+<tr>
+<th>Operator</th>
+<th>Symbol</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Addition</td>
+<td><code>+</code></td>
+<td><code>x + y</code></td>
+</tr>
+<tr>
+<td>Subtraction</td>
+<td><code>-</code></td>
+<td><code>x - y</code></td>
+</tr>
+<tr>
+<td>Multiplication</td>
+<td><code>*</code></td>
+<td><code>x * y</code></td>
+</tr>
+<tr>
+<td>Division</td>
+<td><code>/</code></td>
+<td><code>x / y</code></td>
+</tr>
+<tr>
+<td>Remainder</td>
+<td><code>%</code></td>
+<td><code>x % y</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="integer-vs-floating-point-division">Integer vs. Floating-Point Division</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// Integer division — fractional part DROPPED (not rounded)</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">{</span><span class="w"> </span><span class="mi">7</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="p">};</span><span class="w">              </span><span class="c1">// a = 1</span>
+
+<span class="c1">// Floating-point division — if at least one operand is float/double</span>
+<span class="kt">double</span><span class="w"> </span><span class="n">b</span><span class="p">{</span><span class="w"> </span><span class="mf">7.0</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="p">};</span><span class="w">         </span><span class="c1">// b = 1.75</span>
+
+<span class="c1">// Force float division with static_cast</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">{</span><span class="w"> </span><span class="mi">7</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="n">y</span><span class="p">{</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="p">};</span>
+<span class="kt">double</span><span class="w"> </span><span class="n">c</span><span class="p">{</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="p">};</span><span class="w">  </span><span class="c1">// c = 1.75</span>
+</code></pre></div>
+<blockquote>
+<p><strong>Warning</strong>: Integer division by zero is <strong>undefined behavior</strong>. Floating-point <code>5.0 / 0.0</code> gives <code>Inf</code> on IEEE 754 systems.</p>
+</blockquote>
+<h3 id="compound-assignment">Compound Assignment</h3>
+<div class="highlight"><pre><span></span><code><span class="n">x</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span><span class="w">   </span><span class="c1">// same as x = x + 5</span>
+<span class="n">x</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w">   </span><span class="c1">// same as x = x - 3</span>
+<span class="n">x</span><span class="w"> </span><span class="o">*=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w">   </span><span class="c1">// same as x = x * 2</span>
+<span class="n">x</span><span class="w"> </span><span class="o">/=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span><span class="w">   </span><span class="c1">// same as x = x / 4</span>
+<span class="n">x</span><span class="w"> </span><span class="o">%=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w">   </span><span class="c1">// same as x = x % 3</span>
+</code></pre></div>
+<hr />
+<h2 id="63-remainder-and-exponentiation">6.3 Remainder and Exponentiation</h2>
+<h3 id="remainder-operator">Remainder Operator <code>%</code></h3>
+<div class="highlight"><pre><span></span><code><span class="mi">7</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span><span class="w">    </span><span class="c1">// 3  (7 = 1*4 + 3)</span>
+<span class="mi">12</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span><span class="w">   </span><span class="c1">// 2  (12 = 2*5 + 2)</span>
+</code></pre></div>
+<ul>
+<li>Only works with <strong>integer</strong> operands</li>
+<li>Result takes the sign of the <strong>first</strong> operand: <code>-5 % 2 == -1</code></li>
+<li>Test divisibility: <code>if (x % y == 0)</code> means x divides evenly by y</li>
+<li>Test odd/even: <code>if (x % 2 != 0)</code> — do NOT use <code>== 1</code> (fails for negative numbers)</li>
+</ul>
+<h3 id="exponentiation">Exponentiation</h3>
+<p>C++ has <strong>no</strong> exponent operator! (<code>^</code> is bitwise XOR)</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cmath&gt;</span>
+<span class="kt">double</span><span class="w"> </span><span class="n">result</span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">pow</span><span class="p">(</span><span class="mf">3.0</span><span class="p">,</span><span class="w"> </span><span class="mf">4.0</span><span class="p">)</span><span class="w"> </span><span class="p">};</span><span class="w">  </span><span class="c1">// 3^4 = 81.0</span>
+</code></pre></div>
+<blockquote>
+<p><strong>Warning</strong>: <code>std::pow()</code> uses floating-point math. Results may have rounding errors even with whole numbers.</p>
+</blockquote>
+<hr />
+<h2 id="64-incrementdecrement-operators-and-side-effects">6.4 Increment/Decrement Operators and Side Effects</h2>
+<h3 id="prefix-vs-postfix">Prefix vs Postfix</h3>
+<table>
+<thead>
+<tr>
+<th>Form</th>
+<th>Syntax</th>
+<th>Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Prefix</td>
+<td><code>++x</code> / <code>--x</code></td>
+<td>Increment/decrement, then return <strong>new</strong> value</td>
+</tr>
+<tr>
+<td>Postfix</td>
+<td><code>x++</code> / <code>x--</code></td>
+<td>Copy original, increment/decrement, return <strong>old</strong> value</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">{</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="p">};</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">y</span><span class="p">{</span><span class="w"> </span><span class="o">++</span><span class="n">x</span><span class="w"> </span><span class="p">};</span><span class="w">   </span><span class="c1">// x = 6, y = 6 (prefix: increment first)</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">z</span><span class="p">{</span><span class="w"> </span><span class="n">x</span><span class="o">++</span><span class="w"> </span><span class="p">};</span><span class="w">   </span><span class="c1">// z = 6, x = 7 (postfix: return old, then increment)</span>
+</code></pre></div>
+<blockquote>
+<p><strong>Best Practice</strong>: Prefer <strong>prefix</strong> (<code>++x</code>) — it's more efficient (avoids creating a temporary copy).</p>
+</blockquote>
+<h3 id="side-effects-and-undefined-behavior">Side Effects and Undefined Behavior</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// DANGER: Don&#39;t use a variable with side effects more than once in one statement</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">{</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="p">};</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">y</span><span class="p">{</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="o">++</span><span class="n">x</span><span class="w"> </span><span class="p">};</span><span class="w">     </span><span class="c1">// UNDEFINED BEHAVIOR!</span>
+<span class="n">add</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="o">++</span><span class="n">x</span><span class="p">);</span><span class="w">           </span><span class="c1">// UNDEFINED BEHAVIOR! (argument evaluation order unspecified)</span>
+</code></pre></div>
+<blockquote>
+<p><strong>Rule</strong>: Never use a variable that has <code>++</code>/<code>--</code> applied more than once in the same expression.</p>
+</blockquote>
+<hr />
+<h2 id="65-the-comma-operator">6.5 The Comma Operator</h2>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">{</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="p">};</span><span class="w">   </span><span class="c1">// x = 2 (evaluates left, discards, returns right)</span>
+</code></pre></div>
+<ul>
+<li>Lowest precedence of all operators</li>
+<li>Evaluates left operand, discards result, evaluates and returns right operand</li>
+<li><strong>Avoid using it</strong> — comma in function calls and initializer lists is a separator, not the comma operator</li>
+</ul>
+<hr />
+<h2 id="66-the-conditional-operator-ternary">6.6 The Conditional Operator (Ternary)</h2>
+<div class="highlight"><pre><span></span><code><span class="n">condition</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">expression_if_true</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">expression_if_false</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">max</span><span class="p">{</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="p">};</span><span class="w">           </span><span class="c1">// inline max</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="p">(</span><span class="n">isHappy</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s">&quot;:-)&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s">&quot;:-(&quot;</span><span class="p">);</span><span class="w"> </span><span class="c1">// conditional output</span>
+
+<span class="k">constexpr</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">size</span><span class="p">{</span><span class="w"> </span><span class="n">isLarge</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="mi">100</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">50</span><span class="w"> </span><span class="p">};</span><span class="w"> </span><span class="c1">// works in constexpr context!</span>
+</code></pre></div>
+<h3 id="parenthesization-rules">Parenthesization Rules</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// Always parenthesize the whole ternary in compound expressions:</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="p">((</span><span class="n">x</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+
+<span class="c1">// Parenthesize the condition if it has operators:</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">z</span><span class="p">{</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="p">};</span>
+</code></pre></div>
+<blockquote>
+<p><strong>Best Practice</strong>: Use for simple one-line decisions. For complex logic, use if-else.</p>
+</blockquote>
+<hr />
+<h2 id="67-relational-operators-and-floating-point-comparisons">6.7 Relational Operators and Floating-Point Comparisons</h2>
+<h3 id="relational-operators">Relational Operators</h3>
+<table>
+<thead>
+<tr>
+<th>Operator</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&gt;</code></td>
+<td>Greater than</td>
+</tr>
+<tr>
+<td><code>&lt;</code></td>
+<td>Less than</td>
+</tr>
+<tr>
+<td><code>&gt;=</code></td>
+<td>Greater than or equal</td>
+</tr>
+<tr>
+<td><code>&lt;=</code></td>
+<td>Less than or equal</td>
+</tr>
+<tr>
+<td><code>==</code></td>
+<td>Equal</td>
+</tr>
+<tr>
+<td><code>!=</code></td>
+<td>Not equal</td>
+</tr>
+</tbody>
+</table>
+<h3 id="the-floating-point-comparison-problem">The Floating-Point Comparison Problem</h3>
+<div class="highlight"><pre><span></span><code><span class="kt">double</span><span class="w"> </span><span class="n">d1</span><span class="p">{</span><span class="w"> </span><span class="mf">100.0</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mf">99.99</span><span class="w"> </span><span class="p">};</span><span class="w">  </span><span class="c1">// mathematically 0.01</span>
+<span class="kt">double</span><span class="w"> </span><span class="n">d2</span><span class="p">{</span><span class="w"> </span><span class="mf">10.0</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mf">9.99</span><span class="w"> </span><span class="p">};</span><span class="w">    </span><span class="c1">// mathematically 0.01</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">d1</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">d2</span><span class="p">)</span><span class="w">                 </span><span class="c1">// FALSE! Due to rounding errors</span>
+</code></pre></div>
+<blockquote>
+<p><strong>Rule</strong>: NEVER use <code>==</code> or <code>!=</code> with calculated floating-point values.</p>
+</blockquote>
+<h3 id="epsilon-based-comparison">Epsilon-Based Comparison</h3>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cmath&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;algorithm&gt;</span>
+
+<span class="c1">// Relative epsilon comparison (Knuth&#39;s method)</span>
+<span class="kt">bool</span><span class="w"> </span><span class="nf">approximatelyEqual</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">relEpsilon</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">abs</span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;=</span>
+<span class="w">           </span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">max</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">abs</span><span class="p">(</span><span class="n">a</span><span class="p">),</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">abs</span><span class="p">(</span><span class="n">b</span><span class="p">))</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">relEpsilon</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// Combined absolute + relative epsilon (recommended)</span>
+<span class="kt">bool</span><span class="w"> </span><span class="nf">approximatelyEqualAbsRel</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">b</span><span class="p">,</span>
+<span class="w">                               </span><span class="kt">double</span><span class="w"> </span><span class="n">absEpsilon</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1e-12</span><span class="p">,</span>
+<span class="w">                               </span><span class="kt">double</span><span class="w"> </span><span class="n">relEpsilon</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1e-8</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">abs</span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">absEpsilon</span><span class="p">)</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">abs</span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;=</span>
+<span class="w">           </span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">max</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">abs</span><span class="p">(</span><span class="n">a</span><span class="p">),</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">abs</span><span class="p">(</span><span class="n">b</span><span class="p">))</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">relEpsilon</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<hr />
+<h2 id="68-logical-operators">6.8 Logical Operators</h2>
+<h3 id="the-three-logical-operators">The Three Logical Operators</h3>
+<table>
+<thead>
+<tr>
+<th>Operator</th>
+<th>Symbol</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NOT</td>
+<td><code>!</code></td>
+<td><code>!x</code></td>
+<td>Flips true↔false</td>
+</tr>
+<tr>
+<td>AND</td>
+<td><code>&amp;&amp;</code></td>
+<td><code>x &amp;&amp; y</code></td>
+<td>True only if BOTH true</td>
+</tr>
+<tr>
+<td>OR</td>
+<td><code>\|\|</code></td>
+<td><code>x \|\| y</code></td>
+<td>True if EITHER true</td>
+</tr>
+</tbody>
+</table>
+<h3 id="short-circuit-evaluation">Short-Circuit Evaluation</h3>
+<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="p">(</span><span class="n">y</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w">  </span><span class="c1">// Safe! If x==0, right side never evaluated</span>
+</code></pre></div>
+<ul>
+<li><code>&amp;&amp;</code>: If left is false → result is false, right side skipped</li>
+<li><code>||</code>: If left is true → result is true, right side skipped</li>
+</ul>
+<blockquote>
+<p><strong>Warning</strong>: Don't put side effects (like <code>++x</code>) on the right side of <code>&amp;&amp;</code>/<code>||</code> — they may not execute!</p>
+</blockquote>
+<h3 id="de-morgans-laws">De Morgan's Laws</h3>
+<div class="highlight"><pre><span></span><code>!(x &amp;&amp; y)  ≡  !x || !y
+!(x || y)  ≡  !x &amp;&amp; !y
+</code></pre></div>
+<p>Tip: When distributing NOT, flip AND↔OR.</p>
+<h3 id="precedence-gotcha">Precedence Gotcha</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// WRONG: ! has higher precedence than &gt;</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">x</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w">      </span><span class="c1">// evaluates as (!x) &gt; y</span>
+
+<span class="c1">// CORRECT:</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">y</span><span class="p">))</span><span class="w">    </span><span class="c1">// negate the comparison result</span>
+</code></pre></div>
+<blockquote>
+<p><strong>Best Practice</strong>: Always parenthesize when mixing <code>&amp;&amp;</code> and <code>||</code>:
+<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="n">a</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="p">(</span><span class="n">c</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">d</span><span class="p">))</span><span class="w">  </span><span class="c1">// clear intent</span>
+</code></pre></div></p>
+</blockquote>
+<hr />
+<h2 id="chapter-6-quick-reference-card">Chapter 6 — Quick Reference Card</h2>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Rule</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Division by zero (int)</td>
+<td>Undefined behavior</td>
+</tr>
+<tr>
+<td>Division by zero (float)</td>
+<td>Inf or NaN</td>
+</tr>
+<tr>
+<td><code>%</code> with negatives</td>
+<td>Result takes sign of first operand</td>
+</tr>
+<tr>
+<td><code>^</code> operator</td>
+<td>Bitwise XOR, NOT exponentiation</td>
+</tr>
+<tr>
+<td>Prefix vs postfix</td>
+<td>Prefer prefix <code>++x</code></td>
+</tr>
+<tr>
+<td>Float equality</td>
+<td>Never use <code>==</code>, use epsilon comparison</td>
+</tr>
+<tr>
+<td><code>&amp;&amp;</code> / <code>\|\|</code></td>
+<td>Short-circuit: right side may not execute</td>
+</tr>
+<tr>
+<td>Complex expressions</td>
+<td>Use parentheses liberally</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

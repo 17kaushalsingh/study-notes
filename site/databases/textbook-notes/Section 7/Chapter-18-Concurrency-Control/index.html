@@ -1,0 +1,1078 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://17kaushalsingh.github.io/study-notes/databases/textbook-notes/Section%207/Chapter-18-Concurrency-Control/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Chapter 18: Concurrency Control - Kaushal Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chapter-18-concurrency-control" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="Kaushal Notes" class="md-header__button md-logo" aria-label="Kaushal Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Kaushal Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Chapter 18: Concurrency Control
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../dsa-and-cp/" class="md-tabs__link">
+          
+  
+  
+  DSA & CP
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../systems-and-backend/backend-from-first-principles/Backend-From-First-Principles/" class="md-tabs__link">
+          
+  
+  
+  Systems & Backend
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../" class="md-tabs__link">
+          
+  
+  
+  Databases
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../languages/java/LEC1_Core_Java/" class="md-tabs__link">
+          
+  
+  
+  Languages
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="Kaushal Notes" class="md-nav__button md-logo" aria-label="Kaushal Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Kaushal Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA & CP
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    DSA & CP
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../dsa-and-cp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Systems & Backend
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Systems & Backend
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../systems-and-backend/backend-from-first-principles/Backend-From-First-Principles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backend From First Principles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../systems-and-backend/low-level-design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Low Level Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Databases
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Databases
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Database System Concepts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Languages
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Languages
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../languages/java/LEC1_Core_Java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../languages/learn-cpp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C++
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-lock-based-protocols" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Lock-Based Protocols
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Lock-Based Protocols">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-two-phase-locking-protocol-2pl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Two-Phase Locking Protocol (2PL)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deadlocks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deadlocks
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-multiple-granularity-locking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Multiple Granularity Locking
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Multiple Granularity Locking">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intention-locks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intention Locks
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-timestamp-based-protocols" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Timestamp-Based Protocols
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Timestamp-Based Protocols">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-protocol-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Protocol Rules
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-validation-based-protocols-optimistic-concurrency-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Validation-Based Protocols (Optimistic Concurrency Control)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-multiversion-schemes-and-snapshot-isolation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Multiversion Schemes and Snapshot Isolation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Multiversion Schemes and Snapshot Isolation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#snapshot-isolation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Snapshot Isolation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#must-know-things" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Must-Know Things
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-revision" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Revision
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="chapter-18-concurrency-control">Chapter 18: Concurrency Control</h1>
+<h2 id="1-lock-based-protocols">1. Lock-Based Protocols</h2>
+<p>To ensure isolation, databases control concurrent access to data items using locks.
+- <strong>Shared Lock (S)</strong>: A transaction can <em>read</em> but not write the item. Multiple transactions can hold S-locks on the same item.
+- <strong>Exclusive Lock (X)</strong>: A transaction can both <em>read</em> and <em>write</em> the item. Only one transaction can hold an X-lock at a time.</p>
+<p>A transaction must request the appropriate lock from the <strong>concurrency-control manager</strong> before accessing a data item.</p>
+<h3 id="the-two-phase-locking-protocol-2pl">The Two-Phase Locking Protocol (2PL)</h3>
+<p>This is the most common protocol to ensure conflict serializability. A transaction must issue lock and unlock requests in two phases:
+1. <strong>Growing Phase</strong>: The transaction may obtain locks, but may not release any lock.
+2. <strong>Shrinking Phase</strong>: The transaction may release locks, but may not obtain any new locks.</p>
+<ul>
+<li><strong>Lock Point</strong>: The point where the transaction has obtained its final lock (end of the growing phase).</li>
+<li><strong>Strict 2PL</strong>: Avoids cascading rollbacks by requiring that all <em>exclusive</em> (X) locks be held until the transaction commits or aborts.</li>
+<li><strong>Rigorous 2PL</strong>: Requires that <em>all</em> locks (S and X) be held until commit/abort.</li>
+</ul>
+<h3 id="deadlocks">Deadlocks</h3>
+<p>Locking introduces the risk of <strong>Deadlock</strong>, where two or more transactions are waiting for each other to release locks (e.g., <span class="arithmatex">\(T_1\)</span> holds A, wants B; <span class="arithmatex">\(T_2\)</span> holds B, wants A).
+- Handled via <strong>Deadlock Prevention</strong> (e.g., ordering lock requests, or using <code>wait-die</code> / <code>wound-wait</code> timestamp schemes) or <strong>Deadlock Detection and Recovery</strong> (building a <em>wait-for graph</em> and checking for cycles; if a cycle exists, aborting a "victim" transaction).</p>
+<hr />
+<h2 id="2-multiple-granularity-locking">2. Multiple Granularity Locking</h2>
+<p>Instead of locking individual tuples, transactions can lock larger granules (e.g., blocks, files, or entire tables) to reduce lock overhead. This is represented as a tree of data granularities.</p>
+<h3 id="intention-locks">Intention Locks</h3>
+<p>To determine if a node (like a table) can be locked, the system checks if any descendants (like tuples) are locked. To do this efficiently without scanning the whole tree, <strong>Intention Locks</strong> are used:
+- <strong>IS (Intention-Shared)</strong>: Explicit locking is being done at a lower level with S-locks.
+- <strong>IX (Intention-Exclusive)</strong>: Explicit locking is being done at a lower level with X-locks or S-locks.
+- <strong>SIX (Shared and Intention-Exclusive)</strong>: The current node is locked in S-mode, but lower levels are being locked in X-mode.</p>
+<p>Locks are acquired top-down (root to leaf) and released bottom-up (leaf to root).</p>
+<hr />
+<h2 id="3-timestamp-based-protocols">3. Timestamp-Based Protocols</h2>
+<p>Instead of using locks to order transactions at runtime, timestamp protocols decide the serialization order <em>in advance</em>. Each transaction <span class="arithmatex">\(T_i\)</span> is assigned a unique timestamp <span class="arithmatex">\(TS(T_i)\)</span> when it begins.</p>
+<p>Each data item <span class="arithmatex">\(Q\)</span> maintains two timestamps:
+- <strong>W-timestamp(Q)</strong>: Largest timestamp of any transaction that successfully wrote <span class="arithmatex">\(Q\)</span>.
+- <strong>R-timestamp(Q)</strong>: Largest timestamp of any transaction that successfully read <span class="arithmatex">\(Q\)</span>.</p>
+<h3 id="the-protocol-rules">The Protocol Rules</h3>
+<ul>
+<li>If <span class="arithmatex">\(T_i\)</span> wants to <strong>read(Q)</strong>:</li>
+<li>If <span class="arithmatex">\(TS(T_i) &lt;   ext{W-timestamp}(Q)\)</span>, the value has been overwritten by a "newer" transaction. <span class="arithmatex">\(T_i\)</span> must abort.</li>
+<li>Otherwise, read succeeds. Update R-timestamp.</li>
+<li>If <span class="arithmatex">\(T_i\)</span> wants to <strong>write(Q)</strong>:</li>
+<li>If <span class="arithmatex">\(TS(T_i) &lt;   ext{R-timestamp}(Q)\)</span>, a "newer" transaction already read the old value. <span class="arithmatex">\(T_i\)</span> must abort.</li>
+<li>If <span class="arithmatex">\(TS(T_i) &lt;   ext{W-timestamp}(Q)\)</span>, a "newer" transaction already wrote a value. <span class="arithmatex">\(T_i\)</span> aborts (unless using <strong>Thomas' Write Rule</strong>, which simply ignores this obsolete write without aborting).</li>
+<li>Otherwise, write succeeds. Update W-timestamp.</li>
+</ul>
+<hr />
+<h2 id="4-validation-based-protocols-optimistic-concurrency-control">4. Validation-Based Protocols (Optimistic Concurrency Control)</h2>
+<p>Assumes conflicts are rare. Transactions execute without locking, keeping updates in a private local workspace.
+1. <strong>Read Phase</strong>: Read data and perform computations in local variables.
+2. <strong>Validation Phase</strong>: Check if the local writes will violate serializability with other concurrent transactions.
+3. <strong>Write Phase</strong>: If validation passes, copy local variables to the actual database. If it fails, abort.</p>
+<hr />
+<h2 id="5-multiversion-schemes-and-snapshot-isolation">5. Multiversion Schemes and Snapshot Isolation</h2>
+<p>Instead of overwriting data, <strong>Multiversion</strong> schemes create a new version of the data item for each write. Reads never wait; they simply read the appropriate older version of the data.</p>
+<h3 id="snapshot-isolation">Snapshot Isolation</h3>
+<p>Widely used in practice (e.g., PostgreSQL, Oracle).
+- When a transaction begins, it gets a "snapshot" of the database (all committed data up to that point).
+- It performs all reads and writes against this snapshot.
+- When committing, it checks if any concurrent transaction has updated the same data. If so, it aborts (<strong>First-Updater-Wins</strong> or <strong>First-Committer-Wins</strong>).
+- <strong>Benefit</strong>: Readers <em>never</em> block writers, and writers <em>never</em> block readers. Excellent for workloads mixing heavy analytics with short updates.
+- <strong>Drawback</strong>: Can suffer from <strong>Write Skew</strong> anomalies, meaning it doesn't guarantee strict serializability without additional mechanisms (like Serializable Snapshot Isolation - SSI).</p>
+<hr />
+<h2 id="must-know-things">Must-Know Things</h2>
+<ul>
+<li><strong>Strict 2PL vs Basic 2PL</strong>: Basic 2PL guarantees serializability but allows cascading rollbacks. Strict 2PL holds X-locks until commit to guarantee cascadelessness.</li>
+<li><strong>Wait-For Graph</strong>: A directed graph where <span class="arithmatex">\(T_i   o T_j\)</span> means <span class="arithmatex">\(T_i\)</span> is waiting for a lock held by <span class="arithmatex">\(T_j\)</span>. A cycle indicates a deadlock.</li>
+<li><strong>Thomas' Write Rule</strong>: An optimization for timestamps that ignores obsolete writes instead of aborting the transaction.</li>
+</ul>
+<hr />
+<h2 id="quick-revision">Quick Revision</h2>
+<ul>
+<li><strong>2PL</strong>: Growing phase (acquire), Shrinking phase (release). Ensures serializability.</li>
+<li><strong>Multiple Granularity</strong>: IS/IX locks at table level before S/X locks at row level.</li>
+<li><strong>Deadlock</strong>: Cycle of waiting. Fixed by timeouts, prevention (wait-die), or detection (wait-for graph).</li>
+<li><strong>Snapshot Isolation</strong>: Give each Txn a copy. Fast reads, no read/write blocking, but watch out for Write Skew.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

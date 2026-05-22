@@ -1,0 +1,1871 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://17kaushalsingh.github.io/study-notes/languages/learn-cpp/notes/chapter-01-cpp-basics/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Chapter 1: C++ Basics - Kaushal Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chapter-1-c-basics" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="Kaushal Notes" class="md-header__button md-logo" aria-label="Kaushal Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Kaushal Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Chapter 1: C++ Basics
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../dsa-and-cp/" class="md-tabs__link">
+          
+  
+  
+  DSA & CP
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../systems-and-backend/backend-from-first-principles/Backend-From-First-Principles/" class="md-tabs__link">
+          
+  
+  
+  Systems & Backend
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../databases/" class="md-tabs__link">
+          
+  
+  
+  Databases
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../java/LEC1_Core_Java/" class="md-tabs__link">
+          
+  
+  
+  Languages
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="Kaushal Notes" class="md-nav__button md-logo" aria-label="Kaushal Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Kaushal Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA & CP
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    DSA & CP
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../dsa-and-cp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Systems & Backend
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Systems & Backend
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../systems-and-backend/backend-from-first-principles/Backend-From-First-Principles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backend From First Principles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../systems-and-backend/low-level-design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Low Level Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Databases
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Databases
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../databases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Database System Concepts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Languages
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Languages
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../java/LEC1_Core_Java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C++
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#11-statements-and-the-structure-of-a-program" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 -- Statements and the Structure of a Program
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.1 -- Statements and the Structure of a Program">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#statements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Statements
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Functions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-hello-world-program" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Hello World Program
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-terminology" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Terminology
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-comments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 -- Comments
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.2 -- Comments">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#two-comment-styles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Two Comment Styles
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Two Comment Styles">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#single-line-comments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Single-Line Comments (//)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multi-line-comments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multi-Line Comments (/* */)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#best-practices-the-three-level-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Best Practices: The Three-Level Framework
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-introduction-to-objects-and-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 -- Introduction to Objects and Variables
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.3 -- Introduction to Objects and Variables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#data-values-and-literals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data, Values, and Literals
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#objects-and-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objects and Variables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data Types
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#defining-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Defining Variables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-mistakes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Mistakes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-variable-assignment-and-initialization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4 -- Variable Assignment and Initialization
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.4 -- Variable Assignment and Initialization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#assignment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Assignment
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#initialization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Initialization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#five-forms-of-initialization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Five Forms of Initialization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-prefer-direct-list-initialization-brace-initialization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Prefer Direct-List-Initialization (Brace Initialization)?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-maybe_unused-attribute-c17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The [[maybe_unused]] Attribute (C++17)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-introduction-to-iostream-cout-cin-and-endl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5 -- Introduction to iostream: cout, cin, and endl
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.5 -- Introduction to iostream: cout, cin, and endl">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-io-library" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The I/O Library
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stdcout-output-to-console" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        std::cout -- Output to Console
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#newlines-stdendl-vs-n" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Newlines: std::endl vs '\n'
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output-buffering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Output Buffering
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stdcin-input-from-keyboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        std::cin -- Input from Keyboard
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reading-multiple-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reading Multiple Values
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-extraction-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How Extraction Works
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-uninitialized-variables-and-undefined-behavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.6 -- Uninitialized Variables and Undefined Behavior
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.6 -- Uninitialized Variables and Undefined Behavior">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#uninitialized-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Uninitialized Variables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-terminology_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Terminology
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#undefined-behavior-ub" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Undefined Behavior (UB)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#related-concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related Concepts
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17-keywords-and-naming-identifiers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.7 -- Keywords and Naming Identifiers
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.7 -- Keywords and Naming Identifiers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#keywords-reserved-words" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Keywords (Reserved Words)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#identifier-naming-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Identifier Naming Rules
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#naming-conventions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Naming Conventions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#naming-guidelines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Naming Guidelines
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#19-introduction-to-literals-and-operators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.9 -- Introduction to Literals and Operators
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.9 -- Introduction to Literals and Operators">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#literals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Literals
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operators
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operator-arity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operator Arity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operator-precedence-pemdasbodmas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operator Precedence (PEMDAS/BODMAS)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#return-values-and-side-effects" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Return Values and Side Effects
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chaining" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chaining
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#110-introduction-to-expressions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.10 -- Introduction to Expressions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.10 -- Introduction to Expressions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-an-expression" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Is an Expression?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples-of-expressions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Examples of Expressions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-expressions-in-initialization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using Expressions in Initialization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expression-statements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expression Statements
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#terminology" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Terminology
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="chapter-1-c-basics">Chapter 1: C++ Basics</h1>
+<hr />
+<h2 id="11-statements-and-the-structure-of-a-program">1.1 -- Statements and the Structure of a Program</h2>
+<h3 id="statements">Statements</h3>
+<p>A <strong>statement</strong> is an instruction that causes the program to perform an action. Most statements in C++ end with a semicolon (<code>;</code>). A statement is the smallest independent unit of computation.</p>
+<h3 id="functions">Functions</h3>
+<p>A <strong>function</strong> is a collection of statements that execute sequentially. Every C++ program must include a special function named <code>main()</code> -- this is where execution begins.</p>
+<h3 id="the-hello-world-program">The Hello World Program</h3>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Hello world!&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>Line-by-line breakdown:</strong>
+- <code>#include &lt;iostream&gt;</code> -- preprocessor directive that includes the I/O library.
+- <code>int main()</code> -- declares the main function, which returns an integer.
+- <code>std::cout &lt;&lt; "Hello world!";</code> -- outputs text to the console.
+- <code>return 0;</code> -- returns 0 to the operating system (0 means success).</p>
+<h3 id="key-terminology">Key Terminology</h3>
+<ul>
+<li><strong>Characters</strong>: individual written symbols (letters, digits, punctuation).</li>
+<li><strong>Text (strings)</strong>: sequences of characters forming words and sentences.</li>
+<li><strong>Syntax error</strong>: violating C++ grammar rules, which halts compilation.</li>
+</ul>
+<blockquote>
+<p><strong>Remember:</strong> Compilers sometimes report errors on the line <em>after</em> the actual mistake. If you can't find an error on the reported line, check the preceding line.</p>
+<p><strong>Best Practice:</strong> End most statements with a semicolon. Use descriptive function names (e.g., <code>calculateGrade()</code>, <code>printEmployee()</code>).</p>
+</blockquote>
+<hr />
+<h2 id="12-comments">1.2 -- Comments</h2>
+<p>Comments are programmer-readable notes ignored by the compiler. They document code for human understanding.</p>
+<h3 id="two-comment-styles">Two Comment Styles</h3>
+<h4 id="single-line-comments">Single-Line Comments (<code>//</code>)</h4>
+<div class="highlight"><pre><span></span><code><span class="c1">// This is a single-line comment</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Hello&quot;</span><span class="p">;</span><span class="w">  </span><span class="c1">// This prints Hello</span>
+</code></pre></div>
+<p>Everything from <code>//</code> to the end of the line is ignored.</p>
+<h4 id="multi-line-comments">Multi-Line Comments (<code>/* */</code>)</h4>
+<div class="highlight"><pre><span></span><code><span class="cm">/* This is a multi-line comment.</span>
+<span class="cm">   It can span several lines.</span>
+<span class="cm">   Everything between the delimiters is ignored. */</span>
+</code></pre></div>
+<blockquote>
+<p><strong>Warning:</strong> Multi-line comments <strong>cannot be nested</strong>. The first <code>*/</code> encountered ends the comment, which can cause unexpected compilation errors.</p>
+</blockquote>
+<h3 id="best-practices-the-three-level-framework">Best Practices: The Three-Level Framework</h3>
+<ol>
+<li><strong>Library/Program/Function level</strong> -- describe <strong>what</strong> the code accomplishes.</li>
+<li><strong>Within implementation</strong> -- describe <strong>how</strong> the code achieves its goal.</li>
+<li><strong>Statement level</strong> -- explain <strong>why</strong> the code does something (not what it does).</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="c1">// Bad comment (describes &quot;what&quot;):</span>
+<span class="c1">// Set sight range to 0</span>
+<span class="n">sight</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="c1">// Good comment (describes &quot;why&quot;):</span>
+<span class="c1">// The player just drank a potion of blindness</span>
+<span class="n">sight</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</code></pre></div>
+<blockquote>
+<p><strong>Key Takeaway:</strong> "Comment your code liberally, and write your comments as if speaking to someone who has no idea what the code does." Prioritize clarity for future readers unfamiliar with the code.</p>
+</blockquote>
+<hr />
+<h2 id="13-introduction-to-objects-and-variables">1.3 -- Introduction to Objects and Variables</h2>
+<h3 id="data-values-and-literals">Data, Values, and Literals</h3>
+<ul>
+<li><strong>Data</strong>: any information that can be moved, processed, or stored by a computer.</li>
+<li><strong>Value</strong>: a single piece of data (a number, character, or text).</li>
+<li><strong>Literal</strong>: a value placed directly in source code (e.g., <code>5</code>, <code>'H'</code>, <code>"Hello"</code>).</li>
+</ul>
+<p>Quote rules:
+- Character literals use single quotes: <code>'H'</code>
+- Text (string) literals use double quotes: <code>"Hello"</code>
+- Numbers are unquoted: <code>5</code></p>
+<h3 id="objects-and-variables">Objects and Variables</h3>
+<ul>
+<li><strong>Object</strong>: a region of storage (typically RAM) that holds a value and has associated properties.</li>
+<li><strong>Variable</strong>: a named object.</li>
+<li><strong>Identifier</strong>: the name used to reference a variable.</li>
+</ul>
+<h3 id="data-types">Data Types</h3>
+<p>A <strong>data type</strong> tells the compiler what kind of value an object stores. It must be known at compile time and cannot change without recompilation.</p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w">    </span><span class="c1">// define an integer variable named x</span>
+</code></pre></div>
+<ul>
+<li><code>int</code> stores whole numbers (integers) without fractional parts.</li>
+</ul>
+<h3 id="defining-variables">Defining Variables</h3>
+<p>A <strong>definition statement</strong> tells the compiler to create a variable:</p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w">       </span><span class="c1">// define a single variable</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w">    </span><span class="c1">// define two variables of the same type</span>
+</code></pre></div>
+<blockquote>
+<p><strong>Best Practice:</strong> Define each variable on its own line with a descriptive comment, rather than combining multiple definitions in one statement.</p>
+</blockquote>
+<h3 id="common-mistakes">Common Mistakes</h3>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w">     </span><span class="c1">// ERROR: don&#39;t repeat the type with comma separation</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w">  </span><span class="c1">// ERROR: can&#39;t mix types in one definition statement</span>
+</code></pre></div>
+<blockquote>
+<p><strong>Key Takeaway:</strong> Variables provide named access to memory storage. Each variable has an identifier, a type, and a value. The compiler and OS handle memory management details.</p>
+</blockquote>
+<hr />
+<h2 id="14-variable-assignment-and-initialization">1.4 -- Variable Assignment and Initialization</h2>
+<h3 id="assignment">Assignment</h3>
+<p>Giving a variable a value <em>after</em> it has been defined, using the <code>=</code> (assignment) operator:</p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">width</span><span class="p">;</span><span class="w">     </span><span class="c1">// definition (no value yet)</span>
+<span class="n">width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span><span class="w">     </span><span class="c1">// assignment</span>
+</code></pre></div>
+<h3 id="initialization">Initialization</h3>
+<p>Providing a value at the point of creation (combines definition and assignment):</p>
+<h3 id="five-forms-of-initialization">Five Forms of Initialization</h3>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">;</span><span class="w">          </span><span class="c1">// 1. Default-initialization: no value, indeterminate</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span><span class="w">      </span><span class="c1">// 2. Copy-initialization: inherited from C</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="mi">6</span><span class="p">);</span><span class="w">       </span><span class="c1">// 3. Direct-initialization: value in parentheses</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">d</span><span class="p">{</span><span class="w"> </span><span class="mi">7</span><span class="w"> </span><span class="p">};</span><span class="w">     </span><span class="c1">// 4. Direct-list-initialization: modern preferred form</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">e</span><span class="p">{};</span><span class="w">        </span><span class="c1">// 5. Value-initialization: empty braces, zeros the variable</span>
+</code></pre></div>
+<h3 id="why-prefer-direct-list-initialization-brace-initialization">Why Prefer Direct-List-Initialization (Brace Initialization)?</h3>
+<p>It prevents <strong>narrowing conversions</strong> -- the compiler will error if data would be lost:</p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">w1</span><span class="p">{</span><span class="w"> </span><span class="mf">4.5</span><span class="w"> </span><span class="p">};</span><span class="w">   </span><span class="c1">// COMPILE ERROR: narrowing conversion not allowed</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">w2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">4.5</span><span class="p">;</span><span class="w">    </span><span class="c1">// Compiles silently: truncates to 4 (data loss!)</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">w3</span><span class="p">(</span><span class="mf">4.5</span><span class="p">);</span><span class="w">     </span><span class="c1">// Compiles silently: truncates to 4 (data loss!)</span>
+</code></pre></div>
+<h3 id="the-maybe_unused-attribute-c17">The <code>[[maybe_unused]]</code> Attribute (C++17)</h3>
+<p>Suppresses warnings for intentionally unused variables:</p>
+<div class="highlight"><pre><span></span><code><span class="p">[[</span><span class="n">maybe_unused</span><span class="p">]]</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">{</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="p">};</span><span class="w">  </span><span class="c1">// No warning even if x is never used</span>
+</code></pre></div>
+<blockquote>
+<p><strong>Best Practice:</strong> Prefer <code>int x{ 5 };</code> (direct-list-initialization) for specific values and <code>int x{};</code> (value-initialization) for zero/default values. Initialize variables upon creation.</p>
+<p><strong>Warning:</strong> Do not confuse the assignment operator (<code>=</code>) with the equality operator (<code>==</code>). Also beware: <code>int a, b = 5;</code> leaves <code>a</code> uninitialized -- only <code>b</code> gets the value 5.</p>
+<p><strong>Key Takeaway:</strong> "Initialization provides an initial value for a variable at the point of creation. Assignment gives a value to an already-existing variable."</p>
+</blockquote>
+<hr />
+<h2 id="15-introduction-to-iostream-cout-cin-and-endl">1.5 -- Introduction to iostream: cout, cin, and endl</h2>
+<h3 id="the-io-library">The I/O Library</h3>
+<p>Include <code>#include &lt;iostream&gt;</code> to access input/output functionality.</p>
+<h3 id="stdcout-output-to-console">std::cout -- Output to Console</h3>
+<p>Uses the <strong>insertion operator</strong> (<code>&lt;&lt;</code>) to send data to the console:</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Hello world!&quot;</span><span class="p">;</span><span class="w">     </span><span class="c1">// print text</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span><span class="w">                   </span><span class="c1">// print number</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">{</span><span class="w"> </span><span class="mi">42</span><span class="w"> </span><span class="p">};</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;x is: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w">      </span><span class="c1">// chain multiple outputs</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="newlines-stdendl-vs-n">Newlines: std::endl vs '\n'</h3>
+<div class="highlight"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Line 1&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span><span class="w">  </span><span class="c1">// newline + flush buffer (slower)</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Line 2&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="p">;</span><span class="w">       </span><span class="c1">// newline only (faster, preferred)</span>
+</code></pre></div>
+<ul>
+<li><code>std::endl</code> outputs a newline <strong>and</strong> flushes the output buffer.</li>
+<li><code>'\n'</code> outputs only a newline without flushing.</li>
+</ul>
+<blockquote>
+<p><strong>Best Practice:</strong> Prefer <code>'\n'</code> over <code>std::endl</code> for better performance. Use single quotes when standalone (<code>'\n'</code>), double quotes when embedded in text (<code>"Hello\n"</code>).</p>
+</blockquote>
+<h3 id="output-buffering">Output Buffering</h3>
+<p>Data sent to <code>std::cout</code> enters a <strong>buffer</strong> before appearing on screen. The buffer is periodically flushed (sent to the console). Buffering improves performance by batching I/O operations.</p>
+<h3 id="stdcin-input-from-keyboard">std::cin -- Input from Keyboard</h3>
+<p>Uses the <strong>extraction operator</strong> (<code>&gt;&gt;</code>) to read input into variables:</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Enter a number: &quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">{};</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;You entered &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="reading-multiple-values">Reading Multiple Values</h3>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">{},</span><span class="w"> </span><span class="n">y</span><span class="p">{};</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Enter two numbers separated by a space: &quot;</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">y</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Sum: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="how-extraction-works">How Extraction Works</h3>
+<ol>
+<li>Checks the input stream state.</li>
+<li>Discards leading whitespace.</li>
+<li>Waits for input if the buffer is empty (user presses Enter).</li>
+<li>Extracts characters until encountering whitespace or invalid characters.</li>
+<li>Converts extracted text to the target type, or sets the variable to 0 on failure.</li>
+</ol>
+<blockquote>
+<p><strong>Warning:</strong> Using <code>/n</code> instead of <code>\n</code> is a common mistake and produces unexpected output. Also, if extraction fails, the variable is set to 0 and future extractions are blocked until the stream is cleared.</p>
+<p><strong>Key Takeaway:</strong> <code>std::cout</code> and <code>&lt;&lt;</code> move data TO the console. <code>std::cin</code> and <code>&gt;&gt;</code> move data FROM the keyboard INTO variables.</p>
+</blockquote>
+<hr />
+<h2 id="16-uninitialized-variables-and-undefined-behavior">1.6 -- Uninitialized Variables and Undefined Behavior</h2>
+<h3 id="uninitialized-variables">Uninitialized Variables</h3>
+<p>A variable that has not been given a known value contains <strong>garbage data</strong> -- whatever happened to be in that memory location previously. C++ does <strong>not</strong> automatically initialize most variables.</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w">                      </span><span class="c1">// uninitialized -- contains garbage</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="p">;</span><span class="w">     </span><span class="c1">// UNDEFINED BEHAVIOR: unpredictable output</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="key-terminology_1">Key Terminology</h3>
+<ul>
+<li><strong>Initialized</strong>: variable receives a known value at the point of definition.</li>
+<li><strong>Assigned</strong>: variable receives a known value after definition.</li>
+<li><strong>Uninitialized</strong>: variable has never been given any known value.</li>
+</ul>
+<h3 id="undefined-behavior-ub">Undefined Behavior (UB)</h3>
+<p><strong>Undefined behavior</strong> is the result of executing code whose behavior is not defined by the C++ language standard. Using the value of an uninitialized variable is undefined behavior.</p>
+<p>Consequences of UB:
+- Program may produce different results each time it runs.
+- Program may consistently produce the wrong result.
+- Program may appear to work correctly (but is still broken).
+- Program may crash.
+- Behavior may differ across compilers, machines, and build configurations.</p>
+<blockquote>
+<p><strong>Warning:</strong> Debug builds may mask uninitialized variable problems by zeroing memory. Always test in release builds too.</p>
+</blockquote>
+<h3 id="related-concepts">Related Concepts</h3>
+<ul>
+<li><strong>Implementation-defined behavior</strong>: the compiler determines specifics, which are documented and consistent for that compiler.</li>
+<li><strong>Unspecified behavior</strong>: similar to implementation-defined but not documented.</li>
+<li>Both should be avoided for portable code.</li>
+</ul>
+<blockquote>
+<p><strong>Best Practice:</strong> <strong>Always initialize your variables.</strong> The cost is minuscule, and it prevents one of the most common and hardest-to-debug classes of errors.</p>
+<p><strong>Key Takeaway:</strong> "Take care to avoid all situations that result in undefined behavior, such as using an uninitialized variable."</p>
+</blockquote>
+<hr />
+<h2 id="17-keywords-and-naming-identifiers">1.7 -- Keywords and Naming Identifiers</h2>
+<h3 id="keywords-reserved-words">Keywords (Reserved Words)</h3>
+<p>C++ reserves <strong>92 words</strong> (as of C++23) for its own use. These include:</p>
+<ul>
+<li>Control flow: <code>if</code>, <code>else</code>, <code>while</code>, <code>for</code>, <code>switch</code>, <code>break</code>, <code>continue</code>, <code>return</code></li>
+<li>Types: <code>int</code>, <code>float</code>, <code>double</code>, <code>char</code>, <code>bool</code>, <code>void</code>, <code>auto</code></li>
+<li>Classes: <code>class</code>, <code>struct</code>, <code>enum</code>, <code>union</code>, <code>namespace</code></li>
+<li>Memory: <code>new</code>, <code>delete</code></li>
+<li>Logic: <code>true</code>, <code>false</code>, <code>and</code>, <code>or</code>, <code>not</code></li>
+</ul>
+<p>Keywords cannot be used as identifiers.</p>
+<h3 id="identifier-naming-rules">Identifier Naming Rules</h3>
+<ol>
+<li><strong>Cannot be a keyword.</strong></li>
+<li><strong>Only letters, digits, and underscores</strong> -- no symbols or whitespace.</li>
+<li><strong>Must begin with a letter or underscore</strong> -- never a digit.</li>
+<li><strong>Case-sensitive</strong>: <code>nvalue</code>, <code>nValue</code>, and <code>NVALUE</code> are three distinct identifiers.</li>
+</ol>
+<h3 id="naming-conventions">Naming Conventions</h3>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="p">;</span><span class="w">              </span><span class="c1">// good: starts with lowercase</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">Value</span><span class="p">;</span><span class="w">              </span><span class="c1">// unconventional: starts uppercase (reserve for types)</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="n">my_variable_name</span><span class="p">;</span><span class="w">   </span><span class="c1">// snake_case -- acceptable</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">myVariableName</span><span class="p">;</span><span class="w">     </span><span class="c1">// camelCase -- acceptable</span>
+<span class="c1">// Pick one style and be consistent</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="n">numApples</span><span class="p">;</span><span class="w">          </span><span class="c1">// good: descriptive</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">monstersKilled</span><span class="p">;</span><span class="w">     </span><span class="c1">// good: specific and clear</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w">                  </span><span class="c1">// acceptable for trivial/temporary use</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">data</span><span class="p">;</span><span class="w">               </span><span class="c1">// bad: too vague</span>
+</code></pre></div>
+<h3 id="naming-guidelines">Naming Guidelines</h3>
+<ul>
+<li>Begin variable and function names with a <strong>lowercase letter</strong>.</li>
+<li>User-defined types (structs, classes, enums) begin with an <strong>uppercase letter</strong>.</li>
+<li>Avoid names starting with an underscore (reserved for system/library use).</li>
+<li>Name length should be proportional to scope: short names for trivial loop variables, longer names for significant values.</li>
+<li>Match existing code style when working in established projects.</li>
+</ul>
+<blockquote>
+<p><strong>Key Takeaway:</strong> "Code is read more often than it is written, so any time saved while writing the code is time that every reader, including future you, will waste while reading it." Prioritize clarity.</p>
+</blockquote>
+<hr />
+<h2 id="19-introduction-to-literals-and-operators">1.9 -- Introduction to Literals and Operators</h2>
+<h3 id="literals">Literals</h3>
+<p>A <strong>literal</strong> (or literal constant) is a fixed value inserted directly into source code. It is compiled directly into the executable and cannot be changed.</p>
+<div class="highlight"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="p">;</span><span class="w">           </span><span class="c1">// 5 is an integer literal</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Hello&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="p">;</span><span class="w">     </span><span class="c1">// &quot;Hello&quot; is a string literal</span>
+</code></pre></div>
+<p><strong>Distinction from variables:</strong> Variables occupy memory with changeable values; literals are fixed values embedded in the executable.</p>
+<h3 id="operators">Operators</h3>
+<p>An <strong>operator</strong> is a symbol that performs an operation on zero or more input values (<strong>operands</strong>) to produce an output value (the <strong>return value</strong>).</p>
+<h3 id="operator-arity">Operator Arity</h3>
+<table>
+<thead>
+<tr>
+<th>Arity</th>
+<th>Operands</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Unary</td>
+<td>1</td>
+<td><code>-5</code> (negation)</td>
+</tr>
+<tr>
+<td>Binary</td>
+<td>2</td>
+<td><code>3 + 4</code></td>
+</tr>
+<tr>
+<td>Ternary</td>
+<td>3</td>
+<td><code>a ? b : c</code> (conditional)</td>
+</tr>
+<tr>
+<td>Nullary</td>
+<td>0</td>
+<td><code>throw</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="operator-precedence-pemdasbodmas">Operator Precedence (PEMDAS/BODMAS)</h3>
+<div class="highlight"><pre><span></span><code><span class="mi">2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">4</span><span class="w">     </span><span class="c1">// evaluates to 14 (multiplication first)</span>
+<span class="p">(</span><span class="mi">2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">4</span><span class="w">   </span><span class="c1">// evaluates to 20 (parentheses first)</span>
+</code></pre></div>
+<h3 id="return-values-and-side-effects">Return Values and Side Effects</h3>
+<ul>
+<li><strong>Return value</strong>: the output of an operation (<code>2 + 3</code> returns <code>5</code>).</li>
+<li><strong>Side effect</strong>: an observable effect beyond the return value.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span><span class="w">                           </span><span class="c1">// side effect: assigns 5 to x; returns x</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Hello&quot;</span><span class="p">;</span><span class="w">            </span><span class="c1">// side effect: prints to console</span>
+</code></pre></div>
+<h3 id="chaining">Chaining</h3>
+<p>Because <code>=</code> and <code>&lt;&lt;</code> return their left operand, they can be chained:</p>
+<div class="highlight"><pre><span></span><code><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span><span class="w">                       </span><span class="c1">// y = 5 first, then x = y</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Hello &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;world!&quot;</span><span class="p">;</span><span class="w">  </span><span class="c1">// prints both strings</span>
+</code></pre></div>
+<blockquote>
+<p><strong>Key Takeaway:</strong> Literals are fixed values embedded in code. Operators transform operands into return values and may produce side effects.</p>
+</blockquote>
+<hr />
+<h2 id="110-introduction-to-expressions">1.10 -- Introduction to Expressions</h2>
+<h3 id="what-is-an-expression">What Is an Expression?</h3>
+<p>An <strong>expression</strong> is a non-empty sequence of literals, variables, operators, and function calls that calculates a value.</p>
+<h3 id="examples-of-expressions">Examples of Expressions</h3>
+<div class="highlight"><pre><span></span><code><span class="mi">2</span><span class="w">                    </span><span class="c1">// literal expression, evaluates to 2</span>
+<span class="s">&quot;Hello world!&quot;</span><span class="w">       </span><span class="c1">// string literal expression</span>
+<span class="n">x</span><span class="w">                    </span><span class="c1">// variable expression, evaluates to x&#39;s value</span>
+<span class="mi">2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">3</span><span class="w">                </span><span class="c1">// arithmetic expression, evaluates to 5</span>
+<span class="n">five</span><span class="p">()</span><span class="w">               </span><span class="c1">// function call expression, evaluates to return value</span>
+</code></pre></div>
+<h3 id="using-expressions-in-initialization">Using Expressions in Initialization</h3>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">{</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="p">};</span><span class="w">             </span><span class="c1">// literal</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">{</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="p">};</span><span class="w">         </span><span class="c1">// operator expression</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">c</span><span class="p">{</span><span class="w"> </span><span class="p">(</span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="p">};</span><span class="w">   </span><span class="c1">// compound expression</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">d</span><span class="p">{</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="p">};</span><span class="w">             </span><span class="c1">// variable expression</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">e</span><span class="p">{</span><span class="w"> </span><span class="n">five</span><span class="p">()</span><span class="w"> </span><span class="p">};</span><span class="w">        </span><span class="c1">// function call expression</span>
+</code></pre></div>
+<blockquote>
+<p><strong>Key Principle:</strong> "Wherever a single value is expected in C++, you can use a value-producing expression instead."</p>
+</blockquote>
+<h3 id="expression-statements">Expression Statements</h3>
+<p>An <strong>expression statement</strong> is an expression followed by a semicolon:</p>
+<div class="highlight"><pre><span></span><code><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span><span class="w">       </span><span class="c1">// useful expression statement (has side effect: assignment)</span>
+<span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w">       </span><span class="c1">// valid but useless (result is discarded, compiler may warn)</span>
+</code></pre></div>
+<h3 id="terminology">Terminology</h3>
+<ul>
+<li><strong>Subexpression</strong>: an expression used as an operand within a larger expression.</li>
+<li><strong>Full expression</strong>: an expression that is not a subexpression.</li>
+<li><strong>Compound expression</strong>: an expression containing two or more operators.</li>
+</ul>
+<p>In <code>x = 4 + 5</code>:
+- <code>x</code>, <code>4</code>, <code>5</code>, and <code>4 + 5</code> are all subexpressions.
+- <code>x = 4 + 5</code> is the full expression.</p>
+<blockquote>
+<p><strong>Key Takeaway:</strong> Expressions calculate values. Expression statements exist primarily for their side effects (assignment, output, etc.). The compiler may warn about expression statements that produce a value but discard it.</p>
+</blockquote>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

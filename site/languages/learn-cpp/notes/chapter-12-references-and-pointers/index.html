@@ -1,0 +1,1605 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://17kaushalsingh.github.io/study-notes/languages/learn-cpp/notes/chapter-12-references-and-pointers/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Chapter 12: Compound Types — References and Pointers - Kaushal Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chapter-12-compound-types-references-and-pointers" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="Kaushal Notes" class="md-header__button md-logo" aria-label="Kaushal Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Kaushal Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Chapter 12: Compound Types — References and Pointers
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../dsa-and-cp/" class="md-tabs__link">
+          
+  
+  
+  DSA & CP
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../systems-and-backend/backend-from-first-principles/Backend-From-First-Principles/" class="md-tabs__link">
+          
+  
+  
+  Systems & Backend
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../databases/" class="md-tabs__link">
+          
+  
+  
+  Databases
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../java/LEC1_Core_Java/" class="md-tabs__link">
+          
+  
+  
+  Languages
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="Kaushal Notes" class="md-nav__button md-logo" aria-label="Kaushal Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Kaushal Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA & CP
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    DSA & CP
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../dsa-and-cp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Systems & Backend
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Systems & Backend
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../systems-and-backend/backend-from-first-principles/Backend-From-First-Principles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backend From First Principles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../systems-and-backend/low-level-design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Low Level Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Databases
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Databases
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../databases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Database System Concepts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Languages
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Languages
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../java/LEC1_Core_Java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C++
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#121-introduction-to-compound-data-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.1 Introduction to Compound Data Types
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#122-value-categories-lvalues-and-rvalues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.2 Value Categories (Lvalues and Rvalues)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12.2 Value Categories (Lvalues and Rvalues)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lvalues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lvalues
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rvalues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rvalues
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Rules
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#123-lvalue-references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.3 Lvalue References
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12.3 Lvalue References">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rules
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#124-lvalue-references-to-const" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.4 Lvalue References to Const
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12.4 Lvalue References to Const">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-power-of-const-references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Power of Const References
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#125-126-pass-by-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.5-12.6 Pass by Reference
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12.5-12.6 Pass by Reference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pass-by-value-copy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pass by Value (Copy)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pass-by-non-const-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pass by (Non-Const) Reference
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pass-by-const-reference-best-practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pass by Const Reference (Best Practice)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use-what" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Use What
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#127-introduction-to-pointers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.7 Introduction to Pointers
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12.7 Introduction to Pointers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-operators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Operators
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pointer-vs-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pointer vs Reference
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#128-null-pointers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.8 Null Pointers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#129-pointers-and-const" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.9 Pointers and Const
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12.9 Pointers and Const">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#memory-aid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Memory Aid
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1210-1211-pass-by-address" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.10-12.11 Pass by Address
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12.10-12.11 Pass by Address">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pass-by-address-vs-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pass by Address vs Reference
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1212-return-by-reference-and-return-by-address" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.12 Return by Reference and Return by Address
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12.12 Return by Reference and Return by Address">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#safe-return-by-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Safe Return by Reference
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dangerous-returning-local-by-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DANGEROUS: Returning Local by Reference
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1213-in-and-out-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.13 In and Out Parameters
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1214-type-deduction-with-pointers-references-and-const" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.14 Type Deduction with Pointers, References, and Const
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1215-stdoptional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.15 std::optional
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-12-quick-reference-card" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 12 — Quick Reference Card
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="chapter-12-compound-types-references-and-pointers">Chapter 12: Compound Types — References and Pointers</h1>
+<h2 id="121-introduction-to-compound-data-types">12.1 Introduction to Compound Data Types</h2>
+<p>Compound types are built from fundamental types:
+- References (lvalue references, rvalue references)
+- Pointers
+- Arrays
+- Structs, classes, unions
+- Enumerations
+- Functions</p>
+<hr />
+<h2 id="122-value-categories-lvalues-and-rvalues">12.2 Value Categories (Lvalues and Rvalues)</h2>
+<h3 id="lvalues">Lvalues</h3>
+<p>An <strong>lvalue</strong> is an expression that evaluates to an identifiable object with a persistent address:</p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">{</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="p">};</span><span class="w">    </span><span class="c1">// x is an lvalue</span>
+<span class="kt">int</span><span class="o">&amp;</span><span class="w"> </span><span class="n">ref</span><span class="p">{</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="p">};</span><span class="w"> </span><span class="c1">// ref is an lvalue</span>
+</code></pre></div>
+<p>Lvalues can be <strong>modifiable</strong> (non-const) or <strong>non-modifiable</strong> (const).</p>
+<h3 id="rvalues">Rvalues</h3>
+<p>An <strong>rvalue</strong> is a temporary value that doesn't persist beyond the expression:</p>
+<div class="highlight"><pre><span></span><code><span class="mi">5</span><span class="w">              </span><span class="c1">// literal rvalue</span>
+<span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w">          </span><span class="c1">// temporary result</span>
+<span class="n">return5</span><span class="p">()</span><span class="w">      </span><span class="c1">// return by value</span>
+<span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">d</span><span class="p">)</span><span class="w">  </span><span class="c1">// temporary result</span>
+</code></pre></div>
+<h3 id="key-rules">Key Rules</h3>
+<ul>
+<li>Assignment requires a <strong>modifiable lvalue</strong> on the left</li>
+<li>Lvalues implicitly convert to rvalues when needed</li>
+<li><code>++x</code> returns an <strong>lvalue</strong>; <code>x++</code> returns an <strong>rvalue</strong></li>
+</ul>
+<hr />
+<h2 id="123-lvalue-references">12.3 Lvalue References</h2>
+<p>A reference is an <strong>alias</strong> for an existing object:</p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">{</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="p">};</span>
+<span class="kt">int</span><span class="o">&amp;</span><span class="w"> </span><span class="n">ref</span><span class="p">{</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="p">};</span><span class="w">   </span><span class="c1">// ref is an alias for x</span>
+
+<span class="n">ref</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span><span class="w">         </span><span class="c1">// modifies x</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w">   </span><span class="c1">// prints 10</span>
+</code></pre></div>
+<h3 id="rules">Rules</h3>
+<ul>
+<li>Must be initialized at declaration</li>
+<li>Cannot be reseated (bound to a different object)</li>
+<li>The type must match (with some exceptions for const references)</li>
+<li>Has the same lifetime independence as the referenced object</li>
+</ul>
+<hr />
+<h2 id="124-lvalue-references-to-const">12.4 Lvalue References to Const</h2>
+<div class="highlight"><pre><span></span><code><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">{</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="p">};</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="o">&amp;</span><span class="w"> </span><span class="n">ref</span><span class="p">{</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="p">};</span><span class="w">    </span><span class="c1">// OK: const ref to const value</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="o">&amp;</span><span class="w"> </span><span class="n">ref2</span><span class="p">{</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="p">};</span><span class="w">   </span><span class="c1">// OK: const ref can bind to rvalue!</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="o">&amp;</span><span class="w"> </span><span class="n">ref3</span><span class="p">{</span><span class="w"> </span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="w"> </span><span class="p">};</span><span class="w"> </span><span class="c1">// OK: const ref extends temporary lifetime</span>
+</code></pre></div>
+<h3 id="the-power-of-const-references">The Power of Const References</h3>
+<ul>
+<li>Can bind to <strong>modifiable lvalues</strong>, <strong>non-modifiable lvalues</strong>, AND <strong>rvalues</strong></li>
+<li>When bound to a temporary (rvalue), the temporary's lifetime is <strong>extended</strong> to match the reference</li>
+<li>This is why <code>const&amp;</code> is the go-to for function parameters</li>
+</ul>
+<hr />
+<h2 id="125-126-pass-by-reference">12.5-12.6 Pass by Reference</h2>
+<h3 id="pass-by-value-copy">Pass by Value (Copy)</h3>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">print</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">s</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">    </span><span class="c1">// expensive copy!</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">s</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="pass-by-non-const-reference">Pass by (Non-Const) Reference</h3>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">addOne</span><span class="p">(</span><span class="kt">int</span><span class="o">&amp;</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">          </span><span class="c1">// can modify original</span>
+<span class="w">    </span><span class="o">++</span><span class="n">y</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">{</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="p">};</span>
+<span class="n">addOne</span><span class="p">(</span><span class="n">x</span><span class="p">);</span><span class="w">                     </span><span class="c1">// x is now 6</span>
+</code></pre></div>
+<h3 id="pass-by-const-reference-best-practice">Pass by Const Reference (Best Practice)</h3>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">print</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">s</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">  </span><span class="c1">// no copy, can&#39;t modify</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">s</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">print</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">);</span><span class="w">                </span><span class="c1">// works with rvalues too!</span>
+</code></pre></div>
+<h3 id="when-to-use-what">When to Use What</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter type</th>
+<th>When to use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pass by value (<code>int x</code>)</td>
+<td>Cheap-to-copy types (fundamental types, small objects)</td>
+</tr>
+<tr>
+<td>Pass by const ref (<code>const T&amp; x</code>)</td>
+<td>Expensive-to-copy types (string, vector, classes)</td>
+</tr>
+<tr>
+<td>Pass by non-const ref (<code>T&amp; x</code>)</td>
+<td>When function needs to modify the argument</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Best Practice</strong>: Pass fundamental types by value, class types by <code>const&amp;</code>.</p>
+</blockquote>
+<hr />
+<h2 id="127-introduction-to-pointers">12.7 Introduction to Pointers</h2>
+<p>A pointer holds the <strong>memory address</strong> of another object:</p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">{</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="p">};</span>
+<span class="kt">int</span><span class="o">*</span><span class="w"> </span><span class="n">ptr</span><span class="p">{</span><span class="w"> </span><span class="o">&amp;</span><span class="n">x</span><span class="w"> </span><span class="p">};</span><span class="w">       </span><span class="c1">// ptr holds address of x</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">ptr</span><span class="p">;</span><span class="w">      </span><span class="c1">// prints memory address (e.g., 0x7fff...)</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="o">*</span><span class="n">ptr</span><span class="p">;</span><span class="w">     </span><span class="c1">// dereferences: prints 5</span>
+
+<span class="o">*</span><span class="n">ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span><span class="w">             </span><span class="c1">// modifies x through the pointer</span>
+</code></pre></div>
+<h3 id="key-operators">Key Operators</h3>
+<table>
+<thead>
+<tr>
+<th>Operator</th>
+<th>Context</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&amp;</code></td>
+<td>Declaration (<code>int&amp; ref</code>)</td>
+<td>Reference</td>
+</tr>
+<tr>
+<td><code>&amp;</code></td>
+<td>Expression (<code>&amp;x</code>)</td>
+<td>Address-of</td>
+</tr>
+<tr>
+<td><code>*</code></td>
+<td>Declaration (<code>int* ptr</code>)</td>
+<td>Pointer</td>
+</tr>
+<tr>
+<td><code>*</code></td>
+<td>Expression (<code>*ptr</code>)</td>
+<td>Dereference</td>
+</tr>
+</tbody>
+</table>
+<h3 id="pointer-vs-reference">Pointer vs Reference</h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Reference</th>
+<th>Pointer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Can be null</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Can be reseated</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Must be initialized</td>
+<td>Yes</td>
+<td>No (but should be)</td>
+</tr>
+<tr>
+<td>Syntax to access</td>
+<td>Direct (<code>ref</code>)</td>
+<td>Dereference (<code>*ptr</code>)</td>
+</tr>
+<tr>
+<td>Can be dangling</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="128-null-pointers">12.8 Null Pointers</h2>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="o">*</span><span class="w"> </span><span class="n">ptr</span><span class="p">{};</span><span class="w">           </span><span class="c1">// null pointer (value initialization)</span>
+<span class="kt">int</span><span class="o">*</span><span class="w"> </span><span class="n">ptr</span><span class="p">{</span><span class="w"> </span><span class="nb">nullptr</span><span class="w"> </span><span class="p">};</span><span class="w">  </span><span class="c1">// explicit null pointer</span>
+
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ptr</span><span class="p">)</span><span class="w">              </span><span class="c1">// false if null</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="o">*</span><span class="n">ptr</span><span class="p">;</span>
+
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ptr</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">nullptr</span><span class="p">)</span><span class="w">   </span><span class="c1">// explicit null check</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;null!&quot;</span><span class="p">;</span>
+</code></pre></div>
+<blockquote>
+<p><strong>Warning</strong>: Dereferencing a null pointer = <strong>undefined behavior</strong> (typically crashes).</p>
+<p><strong>Best Practice</strong>:
+- Always initialize pointers (to an address or <code>nullptr</code>)
+- Check for null before dereferencing
+- Use <code>nullptr</code>, never <code>NULL</code> or <code>0</code>
+- Prefer references over pointers when you don't need null capability</p>
+</blockquote>
+<hr />
+<h2 id="129-pointers-and-const">12.9 Pointers and Const</h2>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="p">{</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="p">};</span>
+
+<span class="c1">// Pointer to const — can&#39;t modify value through pointer</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="o">*</span><span class="w"> </span><span class="n">ptr1</span><span class="p">{</span><span class="w"> </span><span class="o">&amp;</span><span class="n">value</span><span class="w"> </span><span class="p">};</span><span class="w">   </span><span class="c1">// *ptr1 = 10; ERROR</span>
+<span class="n">ptr1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">other</span><span class="p">;</span><span class="w">               </span><span class="c1">// OK — can change what it points to</span>
+
+<span class="c1">// Const pointer — can&#39;t change what it points to</span>
+<span class="kt">int</span><span class="o">*</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">ptr2</span><span class="p">{</span><span class="w"> </span><span class="o">&amp;</span><span class="n">value</span><span class="w"> </span><span class="p">};</span><span class="w">   </span><span class="c1">// ptr2 = &amp;other; ERROR</span>
+<span class="o">*</span><span class="n">ptr2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span><span class="w">                  </span><span class="c1">// OK — can modify value</span>
+
+<span class="c1">// Const pointer to const — can&#39;t do either</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="o">*</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">ptr3</span><span class="p">{</span><span class="w"> </span><span class="o">&amp;</span><span class="n">value</span><span class="w"> </span><span class="p">};</span>
+</code></pre></div>
+<h3 id="memory-aid">Memory Aid</h3>
+<blockquote>
+<p>"const on the <strong>left</strong> of <code>*</code> → value is const. const on the <strong>right</strong> of <code>*</code> → pointer is const."</p>
+</blockquote>
+<hr />
+<h2 id="1210-1211-pass-by-address">12.10-12.11 Pass by Address</h2>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">print</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="o">*</span><span class="w"> </span><span class="n">ptr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">  </span><span class="c1">// pass by address</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ptr</span><span class="p">)</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="o">*</span><span class="n">ptr</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">{</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="p">};</span>
+<span class="n">print</span><span class="p">(</span><span class="o">&amp;</span><span class="n">x</span><span class="p">);</span><span class="w">       </span><span class="c1">// pass address of x</span>
+<span class="n">print</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">);</span><span class="w">  </span><span class="c1">// can pass null — function handles it</span>
+</code></pre></div>
+<h3 id="pass-by-address-vs-reference">Pass by Address vs Reference</h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>By Reference</th>
+<th>By Address</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Null allowed</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Syntax at call site</td>
+<td><code>func(x)</code></td>
+<td><code>func(&amp;x)</code></td>
+</tr>
+<tr>
+<td>Syntax in function</td>
+<td><code>param</code></td>
+<td><code>*param</code></td>
+</tr>
+<tr>
+<td>Safer</td>
+<td>Yes</td>
+<td>No (null/dangling risk)</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Best Practice</strong>: Prefer pass by reference. Use pass by address only when null is a valid/meaningful input.</p>
+</blockquote>
+<hr />
+<h2 id="1212-return-by-reference-and-return-by-address">12.12 Return by Reference and Return by Address</h2>
+<h3 id="safe-return-by-reference">Safe Return by Reference</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// Safe: returning a reference parameter</span>
+<span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="nf">firstAlpha</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w">  </span><span class="c1">// both outlive the function</span>
+<span class="p">}</span>
+
+<span class="c1">// Safe: returning static local</span>
+<span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="nf">getName</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">name</span><span class="p">{</span><span class="w"> </span><span class="s">&quot;Alex&quot;</span><span class="w"> </span><span class="p">};</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">name</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="dangerous-returning-local-by-reference">DANGEROUS: Returning Local by Reference</h3>
+<div class="highlight"><pre><span></span><code><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="nf">getName</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">name</span><span class="p">{</span><span class="w"> </span><span class="s">&quot;Alex&quot;</span><span class="w"> </span><span class="p">};</span><span class="w">  </span><span class="c1">// local variable</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">name</span><span class="p">;</span><span class="w">  </span><span class="c1">// DANGLING REFERENCE — name destroyed!</span>
+<span class="p">}</span>
+</code></pre></div>
+<blockquote>
+<p><strong>Rule</strong>: Never return a reference or pointer to a local variable.</p>
+</blockquote>
+<hr />
+<h2 id="1213-in-and-out-parameters">12.13 In and Out Parameters</h2>
+<table>
+<thead>
+<tr>
+<th>Parameter Direction</th>
+<th>How to Pass</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>In</strong> (read only)</td>
+<td>By value (cheap) or <code>const&amp;</code> (expensive)</td>
+</tr>
+<tr>
+<td><strong>Out</strong> (write only)</td>
+<td>By non-const reference</td>
+</tr>
+<tr>
+<td><strong>In-out</strong> (read+write)</td>
+<td>By non-const reference</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Best Practice</strong>: Avoid out parameters when possible — prefer return values. They're harder to understand.</p>
+</blockquote>
+<hr />
+<h2 id="1214-type-deduction-with-pointers-references-and-const">12.14 Type Deduction with Pointers, References, and Const</h2>
+<div class="highlight"><pre><span></span><code><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">{</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="p">};</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">y</span><span class="p">{</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="p">};</span><span class="w">           </span><span class="c1">// int (const AND reference dropped)</span>
+<span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">ref</span><span class="p">{</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="p">};</span><span class="w">        </span><span class="c1">// const int&amp; (reference kept, const kept)</span>
+<span class="k">auto</span><span class="o">*</span><span class="w"> </span><span class="n">ptr</span><span class="p">{</span><span class="w"> </span><span class="o">&amp;</span><span class="n">x</span><span class="w"> </span><span class="p">};</span><span class="w">       </span><span class="c1">// const int* (pointer kept, const kept)</span>
+
+<span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">z</span><span class="p">{</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="p">};</span><span class="w">     </span><span class="c1">// const int (const reapplied)</span>
+</code></pre></div>
+<blockquote>
+<p><strong>Key</strong>: <code>auto</code> drops top-level const and references. <code>auto&amp;</code> and <code>auto*</code> preserve them.</p>
+</blockquote>
+<hr />
+<h2 id="1215-stdoptional">12.15 std::optional</h2>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;optional&gt;</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">doDiv</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">y</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">nullopt</span><span class="p">;</span><span class="w">   </span><span class="c1">// no value</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">y</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">auto</span><span class="w"> </span><span class="n">result</span><span class="p">{</span><span class="w"> </span><span class="n">doDiv</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="p">};</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="n">has_value</span><span class="p">())</span><span class="w">         </span><span class="c1">// or just: if (result)</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="n">value</span><span class="p">();</span><span class="w"> </span><span class="c1">// or *result</span>
+</code></pre></div>
+<p>Better than returning sentinel values or using out parameters.</p>
+<hr />
+<h2 id="chapter-12-quick-reference-card">Chapter 12 — Quick Reference Card</h2>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Rule</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cheap types (int, etc.)</td>
+<td>Pass by value</td>
+</tr>
+<tr>
+<td>Expensive types (string, etc.)</td>
+<td>Pass by <code>const&amp;</code></td>
+</tr>
+<tr>
+<td>Need to modify argument</td>
+<td>Pass by non-const <code>&amp;</code></td>
+</tr>
+<tr>
+<td>Need nullable</td>
+<td>Use pointer or <code>std::optional</code></td>
+</tr>
+<tr>
+<td><code>const</code> left of <code>*</code></td>
+<td>Value is const</td>
+</tr>
+<tr>
+<td><code>const</code> right of <code>*</code></td>
+<td>Pointer is const</td>
+</tr>
+<tr>
+<td>Return local by ref</td>
+<td><strong>NEVER</strong> — dangling reference</td>
+</tr>
+<tr>
+<td>Prefer</td>
+<td>References over pointers</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
