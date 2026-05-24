@@ -11,10 +11,8 @@ void solve()
     cin >> x >> s;
 
     int found = false;
-    int ops= 0;
 
-    while(ops <= 10)
-    {
+    for(int ops=0; ops <= 5; ops++) {
         if (x.find(s) != string::npos)
         {
             cout << ops << endl;
@@ -23,7 +21,6 @@ void solve()
         }
 
         x += x;
-        ops++;
     }
 
     if (!found) cout << -1 << endl;
