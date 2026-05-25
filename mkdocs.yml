@@ -56,11 +56,9 @@ nav:
       - Overview: dsa-and-cp/index.md
 
   - Systems & Backend:
-      - Backend From First Principles:
-          - Overview: systems-and-backend/backend-from-first-principles/Backend-From-First-Principles.md
+      - Backend From First Principles: systems-and-backend/backend-from-first-principles/README.md
 
-      - Low Level Design:
-          - Overview: systems-and-backend/low-level-design/README.md
+      - Low Level Design: systems-and-backend/low-level-design/README.md
 
   - Databases:
       - Database System Concepts: databases/README.md
