@@ -1,0 +1,1 @@
+- B_Monsters.cpp: Use %k to reduce values until actual killing of moster starts taking place
