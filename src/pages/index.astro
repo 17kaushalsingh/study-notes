@@ -1,0 +1,506 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const postsMap = import.meta.glob('../../systes-and-backend/backend-from-first-principles/*.md', { eager: true });
+const posts = Object.values(postsMap);
+
+// Helper to extract numeric value for correct sorting
+const getLectureNumber = (filepath) => {
+  const filename = filepath.split('/').pop() || '';
+  const match = filename.match(/LEC(\d+(?:\.\d+)?)/i);
+  return match ? parseFloat(match[1]) : 999;
+};
+
+// Numerical sort & fetch active lectures
+const activeLectures = posts
+  .filter(post => {
+    const filename = post.file.split('/').pop() || '';
+    return filename.toLowerCase().startsWith('lec') && filename.endsWith('.md');
+  })
+  .sort((a, b) => getLectureNumber(a.file) - getLectureNumber(b.file))
+  .map(post => {
+    const filename = post.file.split('/').pop() || '';
+    const slug = filename.replace(/\.md$/, '').toLowerCase();
+    const headings = post.getHeadings();
+    const h1 = headings.find(h => h.depth === 1);
+    let title = h1 ? h1.text : filename.replace(/\.md$/, '');
+    title = title.replace(/\s*[—-]\s*Lecture Notes/i, '');
+    const lecNum = filename.match(/LEC(\d+(?:\.\d+)?)/i)?.[1] || '';
+    return { title, slug, lecNum };
+  });
+
+const totalLectures = activeLectures.length;
+---
+
+<Layout 
+  title="Home" 
+  description="A premium developer notes portal, documenting backend engineering from first principles, databases, competitive programming, and low-level design patterns."
+>
+  <div class="dashboard-hero fade-in">
+    <div class="badge glow-btn">
+      <span>🚀 Static Site Mode</span>
+    </div>
+    <h1 class="main-title">
+      Developer <span class="neon-text-gradient">Study Portal</span>
+    </h1>
+    <p class="subtitle">
+      A collection of comprehensive engineering notes, lecture walkthroughs, and problem-solving logs organized into clean, interactive modules. Ready for immediate Vercel hosting.
+    </p>
+  </div>
+
+  <!-- Modules Grid -->
+  <section class="modules-grid fade-in delay-100">
+    <!-- Active Module: Systems and Backend -->
+    <div class="module-card active-card glass">
+      <div class="card-glow"></div>
+      <div class="card-header">
+        <span class="module-icon">⚙️</span>
+        <span class="status-pill active-pill">ACTIVE & HOSTED</span>
+      </div>
+      <h2>Systems & Backend</h2>
+      <p class="card-desc">
+        Concise, production-grade lecture notes exploring backend engineering from first principles, server architecture, network layers, and database optimization.
+      </p>
+      
+      <div class="module-meta">
+        <div class="meta-item">
+          <span class="label">Lectures:</span>
+          <span class="value">{totalLectures} modules loaded</span>
+        </div>
+        <div class="meta-item">
+          <span class="label">Scope:</span>
+          <span class="value">HTTP, SQL, Security, Scaling</span>
+        </div>
+      </div>
+
+      <div class="card-actions">
+        <a href="/systems-and-backend/backend-from-first-principles/lec5" class="action-btn primary-btn">
+          <span>Explore Backend Lectures</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </a>
+        <a href="/sitemap#low-level-design" class="action-btn secondary-btn">
+          <span>View LLD Skeleton</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Skeleton Module: Databases -->
+    <div class="module-card skeleton-card glass">
+      <div class="card-header">
+        <span class="module-icon">💾</span>
+        <span class="status-pill skeleton-pill">SKELETON</span>
+      </div>
+      <h2>Databases & CMU</h2>
+      <p class="card-desc">
+        Deep dive notes into database storage architecture, index layouts, transaction isolation levels, concurrency control, and relational modeling based on CMU lectures.
+      </p>
+      <div class="card-actions">
+        <a href="/sitemap#databases" class="action-btn secondary-btn">
+          <span>Explore Database Skeleton</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Skeleton Module: DSA & CP -->
+    <div class="module-card skeleton-card glass">
+      <div class="card-header">
+        <span class="module-icon">🧩</span>
+        <span class="status-pill skeleton-pill">SKELETON</span>
+      </div>
+      <h2>DSA & Competitive Programming</h2>
+      <p class="card-desc">
+        Structured solutions, algorithmic paradigms, and pattern break downs for competitive programming sets including CSES, CP31, and major online contests.
+      </p>
+      <div class="card-actions">
+        <a href="/sitemap#dsa-and-cp" class="action-btn secondary-btn">
+          <span>Explore CP Skeleton</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Skeleton Module: Languages -->
+    <div class="module-card skeleton-card glass">
+      <div class="card-header">
+        <span class="module-icon">☕</span>
+        <span class="status-pill skeleton-pill">SKELETON</span>
+      </div>
+      <h2>Programming Languages</h2>
+      <p class="card-desc">
+        Syntactic details, JVM execution pipelines, garbage collection algorithms, and low-level C++ smart pointers, template metaprogramming, and concepts notes.
+      </p>
+      <div class="card-actions">
+        <a href="/sitemap#languages" class="action-btn secondary-btn">
+          <span>Explore Languages Skeleton</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Timeline/Syllabus for Backend -->
+  <section class="syllabus-section fade-in delay-200">
+    <div class="section-header">
+      <h2>Syllabus Checklist: Backend First Principles</h2>
+      <p>Click on any active lecture below to jump straight into the notes.</p>
+    </div>
+
+    <div class="timeline-container">
+      {activeLectures.map((lec, idx) => (
+        <a href={`/systems-and-backend/backend-from-first-principles/${lec.slug}`} class="timeline-node">
+          <div class="node-number">{lec.lecNum}</div>
+          <div class="node-content">
+            <span class="node-badge">Lecture Node</span>
+            <h3>{lec.title}</h3>
+            <span class="read-link">Read Notes &rarr;</span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- Deployment Box -->
+  <section class="deploy-banner glass fade-in delay-300">
+    <div class="deploy-content">
+      <div class="v-icon">🔺</div>
+      <div>
+        <h3>Deploy Seamlessly to Vercel</h3>
+        <p>This site compiles to 100% compliant HTML, CSS, and clientside JS. It is pre-configured for instant deployment on Vercel using the Astro builder. Perfect for high performance edge hosting!</p>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  /* Hero */
+  .dashboard-hero {
+    text-align: center;
+    padding: 3rem 1.5rem;
+    max-width: 800px;
+    margin: 0 auto 3rem auto;
+  }
+
+  .badge {
+    padding: 0.35rem 1rem !important;
+    font-size: 0.8rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .main-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.04em;
+    margin-bottom: 1.25rem;
+  }
+
+  .subtitle {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  /* Modules Grid */
+  .modules-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+  }
+
+  .module-card {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s var(--ease-smooth), border-color 0.3s;
+  }
+
+  .module-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--border-color-hover);
+  }
+
+  .active-card {
+    grid-column: span 1;
+    border-color: rgba(0, 229, 255, 0.2);
+    background: linear-gradient(180deg, hsla(223, 37%, 11%, 0.9) 0%, hsla(223, 37%, 7%, 0.95) 100%);
+  }
+
+  @media (min-width: 1024px) {
+    .active-card {
+      grid-column: span 2;
+    }
+  }
+
+  .card-glow {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at center, hsla(192, 95%, 50%, 0.03) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.25rem;
+  }
+
+  .module-icon {
+    font-size: 1.75rem;
+  }
+
+  .status-pill {
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+  }
+
+  .active-pill {
+    background: rgba(0, 229, 255, 0.1);
+    color: var(--accent-cyan);
+    border: 1px solid rgba(0, 229, 255, 0.2);
+  }
+
+  .skeleton-pill {
+    background: rgba(157, 78, 221, 0.1);
+    color: var(--accent-purple);
+    border: 1px solid rgba(157, 78, 221, 0.2);
+  }
+
+  .module-card h2 {
+    font-size: 1.5rem;
+    color: #fff;
+    margin-bottom: 0.75rem;
+  }
+
+  .card-desc {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+  }
+
+  .module-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    padding: 0.75rem 1rem;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 0.85rem;
+  }
+
+  .meta-item {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .meta-item .label {
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+
+  .meta-item .value {
+    color: var(--accent-cyan);
+    font-weight: 500;
+  }
+
+  .card-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: auto;
+  }
+
+  .action-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .primary-btn {
+    background: var(--grad-cyan-purple);
+    color: #fff;
+    box-shadow: var(--glow-cyan);
+  }
+
+  .primary-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 0 20px rgba(0, 229, 255, 0.25);
+  }
+
+  .secondary-btn {
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+  }
+
+  .secondary-btn:hover {
+    border-color: var(--accent-purple);
+    color: #fff;
+  }
+
+  .skeleton-card {
+    opacity: 0.75;
+  }
+
+  .skeleton-card:hover {
+    opacity: 1;
+  }
+
+  /* Syllabus Timeline */
+  .syllabus-section {
+    margin-bottom: 4rem;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+
+  .section-header h2 {
+    font-size: 2rem;
+    color: #fff;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-header p {
+    color: var(--text-secondary);
+  }
+
+  .timeline-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .timeline-node {
+    display: flex;
+    gap: 1rem;
+    padding: 1.25rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    transition: var(--transition-fast);
+  }
+
+  .timeline-node:hover {
+    transform: scale(1.02);
+    border-color: var(--accent-cyan);
+    box-shadow: var(--glow-cyan);
+    background: var(--bg-tertiary);
+  }
+
+  .node-number {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--accent-cyan);
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    flex-shrink: 0;
+  }
+
+  .node-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
+  }
+
+  .node-badge {
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 0.15rem;
+  }
+
+  .node-content h3 {
+    font-size: 0.95rem;
+    color: #fff;
+    margin-bottom: 0.25rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .read-link {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--accent-purple);
+  }
+
+  .timeline-node:hover .read-link {
+    color: var(--accent-cyan);
+  }
+
+  /* Deploy Banner */
+  .deploy-banner {
+    padding: 2rem;
+    border-radius: 16px;
+    border-color: hsla(271, 91%, 65%, 0.15);
+  }
+
+  .deploy-content {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .v-icon {
+    font-size: 2.5rem;
+    color: var(--accent-purple);
+    filter: drop-shadow(0 0 10px rgba(157, 78, 221, 0.3));
+  }
+
+  .deploy-banner h3 {
+    font-size: 1.25rem;
+    color: #fff;
+    margin-bottom: 0.25rem;
+  }
+
+  .deploy-banner p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 768px) {
+    .main-title {
+      font-size: 2.5rem;
+    }
+    
+    .timeline-container {
+      grid-template-columns: 1fr;
+    }
+
+    .deploy-content {
+      flex-direction: column;
+      text-align: center;
+      gap: 1rem;
+    }
+  }
+</style>

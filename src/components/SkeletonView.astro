@@ -1,0 +1,378 @@
+---
+interface Props {
+  section: 'databases' | 'dsa-and-cp' | 'languages' | 'low-level-design';
+}
+
+const { section } = Astro.props;
+
+const sectionsData = {
+  'databases': {
+    title: 'CMU Databases & Textbook Notes',
+    description: 'Relational database concepts, CMU 15-445/645 lectures, storage engines, buffer pool managers, index structures, concurrency control, and logging & recovery mechanisms.',
+    path: '/databases',
+    tree: [
+      {
+        type: 'folder',
+        name: 'Databases@CMU',
+        children: [
+          { type: 'file', name: 'Lecture 1: Course Introduction & Relational Model.md' },
+          { type: 'file', name: 'Lecture 2: Modern SQL.md' },
+          { type: 'file', name: 'Lecture 3: Database Storage.md' },
+          { type: 'file', name: 'Lecture 4: Buffer Pools & Memory Management.md' },
+          { type: 'file', name: 'Lecture 5: Hash Tables & Indexes.md' },
+          { type: 'file', name: 'Lecture 6: Tree Indexes & B+ Trees.md' }
+        ]
+      },
+      {
+        type: 'folder',
+        name: 'textbook-notes',
+        children: [
+          { type: 'file', name: 'Chapter 1: Introduction.md' },
+          { type: 'file', name: 'Chapter 2: Relational Model.md' },
+          { type: 'file', name: 'Chapter 3: Query Languages.md' }
+        ]
+      },
+      { type: 'file', name: 'GEMINI.md' },
+      { type: 'file', name: 'README.md' }
+    ]
+  },
+  'dsa-and-cp': {
+    title: 'DSA & Competitive Programming',
+    description: 'Data structures, advanced algorithms, and competitive programming problems from CSES problem set, CP31, and regular Codeforces/LeetCode contests.',
+    path: '/dsa-and-cp',
+    tree: [
+      {
+        type: 'folder',
+        name: 'contests',
+        children: [
+          { type: 'file', name: 'Codeforces Round 950 Div 3.md' },
+          { type: 'file', name: 'LeetCode Weekly 400.md' }
+        ]
+      },
+      {
+        type: 'folder',
+        name: 'cp31',
+        children: [
+          { type: 'file', name: '800 Rating Problems.md' },
+          { type: 'file', name: '900 Rating Problems.md' },
+          { type: 'file', name: '1000 Rating Problems.md' }
+        ]
+      },
+      {
+        type: 'folder',
+        name: 'cses-problems',
+        children: [
+          { type: 'file', name: 'Introductory Problems.md' },
+          { type: 'file', name: 'Sorting and Searching.md' },
+          { type: 'file', name: 'Dynamic Programming.md' }
+        ]
+      },
+      { type: 'file', name: 'README.md' }
+    ]
+  },
+  'languages': {
+    title: 'Programming Languages',
+    description: 'Deep dives, low-level details, language specifications, and memory management mechanics for C++ (Modern C++17/20/23) and Java (JVM internals, garbage collection).',
+    path: '/languages',
+    tree: [
+      {
+        type: 'folder',
+        name: 'java',
+        children: [
+          { type: 'file', name: 'JVM Architecture & Bytecode.md' },
+          { type: 'file', name: 'Garbage Collection Algorithms.md' },
+          { type: 'file', name: 'Java Multithreading & JMM.md' }
+        ]
+      },
+      {
+        type: 'folder',
+        name: 'learn-cpp',
+        children: [
+          { type: 'file', name: 'Pointers, References & Memory Management.md' },
+          { type: 'file', name: 'RAII & Smart Pointers.md' },
+          { type: 'file', name: 'Templates & Metaprogramming.md' },
+          { type: 'file', name: 'C++20 Modules & Concepts.md' }
+        ]
+      }
+    ]
+  },
+  'low-level-design': {
+    title: 'Low-Level Design (LLD)',
+    description: 'Object-oriented analysis and design, SOLID principles, design patterns (Creational, Structural, Behavioral), and real-world system designs like Google Docs and YouTube Notifications.',
+    path: '/systes-and-backend/low-level-design',
+    tree: [
+      {
+        type: 'folder',
+        name: 'Design Patterns',
+        children: [
+          { type: 'file', name: 'Singleton Pattern.md' },
+          { type: 'file', name: 'Factory and Abstract Factory.md' },
+          { type: 'file', name: 'Observer Pattern.md' },
+          { type: 'file', name: 'Strategy Pattern.md' },
+          { type: 'file', name: 'Decorator Pattern.md' }
+        ]
+      },
+      {
+        type: 'folder',
+        name: 'Google Docs',
+        children: [
+          { type: 'file', name: 'Operational Transformation (OT) Basics.md' },
+          { type: 'file', name: 'Conflict-free Replicated Data Types (CRDT).md' },
+          { type: 'file', name: 'Concurrency and Collaborative Editing LLD.md' }
+        ]
+      },
+      {
+        type: 'folder',
+        name: 'YouTube Notification',
+        children: [
+          { type: 'file', name: 'Pub-Sub Architecture LLD.md' },
+          { type: 'file', name: 'Fanout Service Design.md' }
+        ]
+      },
+      { type: 'file', name: 'README.md' }
+    ]
+  }
+};
+
+const data = sectionsData[section];
+---
+
+<div class="skeleton-view glass fade-in">
+  <div class="header-bar">
+    <div class="window-dots">
+      <span class="dot red"></span>
+      <span class="dot yellow"></span>
+      <span class="dot green"></span>
+    </div>
+    <div class="title-text">terminal_explorer://notes/{section}</div>
+    <div class="status-pill">SKELETON ONLY</div>
+  </div>
+
+  <div class="content-body">
+    <div class="meta-section">
+      <h3>📁 {data.title}</h3>
+      <p>{data.description}</p>
+      <div class="info-alert">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+        <span>
+          <strong>Local Filesystem Node:</strong> These notes are stored locally in the <code>{data.path}</code> directory of your repository. They are kept as static skeletons in this build to minimize build footprint and compile time.
+        </span>
+      </div>
+    </div>
+
+    <div class="tree-container">
+      <h4 class="tree-title">🗂️ Note Folder Hierarchy</h4>
+      <div class="tree-root">
+        <!-- Render tree elements -->
+        {data.tree.map((node) => (
+          node.type === 'folder' ? (
+            <details open class="tree-folder">
+              <summary>
+                <span class="icon">📁</span>
+                <span class="name">{node.name}/</span>
+              </summary>
+              <div class="tree-children">
+                {node.children?.map((child) => (
+                  <div class="tree-file">
+                    <span class="icon">📄</span>
+                    <span class="name">{child.name}</span>
+                    <span class="status">Local Only</span>
+                  </div>
+                ))}
+              </div>
+            </details>
+          ) : (
+            <div class="tree-file root-file">
+              <span class="icon">📄</span>
+              <span class="name">{node.name}</span>
+              <span class="status">Local Only</span>
+            </div>
+          )
+        ))}
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .skeleton-view {
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 2rem 0;
+    box-shadow: var(--shadow-main);
+    background: hsla(223, 37%, 7%, 0.85);
+  }
+
+  .header-bar {
+    background: var(--bg-tertiary);
+    padding: 0.75rem 1.25rem;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .window-dots {
+    display: flex;
+    gap: 0.4rem;
+  }
+
+  .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .dot.red { background: #ff5f56; }
+  .dot.yellow { background: #ffbd2e; }
+  .dot.green { background: #27c93f; }
+
+  .title-text {
+    margin-left: 2rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    letter-spacing: 0.02em;
+  }
+
+  .status-pill {
+    margin-left: auto;
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    background: rgba(157, 78, 221, 0.15);
+    color: var(--accent-purple);
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    border: 1px solid rgba(157, 78, 221, 0.3);
+  }
+
+  .content-body {
+    padding: 2rem;
+  }
+
+  .meta-section h3 {
+    font-size: 1.5rem;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+  }
+
+  .meta-section p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+
+  .info-alert {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+    background: hsla(271, 91%, 65%, 0.07);
+    border-left: 4px solid var(--accent-purple);
+    padding: 1rem;
+    border-radius: 0 8px 8px 0;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    line-height: 1.5;
+  }
+
+  .info-alert svg {
+    color: var(--accent-purple);
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+
+  .info-alert code {
+    font-family: var(--font-mono);
+    color: var(--accent-purple);
+    background: rgba(157, 78, 221, 0.1);
+    padding: 0.1rem 0.3rem;
+    border-radius: 4px;
+  }
+
+  .tree-container {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1.5rem;
+  }
+
+  .tree-title {
+    font-size: 1rem;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px dashed var(--border-color);
+  }
+
+  .tree-root {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .tree-folder summary {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    color: var(--accent-cyan);
+    font-weight: 500;
+    transition: var(--transition-fast);
+    list-style: none;
+  }
+
+  .tree-folder summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .tree-folder summary:hover {
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  .tree-children {
+    padding-left: 1.5rem;
+    margin-top: 0.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    border-left: 1px dashed var(--border-color);
+    margin-left: 0.8rem;
+  }
+
+  .tree-file {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    color: var(--text-secondary);
+  }
+
+  .root-file {
+    color: var(--text-primary);
+  }
+
+  .tree-file .status {
+    margin-left: auto;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    border: 1px solid var(--border-color);
+    padding: 0.05rem 0.3rem;
+    border-radius: 4px;
+    background: var(--bg-secondary);
+  }
+
+  .tree-file:hover {
+    background: rgba(255, 255, 255, 0.02);
+    color: var(--text-primary);
+  }
+</style>

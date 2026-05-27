@@ -1,0 +1,375 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SkeletonView from '../components/SkeletonView.astro';
+
+const postsMap = import.meta.glob('../../systes-and-backend/backend-from-first-principles/*.md', { eager: true });
+const posts = Object.values(postsMap);
+
+// Helper to extract numeric value for correct sorting
+const getLectureNumber = (filepath) => {
+  const filename = filepath.split('/').pop() || '';
+  const match = filename.match(/LEC(\d+(?:\.\d+)?)/i);
+  return match ? parseFloat(match[1]) : 999;
+};
+
+// Sort lectures
+const backendLectures = posts
+  .filter(post => {
+    const filename = post.file.split('/').pop() || '';
+    return filename.toLowerCase().startsWith('lec') && filename.endsWith('.md');
+  })
+  .sort((a, b) => getLectureNumber(a.file) - getLectureNumber(b.file))
+  .map(post => {
+    const filename = post.file.split('/').pop() || '';
+    const slug = filename.replace(/\.md$/, '').toLowerCase();
+    const headings = post.getHeadings();
+    const h1 = headings.find(h => h.depth === 1);
+    let title = h1 ? h1.text : filename.replace(/\.md$/, '');
+    title = title.replace(/\s*[—-]\s*Lecture Notes/i, '');
+    const lecNum = filename.match(/LEC(\d+(?:\.\d+)?)/i)?.[1] || '';
+    return { title, slug, lecNum };
+  });
+---
+
+<Layout 
+  title="Interactive Sitemap" 
+  description="A visual skeleton directory of all the study nodes in this repository, mapping out active hosted modules and future node expansion plans."
+>
+  <div class="sitemap-container fade-in">
+    <!-- Header -->
+    <header class="sitemap-header">
+      <h1 class="page-title">Interactive <span class="neon-text-gradient">Sitemap</span></h1>
+      <p class="subtitle">
+        Explore the visual landscape of this repository. Below is a high-fidelity catalog of all active modules and planned skeletons in this notes corpus.
+      </p>
+    </header>
+
+    <!-- Navigation jump list -->
+    <div class="jump-list glass">
+      <span class="jump-label">QUICK JUMP:</span>
+      <div class="jump-links">
+        <a href="#backend-first-principles" class="jump-link active-link">⚙️ First Principles Backend</a>
+        <a href="#low-level-design" class="jump-link">🔒 Low-Level Design</a>
+        <a href="#databases" class="jump-link">💾 Databases</a>
+        <a href="#dsa-and-cp" class="jump-link">🧩 DSA & CP</a>
+        <a href="#languages" class="jump-link">☕ Languages</a>
+      </div>
+    </div>
+
+    <!-- Active Section Map -->
+    <section id="backend-first-principles" class="sitemap-section">
+      <div class="section-banner active-banner">
+        <div class="banner-icon">⚙️</div>
+        <div>
+          <h2>Systems & Backend: First Principles</h2>
+          <p>Currently hosted and compiled into static HTML. Fully responsive and readable with interactive sidebars.</p>
+        </div>
+        <span class="badge active-badge">ACTIVE</span>
+      </div>
+
+      <div class="lectures-map glass">
+        <div class="lectures-header">
+          <h3>📚 Hosted Document Index ({backendLectures.length} files)</h3>
+        </div>
+        <div class="lectures-grid">
+          {backendLectures.map(lec => (
+            <a href={`/systems-and-backend/backend-from-first-principles/${lec.slug}`} class="lecture-node-item">
+              <span class="num">{lec.lecNum}</span>
+              <span class="name">{lec.title}</span>
+              <span class="status">Read notes &rarr;</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Skeleton sections -->
+    <section id="low-level-design" class="sitemap-section">
+      <div class="section-banner skeleton-banner">
+        <div class="banner-icon">🔒</div>
+        <div>
+          <h2>Low-Level Design (LLD)</h2>
+          <p>Structural modeling, design patterns, and system design case studies.</p>
+        </div>
+        <span class="badge skeleton-badge">SKELETON</span>
+      </div>
+      <SkeletonView section="low-level-design" />
+    </section>
+
+    <section id="databases" class="sitemap-section">
+      <div class="section-banner skeleton-banner">
+        <div class="banner-icon">💾</div>
+        <div>
+          <h2>Databases & CMU</h2>
+          <p>Relational algebra, storage structures, buffer pool algorithms, indexing, and logging.</p>
+        </div>
+        <span class="badge skeleton-badge">SKELETON</span>
+      </div>
+      <SkeletonView section="databases" />
+    </section>
+
+    <section id="dsa-and-cp" class="sitemap-section">
+      <div class="section-banner skeleton-banner">
+        <div class="banner-icon">🧩</div>
+        <div>
+          <h2>DSA & Competitive Programming</h2>
+          <p>LeetCode daily logs, CSES algorithm collections, and competitive programming tips.</p>
+        </div>
+        <span class="badge skeleton-badge">SKELETON</span>
+      </div>
+      <SkeletonView section="dsa-and-cp" />
+    </section>
+
+    <section id="languages" class="sitemap-section">
+      <div class="section-banner skeleton-banner">
+        <div class="banner-icon">☕</div>
+        <div>
+          <h2>Programming Languages</h2>
+          <p>C++ low level specifications and JVM concurrency memory models.</p>
+        </div>
+        <span class="badge skeleton-badge">SKELETON</span>
+      </div>
+      <SkeletonView section="languages" />
+    </section>
+  </div>
+</Layout>
+
+<style>
+  .sitemap-container {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .sitemap-header {
+    margin-bottom: 2.5rem;
+    text-align: center;
+  }
+
+  .page-title {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 0.75rem;
+  }
+
+  .subtitle {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  /* Jump list */
+  .jump-list {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1rem 1.5rem;
+    border-radius: 10px;
+    margin-bottom: 3rem;
+    overflow-x: auto;
+  }
+
+  .jump-label {
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+    flex-shrink: 0;
+  }
+
+  .jump-links {
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  .jump-link {
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    white-space: nowrap;
+    transition: var(--transition-fast);
+  }
+
+  .jump-link:hover {
+    color: #fff;
+    border-color: var(--accent-purple);
+  }
+
+  .jump-link.active-link {
+    border-color: var(--accent-cyan);
+    color: var(--accent-cyan);
+    background: hsla(192, 95%, 50%, 0.05);
+  }
+
+  /* Section layouts */
+  .sitemap-section {
+    margin-bottom: 4rem;
+    scroll-margin-top: 90px; /* Offset for sticky topbar */
+  }
+
+  .section-banner {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.5rem 2rem;
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--border-color);
+  }
+
+  .active-banner {
+    background: hsla(192, 95%, 50%, 0.04);
+    border-color: rgba(0, 229, 255, 0.2);
+  }
+
+  .skeleton-banner {
+    background: hsla(271, 91%, 65%, 0.03);
+    border-color: rgba(157, 78, 221, 0.2);
+  }
+
+  .banner-icon {
+    font-size: 2.25rem;
+  }
+
+  .section-banner h2 {
+    font-size: 1.35rem;
+    color: #fff;
+    margin-bottom: 0.25rem;
+  }
+
+  .section-banner p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+  }
+
+  .badge {
+    margin-left: auto;
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+
+  .active-badge {
+    background: rgba(0, 229, 255, 0.15);
+    color: var(--accent-cyan);
+    border: 1px solid rgba(0, 229, 255, 0.3);
+  }
+
+  .skeleton-badge {
+    background: rgba(157, 78, 221, 0.15);
+    color: var(--accent-purple);
+    border: 1px solid rgba(157, 78, 221, 0.3);
+  }
+
+  /* Lectures Map */
+  .lectures-map {
+    border-radius: 12px;
+    padding: 2rem;
+  }
+
+  .lectures-header {
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .lectures-header h3 {
+    font-size: 1.1rem;
+    color: var(--text-primary);
+  }
+
+  .lectures-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  @media (min-width: 640px) {
+    .lectures-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .lecture-node-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 1.25rem;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    transition: var(--transition-fast);
+  }
+
+  .lecture-node-item:hover {
+    border-color: var(--accent-cyan);
+    background: var(--bg-secondary);
+    box-shadow: var(--glow-cyan);
+    transform: translateX(2px);
+  }
+
+  .lecture-node-item .num {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--accent-cyan);
+    background: var(--bg-primary);
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+  }
+
+  .lecture-node-item .name {
+    font-size: 0.9rem;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex-grow: 1;
+    max-width: calc(100% - 130px);
+  }
+
+  .lecture-node-item .status {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--accent-purple);
+    margin-left: auto;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .lecture-node-item:hover .status {
+    opacity: 1;
+  }
+
+  @media (max-width: 768px) {
+    .section-banner {
+      flex-direction: column;
+      text-align: center;
+      padding: 1.5rem;
+    }
+
+    .badge {
+      margin-left: 0;
+      margin-top: 0.5rem;
+    }
+
+    .jump-list {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+  }
+</style>

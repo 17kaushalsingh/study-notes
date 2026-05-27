@@ -1,0 +1,287 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  const postsMap = import.meta.glob('../../../../systes-and-backend/backend-from-first-principles/*.md', { eager: true });
+  const posts = Object.values(postsMap);
+  
+  return posts
+    .filter(post => {
+      const filename = post.file.split('/').pop() || '';
+      return filename.toLowerCase().startsWith('lec') && filename.endsWith('.md');
+    })
+    .map(post => {
+      const filename = post.file.split('/').pop() || '';
+      const slug = filename.replace(/\.md$/, '').toLowerCase();
+      
+      return {
+        params: { slug },
+        props: { post }
+      };
+    });
+}
+
+const { post } = Astro.props;
+const { Content } = post;
+const headingsList = post.getHeadings();
+
+// Grab details for current post
+const currentFilename = post.file.split('/').pop() || '';
+const currentSlug = currentFilename.replace(/\.md$/, '').toLowerCase();
+
+const h1 = headingsList.find(h => h.depth === 1);
+let title = h1 ? h1.text : currentFilename.replace(/\.md$/, '');
+title = title.replace(/\s*[—-]\s*Lecture Notes/i, '');
+
+// Fetch all posts for sorting & prev/next link computation
+const allPostsMap = import.meta.glob('../../../../systes-and-backend/backend-from-first-principles/*.md', { eager: true });
+const allPosts = Object.values(allPostsMap);
+
+const getLectureNumber = (filepath) => {
+  const filename = filepath.split('/').pop() || '';
+  const match = filename.match(/LEC(\d+(?:\.\d+)?)/i);
+  return match ? parseFloat(match[1]) : 999;
+};
+
+const sortedLectures = allPosts
+  .filter(p => {
+    const filename = p.file.split('/').pop() || '';
+    return filename.toLowerCase().startsWith('lec') && filename.endsWith('.md');
+  })
+  .sort((a, b) => getLectureNumber(a.file) - getLectureNumber(b.file))
+  .map(p => {
+    const filename = p.file.split('/').pop() || '';
+    const slug = filename.replace(/\.md$/, '').toLowerCase();
+    const headings = p.getHeadings();
+    const h1 = headings.find(h => h.depth === 1);
+    let title = h1 ? h1.text : filename.replace(/\.md$/, '');
+    title = title.replace(/\s*[—-]\s*Lecture Notes/i, '');
+    const lecNum = filename.match(/LEC(\d+(?:\.\d+)?)/i)?.[1] || '';
+    return { 
+      title: `Lec ${lecNum}: ${title}`, 
+      slug,
+      path: `/systems-and-backend/backend-from-first-principles/${slug}`
+    };
+  });
+
+const currentIndex = sortedLectures.findIndex(l => l.slug === currentSlug);
+const prevPost = currentIndex > 0 ? sortedLectures[currentIndex - 1] : null;
+const nextPost = currentIndex < sortedLectures.length - 1 ? sortedLectures[currentIndex + 1] : null;
+
+// Determine lecture number
+const currentLecNum = currentFilename.match(/LEC(\d+(?:\.\d+)?)/i)?.[1] || '';
+---
+
+<Layout 
+  title={`Lec ${currentLecNum}: ${title}`}
+  description={`Comprehensive lecture notes on ${title} from our Backend Engineering from First Principles series.`}
+  currentPath={currentSlug}
+  headings={headingsList}
+>
+  <div class="note-page fade-in">
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumbs">
+      <a href="/">Home</a>
+      <span class="sep">&rarr;</span>
+      <span class="category">Systems & Backend</span>
+      <span class="sep">&rarr;</span>
+      <span class="active-node">Backend From First Principles</span>
+    </nav>
+
+    <!-- Header info banner -->
+    <header class="note-header">
+      <div class="meta-tag">LECTURE MODULE {currentLecNum}</div>
+      <h1 class="note-title">{title}</h1>
+      <p class="note-meta">
+        <span>📍 Stored in: <code>systes-and-backend/backend-from-first-principles/{currentFilename}</code></span>
+      </p>
+    </header>
+
+    <!-- Reading article -->
+    <article class="prose note-content-body">
+      <Content />
+    </article>
+
+    <!-- Next & Previous Navigation links -->
+    <footer class="note-navigation">
+      {prevPost ? (
+        <a href={prevPost.path} class="nav-card prev-card glass">
+          <div class="dir-lbl">&larr; PREVIOUS MODULE</div>
+          <div class="nav-title">{prevPost.title}</div>
+        </a>
+      ) : (
+        <div class="nav-card empty-card"></div>
+      )}
+
+      {nextPost ? (
+        <a href={nextPost.path} class="nav-card next-card glass">
+          <div class="dir-lbl">NEXT MODULE &rarr;</div>
+          <div class="nav-title">{nextPost.title}</div>
+        </a>
+      ) : (
+        <div class="nav-card empty-card"></div>
+      )}
+    </footer>
+  </div>
+</Layout>
+
+<style>
+  .note-page {
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  .breadcrumbs {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+  }
+
+  .breadcrumbs a:hover {
+    color: var(--accent-cyan);
+  }
+
+  .breadcrumbs .sep {
+    font-size: 0.75rem;
+  }
+
+  .breadcrumbs .active-node {
+    color: var(--text-secondary);
+    font-weight: 500;
+  }
+
+  .note-header {
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 2rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .meta-tag {
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: var(--accent-cyan);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .note-title {
+    font-size: 2.75rem;
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    color: #fff;
+    margin-bottom: 1rem;
+    background: var(--grad-cyan-purple);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .note-meta {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+
+  .note-meta code {
+    font-family: var(--font-mono);
+    color: var(--accent-purple);
+    background: rgba(157, 78, 221, 0.08);
+    padding: 0.1rem 0.4rem;
+    border-radius: 4px;
+    border: 1px solid rgba(157, 78, 221, 0.15);
+  }
+
+  /* Note body custom styling refinements */
+  .note-content-body {
+    padding-bottom: 4rem;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  /* Navigation Footer */
+  .note-navigation {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+  }
+
+  @media (min-width: 640px) {
+    .note-navigation {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .nav-card {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    transition: var(--transition-normal);
+  }
+
+  .nav-card:hover {
+    border-color: var(--accent-cyan);
+    box-shadow: var(--glow-cyan);
+    transform: translateY(-2px);
+  }
+
+  .prev-card {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .next-card {
+    align-items: flex-end;
+    text-align: right;
+  }
+
+  .prev-card:hover {
+    border-color: var(--accent-cyan);
+  }
+
+  .next-card:hover {
+    border-color: var(--accent-purple);
+    box-shadow: var(--glow-purple);
+  }
+
+  .dir-lbl {
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+  }
+
+  .nav-card:hover .dir-lbl {
+    color: var(--accent-cyan);
+  }
+
+  .next-card:hover .dir-lbl {
+    color: var(--accent-purple);
+  }
+
+  .nav-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+  }
+
+  .empty-card {
+    display: none;
+  }
+
+  @media (min-width: 640px) {
+    .empty-card {
+      display: block;
+      visibility: hidden;
+    }
+  }
+</style>

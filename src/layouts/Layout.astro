@@ -1,0 +1,438 @@
+---
+import Sidebar from '../components/Sidebar.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  currentPath?: string;
+  headings?: Array<{ depth: number; text: string; slug: string }>;
+}
+
+const { 
+  title, 
+  description = 'Study and Engineering Notes Portal', 
+  currentPath = '',
+  headings = []
+} = Astro.props;
+
+const showToc = headings && headings.filter(h => h.depth > 1 && h.depth <= 3).length > 0;
+const tocItems = headings ? headings.filter(h => h.depth > 1 && h.depth <= 3) : [];
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- Theme checker script to avoid layout flashes -->
+  <script is:inline>
+    const theme = (() => {
+      if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+        return localStorage.getItem('theme');
+      }
+      return 'dark'; // default theme is our premium dark theme
+    })();
+  
+    if (theme === 'light') {
+      document.documentElement.classList.add('light');
+    } else {
+      document.documentElement.classList.remove('light');
+    }
+  </script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" href="/favicon.ico" />
+  <meta name="generator" content={Astro.generator} />
+  
+  <!-- SEO Best Practices -->
+  <title>{title} | DevNotes Portal</title>
+  <meta name="description" content={description}>
+  <meta name="theme-color" content="#030712">
+
+  <!-- OpenGraph -->
+  <meta property="og:title" content={`${title} | DevNotes Portal`}>
+  <meta property="og:description" content={description}>
+  <meta property="og:type" content="website">
+
+</head>
+<body>
+  <!-- Mobile Menu Checkbox Hack -->
+  <input type="checkbox" id="mobile-nav-toggle" class="mobile-nav-checkbox" />
+
+  <div class="app-container">
+    <!-- Sidebar navigation -->
+    <Sidebar currentPath={currentPath} />
+
+    <!-- Mobile Overlay -->
+    <label for="mobile-nav-toggle" class="mobile-nav-overlay"></label>
+
+    <div class="main-wrapper">
+      <!-- Premium Glass Top Bar -->
+      <header class="topbar glass">
+        <label for="mobile-nav-toggle" class="hamburger-menu" id="hamburger-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </label>
+
+        <div class="search-skeleton-bar">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <span class="search-placeholder">Search notes... (Cmd + K)</span>
+        </div>
+
+        <div class="topbar-actions">
+          <button id="theme-toggle-btn" class="icon-btn" title="Toggle Theme (LEC5.pdf Light / Current Dark)">
+            <!-- Sun icon -->
+            <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="theme-icon"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+            <!-- Moon icon -->
+            <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="theme-icon hidden"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+          </button>
+
+          <a href="https://github.com/kaushalsingh/notes" target="_blank" rel="noopener noreferrer" class="icon-btn" title="GitHub Repository">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+          </a>
+        </div>
+      </header>
+
+      <!-- Grid Content Layout -->
+      <div class="content-grid">
+        <main class="main-content">
+          <slot />
+        </main>
+
+        <!-- Sticky Table of Contents (Desktop only) -->
+        {showToc && (
+          <aside class="toc-sidebar">
+            <div class="toc-container glass">
+              <h4 class="toc-title">ON THIS PAGE</h4>
+              <nav class="toc-nav">
+                <ul>
+                  {tocItems.map(item => (
+                    <li class={`depth-${item.depth}`}>
+                      <a href={`#${item.slug}`}>{item.text}</a>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            </div>
+          </aside>
+        )}
+      </div>
+    </div>
+  </div>
+
+  <button class="back-to-top" id="btn-back-to-top" title="Back to top">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
+  </button>
+
+  <script>
+    // Simple interactions
+    const backToTopBtn = document.getElementById('btn-back-to-top');
+    
+    if (backToTopBtn) {
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+          backToTopBtn.classList.add('visible');
+        } else {
+          backToTopBtn.classList.remove('visible');
+        }
+      });
+
+      backToTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+
+    // Theme toggle interaction
+    const themeToggleBtn = document.getElementById('theme-toggle-btn');
+    const sunIcon = document.getElementById('sun-icon');
+    const moonIcon = document.getElementById('moon-icon');
+
+    const updateIcons = (theme) => {
+      if (theme === 'light') {
+        sunIcon?.classList.add('hidden');
+        moonIcon?.classList.remove('hidden');
+      } else {
+        sunIcon?.classList.remove('hidden');
+        moonIcon?.classList.add('hidden');
+      }
+    };
+
+    if (themeToggleBtn) {
+      const initialTheme = document.documentElement.classList.contains('light') ? 'light' : 'dark';
+      updateIcons(initialTheme);
+
+      themeToggleBtn.addEventListener('click', () => {
+        const isCurrentlyLight = document.documentElement.classList.contains('light');
+        const newTheme = isCurrentlyLight ? 'dark' : 'light';
+        
+        if (newTheme === 'light') {
+          document.documentElement.classList.add('light');
+        } else {
+          document.documentElement.classList.remove('light');
+        }
+        
+        localStorage.setItem('theme', newTheme);
+        updateIcons(newTheme);
+      });
+    }
+  </script>
+</body>
+</html>
+
+<style>
+  .app-container {
+    display: flex;
+    min-height: 100vh;
+  }
+
+  .main-wrapper {
+    flex: 1;
+    margin-left: var(--sidebar-width);
+    display: flex;
+    flex-direction: column;
+    min-width: 0; /* Prevents overflow issues in flex children */
+  }
+
+  /* Top Bar */
+  .topbar {
+    height: 64px;
+    display: flex;
+    align-items: center;
+    padding: 0 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 90;
+    border-radius: 0;
+    border-bottom: 1px solid var(--border-color);
+    background: hsla(222, 47%, 4%, 0.7);
+    justify-content: space-between;
+  }
+
+  .hamburger-menu {
+    display: none;
+    cursor: pointer;
+    color: var(--text-secondary);
+    transition: var(--transition-fast);
+  }
+
+  .hamburger-menu:hover {
+    color: var(--accent-cyan);
+  }
+
+  .search-skeleton-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    padding: 0.5rem 1.25rem;
+    border-radius: 50px;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    width: 320px;
+    cursor: not-allowed;
+    transition: var(--transition-fast);
+  }
+
+  .search-skeleton-bar:hover {
+    border-color: var(--border-color-hover);
+  }
+
+  .topbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .theme-icon.hidden {
+    display: none !important;
+  }
+
+  #theme-toggle-btn {
+    cursor: pointer;
+  }
+
+
+  .icon-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    transition: var(--transition-fast);
+  }
+
+  .icon-btn:hover {
+    color: #fff;
+    border-color: var(--accent-cyan);
+    box-shadow: var(--glow-cyan);
+    transform: translateY(-1px);
+  }
+
+  /* Content Grid */
+  .content-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    padding: 2.5rem 2rem;
+    max-width: 100%;
+    gap: 2rem;
+  }
+
+  /* When TOC is displayed, use dual column on wide screens */
+  @media (min-width: 1200px) {
+    .content-grid {
+      grid-template-columns: minmax(0, var(--content-max-width)) 280px;
+      justify-content: center;
+    }
+  }
+
+  .main-content {
+    min-width: 0;
+  }
+
+  /* Table of Contents */
+  .toc-sidebar {
+    position: sticky;
+    top: 90px;
+    height: fit-content;
+    display: none;
+  }
+
+  @media (min-width: 1200px) {
+    .toc-sidebar {
+      display: block;
+    }
+  }
+
+  .toc-container {
+    padding: 1.5rem;
+    background: hsla(223, 37%, 7%, 0.4);
+    border-radius: 12px;
+  }
+
+  .toc-title {
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    margin-bottom: 1rem;
+  }
+
+  .toc-nav ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+
+  .toc-nav li {
+    font-size: 0.85rem;
+    line-height: 1.4;
+  }
+
+  .toc-nav li.depth-3 {
+    padding-left: 1rem;
+    border-left: 1px solid var(--border-color);
+  }
+
+  .toc-nav a {
+    color: var(--text-secondary);
+    transition: var(--transition-fast);
+  }
+
+  .toc-nav a:hover {
+    color: var(--accent-cyan);
+    padding-left: 2px;
+  }
+
+  /* Mobile menu checkbox hack logic */
+  .mobile-nav-checkbox {
+    display: none;
+  }
+
+  .mobile-nav-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: 95;
+    cursor: pointer;
+  }
+
+  /* Back to top button */
+  .back-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 80;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.3s, transform 0.3s, background-color 0.2s, border-color 0.2s;
+    pointer-events: none;
+  }
+
+  .back-to-top.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .back-to-top:hover {
+    background: var(--bg-secondary);
+    border-color: var(--accent-cyan);
+    color: var(--accent-cyan);
+    box-shadow: var(--glow-cyan);
+  }
+
+  /* Responsive Design */
+  @media (max-width: 1024px) {
+    .main-wrapper {
+      margin-left: 0;
+    }
+
+    .topbar {
+      padding: 0 1.5rem;
+    }
+
+    .hamburger-menu {
+      display: block;
+    }
+
+    .search-skeleton-bar {
+      display: none; /* Hide on small screens for layout space */
+    }
+
+    /* Target actual sidebar inside app-container */
+    :global(.sidebar) {
+      transform: translateX(-100%);
+      transition: transform 0.3s var(--ease-smooth);
+    }
+
+    /* Checkbox toggle operations */
+    .mobile-nav-checkbox:checked ~ .app-container :global(.sidebar) {
+      transform: translateX(0);
+    }
+
+    .mobile-nav-checkbox:checked ~ .mobile-nav-overlay {
+      display: block;
+    }
+  }
+</style>
