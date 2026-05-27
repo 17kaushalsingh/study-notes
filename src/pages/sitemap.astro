@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import SkeletonView from '../components/SkeletonView.astro';
 
-const postsMap = import.meta.glob('../../systes-and-backend/backend-from-first-principles/*.md', { eager: true });
+const postsMap = import.meta.glob('../../notes/systes-and-backend/backend-from-first-principles/*.md', { eager: true });
 const posts = Object.values(postsMap);
 
 // Helper to extract numeric value for correct sorting
@@ -62,9 +62,9 @@ const backendLectures = posts
         <div class="banner-icon">⚙️</div>
         <div>
           <h2>Systems & Backend: First Principles</h2>
-          <p>Currently hosted and compiled into static HTML. Fully responsive and readable with interactive sidebars.</p>
+          <p>A dynamic course covering systems architectures, networks, and advanced engineering practices.</p>
         </div>
-        <span class="badge active-badge">ACTIVE</span>
+        <span class="badge active-badge">HOSTED</span>
       </div>
 
       <div class="lectures-map glass">
@@ -91,7 +91,7 @@ const backendLectures = posts
           <h2>Low-Level Design (LLD)</h2>
           <p>Structural modeling, design patterns, and system design case studies.</p>
         </div>
-        <span class="badge skeleton-badge">SKELETON</span>
+        <span class="badge skeleton-badge">COMING SOON</span>
       </div>
       <SkeletonView section="low-level-design" />
     </section>
@@ -103,7 +103,7 @@ const backendLectures = posts
           <h2>Databases & CMU</h2>
           <p>Relational algebra, storage structures, buffer pool algorithms, indexing, and logging.</p>
         </div>
-        <span class="badge skeleton-badge">SKELETON</span>
+        <span class="badge skeleton-badge">COMING SOON</span>
       </div>
       <SkeletonView section="databases" />
     </section>
@@ -115,7 +115,7 @@ const backendLectures = posts
           <h2>DSA & Competitive Programming</h2>
           <p>LeetCode daily logs, CSES algorithm collections, and competitive programming tips.</p>
         </div>
-        <span class="badge skeleton-badge">SKELETON</span>
+        <span class="badge skeleton-badge">COMING SOON</span>
       </div>
       <SkeletonView section="dsa-and-cp" />
     </section>
@@ -127,7 +127,7 @@ const backendLectures = posts
           <h2>Programming Languages</h2>
           <p>C++ low level specifications and JVM concurrency memory models.</p>
         </div>
-        <span class="badge skeleton-badge">SKELETON</span>
+        <span class="badge skeleton-badge">COMING SOON</span>
       </div>
       <SkeletonView section="languages" />
     </section>

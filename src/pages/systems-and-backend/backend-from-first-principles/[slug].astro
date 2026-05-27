@@ -2,7 +2,7 @@
 import Layout from '../../../layouts/Layout.astro';
 
 export async function getStaticPaths() {
-  const postsMap = import.meta.glob('../../../../systes-and-backend/backend-from-first-principles/*.md', { eager: true });
+  const postsMap = import.meta.glob('../../../../notes/systes-and-backend/backend-from-first-principles/*.md', { eager: true });
   const posts = Object.values(postsMap);
   
   return posts
@@ -34,7 +34,7 @@ let title = h1 ? h1.text : currentFilename.replace(/\.md$/, '');
 title = title.replace(/\s*[—-]\s*Lecture Notes/i, '');
 
 // Fetch all posts for sorting & prev/next link computation
-const allPostsMap = import.meta.glob('../../../../systes-and-backend/backend-from-first-principles/*.md', { eager: true });
+const allPostsMap = import.meta.glob('../../../../notes/systes-and-backend/backend-from-first-principles/*.md', { eager: true });
 const allPosts = Object.values(allPostsMap);
 
 const getLectureNumber = (filepath) => {
@@ -93,7 +93,7 @@ const currentLecNum = currentFilename.match(/LEC(\d+(?:\.\d+)?)/i)?.[1] || '';
       <div class="meta-tag">LECTURE MODULE {currentLecNum}</div>
       <h1 class="note-title">{title}</h1>
       <p class="note-meta">
-        <span>📍 Stored in: <code>systes-and-backend/backend-from-first-principles/{currentFilename}</code></span>
+        <span>📍 Stored in: <code>notes/systes-and-backend/backend-from-first-principles/{currentFilename}</code></span>
       </p>
     </header>
 

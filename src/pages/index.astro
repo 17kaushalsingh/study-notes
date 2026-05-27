@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-const postsMap = import.meta.glob('../../systes-and-backend/backend-from-first-principles/*.md', { eager: true });
+const postsMap = import.meta.glob('../../notes/systes-and-backend/backend-from-first-principles/*.md', { eager: true });
 const posts = Object.values(postsMap);
 
 // Helper to extract numeric value for correct sorting
@@ -37,14 +37,12 @@ const totalLectures = activeLectures.length;
   description="A premium developer notes portal, documenting backend engineering from first principles, databases, competitive programming, and low-level design patterns."
 >
   <div class="dashboard-hero fade-in">
-    <div class="badge glow-btn">
-      <span>🚀 Static Site Mode</span>
-    </div>
+
     <h1 class="main-title">
       Developer <span class="neon-text-gradient">Study Portal</span>
     </h1>
     <p class="subtitle">
-      A collection of comprehensive engineering notes, lecture walkthroughs, and problem-solving logs organized into clean, interactive modules. Ready for immediate Vercel hosting.
+      A collection of comprehensive engineering notes, lecture walkthroughs, and problem-solving logs organized into clean, interactive modules.
     </p>
   </div>
 
@@ -157,16 +155,7 @@ const totalLectures = activeLectures.length;
     </div>
   </section>
 
-  <!-- Deployment Box -->
-  <section class="deploy-banner glass fade-in delay-300">
-    <div class="deploy-content">
-      <div class="v-icon">🔺</div>
-      <div>
-        <h3>Deploy Seamlessly to Vercel</h3>
-        <p>This site compiles to 100% compliant HTML, CSS, and clientside JS. It is pre-configured for instant deployment on Vercel using the Astro builder. Perfect for high performance edge hosting!</p>
-      </div>
-    </div>
-  </section>
+
 </Layout>
 
 <style>
