@@ -76,9 +76,6 @@ const totalLectures = activeLectures.length;
           <span>Explore Backend Lectures</span>
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
         </a>
-        <a href="/sitemap#low-level-design" class="action-btn secondary-btn">
-          <span>View LLD Skeleton</span>
-        </a>
       </div>
     </div>
 
@@ -92,11 +89,6 @@ const totalLectures = activeLectures.length;
       <p class="card-desc">
         Deep dive notes into database storage architecture, index layouts, transaction isolation levels, concurrency control, and relational modeling based on CMU lectures.
       </p>
-      <div class="card-actions">
-        <a href="/sitemap#databases" class="action-btn secondary-btn">
-          <span>Explore Database Skeleton</span>
-        </a>
-      </div>
     </div>
 
     <!-- Skeleton Module: DSA & CP -->
@@ -109,11 +101,6 @@ const totalLectures = activeLectures.length;
       <p class="card-desc">
         Structured solutions, algorithmic paradigms, and pattern break downs for competitive programming sets including CSES, CP31, and major online contests.
       </p>
-      <div class="card-actions">
-        <a href="/sitemap#dsa-and-cp" class="action-btn secondary-btn">
-          <span>Explore CP Skeleton</span>
-        </a>
-      </div>
     </div>
 
     <!-- Skeleton Module: Languages -->
@@ -126,34 +113,10 @@ const totalLectures = activeLectures.length;
       <p class="card-desc">
         Syntactic details, JVM execution pipelines, garbage collection algorithms, and low-level C++ smart pointers, template metaprogramming, and concepts notes.
       </p>
-      <div class="card-actions">
-        <a href="/sitemap#languages" class="action-btn secondary-btn">
-          <span>Explore Languages Skeleton</span>
-        </a>
-      </div>
     </div>
   </section>
 
-  <!-- Interactive Timeline/Syllabus for Backend -->
-  <section class="syllabus-section fade-in delay-200">
-    <div class="section-header">
-      <h2>Syllabus Checklist: Backend First Principles</h2>
-      <p>Click on any active lecture below to jump straight into the notes.</p>
-    </div>
 
-    <div class="timeline-container">
-      {activeLectures.map((lec, idx) => (
-        <a href={`/systems-and-backend/backend-from-first-principles/${lec.slug}`} class="timeline-node">
-          <div class="node-number">{lec.lecNum}</div>
-          <div class="node-content">
-            <span class="node-badge">Lecture Node</span>
-            <h3>{lec.title}</h3>
-            <span class="read-link">Read Notes &rarr;</span>
-          </div>
-        </a>
-      ))}
-    </div>
-  </section>
 
 
 </Layout>
