@@ -1,6 +1,6 @@
 # Backend Best Practices
 
-Distilled from the *Backend From First Principles* lecture series (LEC5–LEC22). Each practice is grounded in a specific lecture; the source is noted inline.
+Distilled from the *Backend From First Principles* lecture series (LEC1–LEC22). Each practice is grounded in a specific lecture; the source is noted inline.
 
 ---
 

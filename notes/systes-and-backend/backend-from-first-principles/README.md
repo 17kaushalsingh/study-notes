@@ -12,7 +12,7 @@ Detailed lecture notes for the **Backend From First Principles** series — buil
 
 | # | Topic | Key Concepts | Notes |
 |---|-------|-------------|-------|
-| 1–4 | *(TBD)* | — | [LEC1](./LEC1.md) · [LEC2](./LEC2.md) · [LEC3](./LEC3.md) · [LEC4](./LEC4.md) |
+| 1–4 | **What is a Backend?** | Request flow (DNS → Firewall → Nginx → Process), frontend vs backend separation, three-layer architecture, full topic roadmap | [LEC1-4](./LEC1-4-notes.md) |
 | 5 | **HTTP Protocol** | Statelessness, request/response anatomy, headers, CORS, status codes, caching, content negotiation, TLS | [LEC5](./LEC5.md) |
 | 6 | **HTTP Routing** | Static vs dynamic routes, path params, query params, nested routes, versioning, catch-all | [LEC6](./LEC6.md) |
 | 7 | **Serialization & Deserialization** | JSON, Protobuf, text vs binary formats, client-server data exchange | [LEC7](./LEC7.md) |
@@ -39,6 +39,7 @@ Detailed lecture notes for the **Backend From First Principles** series — buil
 ## Topics at a Glance
 
 ### Foundation
+- **LEC1–4 – What is a Backend?**: How a request travels from browser to backend (DNS, firewall, reverse proxy). Why backend logic cannot live in the frontend. The three-layer architecture (Presentation → Business Logic → Data Access). Full topic roadmap for the series.
 - **LEC5 – HTTP**: The complete HTTP mental model — statelessness, request/response structure, all status codes, CORS preflight, caching headers, HTTP/1.1 → HTTP/3 evolution.
 - **LEC6 – Routing**: How servers map `(method, path)` pairs to handlers. Path params identify resources; query params filter/paginate/sort them.
 - **LEC7 – Serialization**: Why JSON exists, how data crosses language boundaries, text vs binary format tradeoffs.
