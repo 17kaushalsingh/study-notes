@@ -91,9 +91,11 @@ const layoutTitle = currentLecNum ? `Lec ${currentLecNum}: ${title}` : title;
     </nav>
 
     <!-- Header info banner -->
-    <header class="note-header">
-      <h1 class="note-title">{title}</h1>
-    </header>
+    {!headingsList.some(h => h.depth === 1) && (
+      <header class="note-header">
+        <h1 class="note-title">{title}</h1>
+      </header>
+    )}
 
     <!-- Reading article -->
     <article class="prose note-content-body">
