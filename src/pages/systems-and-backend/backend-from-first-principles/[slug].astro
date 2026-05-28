@@ -92,15 +92,7 @@ const layoutTitle = currentLecNum ? `Lec ${currentLecNum}: ${title}` : title;
 
     <!-- Header info banner -->
     <header class="note-header">
-      {currentLecNum ? (
-        <div class="meta-tag">LECTURE MODULE {currentLecNum}</div>
-      ) : (
-        <div class="meta-tag">DOCUMENTATION</div>
-      )}
       <h1 class="note-title">{title}</h1>
-      <p class="note-meta">
-        <span>📍 Stored in: <code>notes/systes-and-backend/backend-from-first-principles/{currentFilename}</code></span>
-      </p>
     </header>
 
     <!-- Reading article -->
