@@ -141,12 +141,6 @@ const { currentPath = '' } = Astro.props;
     </div>
   </nav>
 
-  <div class="sidebar-footer">
-    <a href="/sitemap" class="footer-link">
-      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
-      <span>Interactive Sitemap</span>
-    </a>
-  </div>
 </aside>
 
 <style>
@@ -403,31 +397,5 @@ const { currentPath = '' } = Astro.props;
     color: var(--text-secondary) !important;
   }
 
-  .sidebar-footer {
-    padding: 1rem;
-    border-top: 1px solid var(--border-color);
-    flex-shrink: 0;
-  }
-
-  .footer-link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    padding: 0.6rem;
-    border-radius: 8px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--text-secondary);
-    background: var(--bg-secondary);
-    border: 1px solid var(--border-color);
-  }
-
-  .footer-link:hover {
-    color: #fff;
-    background: var(--bg-tertiary);
-    border-color: var(--accent-cyan);
-    box-shadow: var(--glow-cyan);
-  }
 </style>
 

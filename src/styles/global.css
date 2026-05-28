@@ -87,7 +87,7 @@
   background: hsla(210, 40% , 98%, 0.85);
   border-right-color: var(--border-color);
 }
-:root.light .sidebar-header, :root.light .sidebar-footer {
+:root.light .sidebar-header {
   border-color: var(--border-color);
 }
 :root.light .nav-link:hover, :root.light .nav-link.active {
