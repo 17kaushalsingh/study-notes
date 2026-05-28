@@ -57,22 +57,20 @@ const tocItems = headings ? headings.filter(h => h.depth > 1 && h.depth <= 3) : 
 
 </head>
 <body>
-  <!-- Mobile Menu Checkbox Hack -->
-  <input type="checkbox" id="mobile-nav-toggle" class="mobile-nav-checkbox" />
 
   <div class="app-container">
     <!-- Sidebar navigation -->
     <Sidebar currentPath={currentPath} />
 
     <!-- Mobile Overlay -->
-    <label for="mobile-nav-toggle" class="mobile-nav-overlay"></label>
+    <div class="mobile-nav-overlay" id="mobile-overlay"></div>
 
     <div class="main-wrapper">
       <!-- Premium Glass Top Bar -->
       <header class="topbar glass">
-        <label for="mobile-nav-toggle" class="hamburger-menu" id="hamburger-btn">
+        <button class="hamburger-menu" id="hamburger-btn" aria-label="Open navigation menu" aria-expanded="false">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-        </label>
+        </button>
 
         <button class="search-skeleton-bar" id="search-trigger-btn" aria-label="Search notes" style="cursor: pointer; border: 1px solid var(--border-color); outline: none;">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
@@ -196,6 +194,28 @@ const tocItems = headings ? headings.filter(h => h.depth > 1 && h.depth <= 3) : 
         updateIcons(newTheme);
       });
     }
+
+    // Mobile sidebar navigation
+    const hamburgerBtn = document.querySelector('.hamburger-menu');
+    const mobileOverlay = document.querySelector('.mobile-nav-overlay');
+
+    const openSidebar = () => {
+      document.body.classList.add('sidebar-open');
+    };
+
+    const closeSidebar = () => {
+      document.body.classList.remove('sidebar-open');
+    };
+
+    hamburgerBtn?.addEventListener('click', openSidebar);
+    mobileOverlay?.addEventListener('click', closeSidebar);
+
+    // Also wire up the close button inside Sidebar
+    document.addEventListener('click', (e) => {
+      if (e.target?.closest('.close-sidebar')) {
+        closeSidebar();
+      }
+    });
 
     // Search palette logic
     const searchTriggerBtn = document.getElementById('search-trigger-btn');
@@ -334,6 +354,10 @@ const tocItems = headings ? headings.filter(h => h.depth > 1 && h.depth <= 3) : 
     cursor: pointer;
     color: var(--text-secondary);
     transition: var(--transition-fast);
+    background: none;
+    border: none;
+    padding: 0.25rem;
+    line-height: 0;
   }
 
   .hamburger-menu:hover {
@@ -470,11 +494,6 @@ const tocItems = headings ? headings.filter(h => h.depth > 1 && h.depth <= 3) : 
     padding-left: 2px;
   }
 
-  /* Mobile menu checkbox hack logic */
-  .mobile-nav-checkbox {
-    display: none;
-  }
-
   .mobile-nav-overlay {
     display: none;
     position: fixed;
@@ -541,18 +560,18 @@ const tocItems = headings ? headings.filter(h => h.depth > 1 && h.depth <= 3) : 
       display: none; /* Hide on small screens for layout space */
     }
 
-    /* Target actual sidebar inside app-container */
+    /* Default: sidebar hidden off-screen on mobile */
     :global(.sidebar) {
       transform: translateX(-100%);
       transition: transform 0.3s var(--ease-smooth);
     }
 
-    /* Checkbox toggle operations */
-    .mobile-nav-checkbox:checked ~ .app-container :global(.sidebar) {
+    /* When sidebar-open class is on body, show sidebar and overlay */
+    :global(body.sidebar-open .sidebar) {
       transform: translateX(0);
     }
 
-    .mobile-nav-checkbox:checked ~ .mobile-nav-overlay {
+    :global(body.sidebar-open) .mobile-nav-overlay {
       display: block;
     }
   }

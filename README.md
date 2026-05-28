@@ -1,12 +1,12 @@
 # Study Notes & Engineering Portal
 
-This repository is a dual-purpose developer ecosystem. It consolidates a robust corpus of engineering study notes on disk, and integrates an **Astro Static Site Generator** to build and host them as a premium, highly responsive static site.
+This repository is a dual-purpose developer ecosystem. It consolidates a robust corpus of engineering study notes, and integrates an **Astro Static Site Generator** to build and host them as a premium, highly responsive static site.
 
 ---
 
 ## 🛠️ The Architecture: How Astro is Connected to the Static Site
 
-The portal at the root compiles your local Markdown documents into an ultra-fast, modern static site with a sleek dark tech aesthetic, persistent Light/Dark theme toggle (inspired by `LEC5.pdf`), and a full-text clientside search engine.
+The portal at the root compiles your local Markdown documents into an ultra-fast, modern static site with a sleek dark tech aesthetic, persistent Light/Dark theme toggle, and a full-text clientside search engine.
 
 ```
                   [ Filesystem Content ]
