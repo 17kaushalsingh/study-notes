@@ -47,9 +47,9 @@ const getLectureNumber = (filepath) => {
 const sortedLectures = allPosts
   .filter(p => {
     const filename = p.file.split('/').pop() || '';
-    return filename.toLowerCase().startsWith('lec') && filename.endsWith('.md');
+    const lower = filename.toLowerCase();
+    return (lower.startsWith('lec') || lower === 'readme.md' || lower === 'best_practices.md') && lower.endsWith('.md');
   })
-  .sort((a, b) => getLectureNumber(a.file) - getLectureNumber(b.file))
   .map(p => {
     const filename = p.file.split('/').pop() || '';
     const slug = filename.replace(/\.md$/, '').toLowerCase();
@@ -58,12 +58,20 @@ const sortedLectures = allPosts
     let title = h1 ? h1.text : filename.replace(/\.md$/, '');
     title = title.replace(/\s*[—-]\s*Lecture Notes/i, '');
     const lecNum = filename.match(/LEC(\d+(?:\.\d+)?)/i)?.[1] || '';
+    
+    let weight = 9999;
+    if (slug === 'readme') weight = 0;
+    else if (slug === 'best_practices') weight = 1;
+    else if (lecNum) weight = 10 + parseFloat(lecNum);
+
     return { 
-      title: `Lec ${lecNum}: ${title}`, 
+      title: lecNum ? `Lec ${lecNum}: ${title}` : title, 
       slug,
-      path: `/systems-and-backend/backend-from-first-principles/${slug}`
+      path: `/systems-and-backend/backend-from-first-principles/${slug}`,
+      weight
     };
-  });
+  })
+  .sort((a, b) => a.weight - b.weight);
 
 const currentIndex = sortedLectures.findIndex(l => l.slug === currentSlug);
 const prevPost = currentIndex > 0 ? sortedLectures[currentIndex - 1] : null;
