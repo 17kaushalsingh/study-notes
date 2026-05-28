@@ -10,32 +10,38 @@ const getLectureNumber = (filepath) => {
 };
 
 // Sort lectures numerically
+// Filter posts and construct nodes
 const backendLectures = posts
   .filter(post => {
     const filename = post.file.split('/').pop() || '';
-    return filename.toLowerCase().startsWith('lec') && filename.endsWith('.md');
+    const lower = filename.toLowerCase();
+    return (lower.startsWith('lec') || lower === 'readme.md' || lower === 'best_practices.md') && lower.endsWith('.md');
   })
-  .sort((a, b) => getLectureNumber(a.file) - getLectureNumber(b.file))
   .map(post => {
     const filename = post.file.split('/').pop() || '';
     const slug = filename.replace(/\.md$/, '').toLowerCase();
     
-    // Get title from the first H1, or clean up filename as fallback
     const headings = post.getHeadings();
     const h1 = headings.find(h => h.depth === 1);
     let title = h1 ? h1.text : filename.replace(/\.md$/, '');
-    // Clean up title if it ends with "— Lecture Notes" or similar
     title = title.replace(/\s*[—-]\s*Lecture Notes/i, '');
     
     const lecNum = filename.match(/LEC(\d+(?:\.\d+)?)/i)?.[1] || '';
+    
+    // Sort weight: readme = 0, best practices = 1, lectures = 10 + number
+    let weight = 9999;
+    if (slug === 'readme') weight = 0;
+    else if (slug === 'best_practices') weight = 1;
+    else if (lecNum) weight = 10 + parseFloat(lecNum);
 
     return {
-      title: `Lec ${lecNum}: ${title}`,
+      title: lecNum ? `Lec ${lecNum}: ${title}` : title,
       slug,
       path: `/systems-and-backend/backend-from-first-principles/${slug}`,
-      lecNum
+      weight
     };
-  });
+  })
+  .sort((a, b) => a.weight - b.weight);
 
 const { currentPath = '' } = Astro.props;
 ---

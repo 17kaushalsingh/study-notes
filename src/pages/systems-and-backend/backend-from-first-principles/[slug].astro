@@ -8,7 +8,8 @@ export async function getStaticPaths() {
   return posts
     .filter(post => {
       const filename = post.file.split('/').pop() || '';
-      return filename.toLowerCase().startsWith('lec') && filename.endsWith('.md');
+      const lower = filename.toLowerCase();
+      return (lower.startsWith('lec') || lower === 'readme.md' || lower === 'best_practices.md') && lower.endsWith('.md');
     })
     .map(post => {
       const filename = post.file.split('/').pop() || '';
@@ -70,10 +71,11 @@ const nextPost = currentIndex < sortedLectures.length - 1 ? sortedLectures[curre
 
 // Determine lecture number
 const currentLecNum = currentFilename.match(/LEC(\d+(?:\.\d+)?)/i)?.[1] || '';
+const layoutTitle = currentLecNum ? `Lec ${currentLecNum}: ${title}` : title;
 ---
 
 <Layout 
-  title={`Lec ${currentLecNum}: ${title}`}
+  title={layoutTitle}
   description={`Comprehensive lecture notes on ${title} from our Backend Engineering from First Principles series.`}
   currentPath={currentSlug}
   headings={headingsList}
@@ -90,7 +92,11 @@ const currentLecNum = currentFilename.match(/LEC(\d+(?:\.\d+)?)/i)?.[1] || '';
 
     <!-- Header info banner -->
     <header class="note-header">
-      <div class="meta-tag">LECTURE MODULE {currentLecNum}</div>
+      {currentLecNum ? (
+        <div class="meta-tag">LECTURE MODULE {currentLecNum}</div>
+      ) : (
+        <div class="meta-tag">DOCUMENTATION</div>
+      )}
       <h1 class="note-title">{title}</h1>
       <p class="note-meta">
         <span>📍 Stored in: <code>notes/systes-and-backend/backend-from-first-principles/{currentFilename}</code></span>
