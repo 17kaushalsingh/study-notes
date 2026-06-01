@@ -26,46 +26,50 @@ using namespace std;
 const int mod = 1e9 + 7;
 const int inf = 1e18;
 
-int countWays(int n, int k) {
-    // counts subarrays of size k or more in an array of size n
+void f(vector<int> &nums, unordered_map<int, int> &map) {
+    int cnt = 1;
+    map[nums[0]] = 1;
 
-    if (k > n) {
-        return 0;
+    int n = nums.size();
+    for (int i=1; i<n; i++) {
+        if (nums[i] == nums[i-1]) {
+            cnt++;
+        } else {
+            cnt = 1;
+        }
+        map[nums[i]] = max(map[nums[i]], cnt);
     }
-
-    int term = (n - k);
-
-    int ans = (term * term + 3 * term + 3) / 2;
-    return ans;
 }
 
+
 void solve() {
-    int n, k, q;
-    cin >> n >> k >> q;
+    int n;
+    cin >> n;
 
-    vector<bool> a(n+1);
+    vector<int> a(n);
     for (int i=0; i<n; i++) {
-        int ai;
-        cin >> ai;
+        cin >> a[i];
+    };
 
-        (ai <= q) ? (a[i] = true) : (a[i] = false);
-    }
-    a[n] = false;
-
-    // count individual substring of length >= k having just 1s only
-    int count = 0;
-    int totalWays = 0;
-
-    for (int i=0; i<=n; i++) {
-        if (a[i] == true) {
-            count++;
-        } else {
-            totalWays += countWays(count, k);
-            count = 0;
-        }
+    vector<int> b(n);
+    for (int i=0; i<n; i++) {
+        cin >> b[i];
     }
 
-    cout << totalWays << "\n";
+    unordered_map<int, int> freqA;
+    f(a, freqA);
+    unordered_map<int, int> freqB;
+    f(b, freqB);
+
+    int maxFreq = 1;
+    for (int i=1; i<=2*n; i++) {
+        int cnt1 = freqA[i];
+        int cnt2 = freqB[i];
+
+        maxFreq = max(maxFreq, cnt1 + cnt2);
+    }
+
+    cout << maxFreq << "\n";
 }
 
 #undef int

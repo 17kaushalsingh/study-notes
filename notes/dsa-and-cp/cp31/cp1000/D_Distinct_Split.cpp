@@ -26,46 +26,36 @@ using namespace std;
 const int mod = 1e9 + 7;
 const int inf = 1e18;
 
-int countWays(int n, int k) {
-    // counts subarrays of size k or more in an array of size n
-
-    if (k > n) {
-        return 0;
+int getFreq(string &s, int l, int r) {
+    unordered_set<char> st;
+    for (int i=l; i<=r; i++) {
+        st.insert(s[i]);
     }
 
-    int term = (n - k);
-
-    int ans = (term * term + 3 * term + 3) / 2;
-    return ans;
+    return st.size();
 }
 
 void solve() {
-    int n, k, q;
-    cin >> n >> k >> q;
+    int n;
+    cin >> n;
 
-    vector<bool> a(n+1);
+    string s;
+    cin >> s;
+
+    int maxFreq = 1;
+    int freq1 = 0;
+    unordered_set<char> seen;
     for (int i=0; i<n; i++) {
-        int ai;
-        cin >> ai;
+        if (seen.find(s[i]) == seen.end()) {
+            seen.insert(s[i]);
+            freq1++;
+            int freq2 = getFreq(s, i+1, n-1);
 
-        (ai <= q) ? (a[i] = true) : (a[i] = false);
-    }
-    a[n] = false;
-
-    // count individual substring of length >= k having just 1s only
-    int count = 0;
-    int totalWays = 0;
-
-    for (int i=0; i<=n; i++) {
-        if (a[i] == true) {
-            count++;
-        } else {
-            totalWays += countWays(count, k);
-            count = 0;
+            maxFreq = max(maxFreq, freq1+freq2);
         }
     }
 
-    cout << totalWays << "\n";
+    cout << maxFreq << "\n";
 }
 
 #undef int
