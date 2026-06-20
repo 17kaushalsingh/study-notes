@@ -12,7 +12,7 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^6.3.8"
+    "astro": "^6.4.6"
   },
   "devDependencies": {
     "@types/mdast": "^4.0.4",
