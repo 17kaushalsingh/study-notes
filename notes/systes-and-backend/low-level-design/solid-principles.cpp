@@ -1,4 +1,8 @@
-#include<iostream>
+#include <iostream>
+#include <sstream>
+#include <string>
+#include <vector>
+
 using namespace std;
 
 class Product {
@@ -6,48 +10,76 @@ class Product {
     double price;
 
 public:
-    Product(const string &name, const double &price) {
-        this->name = name;
-        this->price = price;
+    Product(const string& name, const double price) : name(name), price(price) {}
+
+    string getName() const {
+        return name;
+    }
+
+    double getPrice() const {
+        return price;
     }
 };
 
 class ShoppingCart {
-    vector<Product*> products;
+    vector<const Product*> products;
 
 public:
-    void addProduct(const Product* &product) {
-        this->products.push_back(product);
+    void addProduct(const Product& product) {
+        products.push_back(&product);
     }
 
-    const vector<Product*> getProducts() {
-        return this->products;
+    const vector<const Product*>& getProducts() const {
+        return products;
     }
-}
+};
 
-class CalculateShoppingCartValue {
-    ShoppingCart* cart;
-
-    double calculateCartValue() {
+class ShoppingCartValueCalculator {
+public:
+    double calculateCartValue(const ShoppingCart& cart) const {
         double totalValue = 0.0;
-        vector<Product*> allProducts = cart->getProducts;
-        
-        for (Product* product : allProducts) {
-            totalValue += product.price;
+
+        for (const Product* product : cart.getProducts()) {
+            totalValue += product->getPrice();
         }
 
         return totalValue;
     }
-}
+};
 
-class GenerateOrderInvoice {
-    ShoppingCart* cart;
-    
-    
-}
+class OrderInvoiceGenerator {
+public:
+    string generateTextInvoice(const ShoppingCart& cart, const double totalValue) const {
+        ostringstream invoice;
+        invoice << "----- Invoice -----\n";
+
+        int index = 1;
+        for (const Product* product : cart.getProducts()) {
+            invoice << index++ << ". " << product->getName() << " - " << product->getPrice() << "\n";
+        }
+
+        invoice << "-------------------\n";
+        invoice << "Total: " << totalValue << "\n";
+        return invoice.str();
+    }
+};
 
 int main() {
-    return 0;
+    Product laptop("Laptop", 75000.0);
+    Product mouse("Mouse", 1200.0);
+    Product keyboard("Keyboard", 2500.0);
 
-    
+    ShoppingCart cart;
+    cart.addProduct(laptop);
+    cart.addProduct(mouse);
+    cart.addProduct(keyboard);
+
+    ShoppingCartValueCalculator calculator;
+    const double totalValue = calculator.calculateCartValue(cart);
+
+    OrderInvoiceGenerator invoiceGenerator;
+    const string invoice = invoiceGenerator.generateTextInvoice(cart, totalValue);
+
+    cout << invoice;
+    return 0;
 }
